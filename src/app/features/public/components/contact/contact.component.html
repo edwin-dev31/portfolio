@@ -1,0 +1,220 @@
+<section class="contact" id="contact">
+  <div class="contact__container">
+    <div class="contact__header">
+      @if (contact()) {
+        <h2 class="contact__title">{{ contact()!.callToAction.title }}</h2>
+        <p class="contact__description">{{ contact()!.callToAction.description }}</p>
+      } @else {
+        <h2 class="contact__title">Get In Touch</h2>
+        <p class="contact__description">Let's work together on your next project</p>
+      }
+
+      <!-- Availability Status -->
+      <div class="contact__availability">
+        <span 
+          class="contact__status-indicator"
+          [class.contact__status-indicator--available]="isAvailable"
+          [class.contact__status-indicator--unavailable]="!isAvailable"
+          role="status"
+          [attr.aria-label]="isAvailable ? 'Available for work' : 'Not available for work'">
+        </span>
+        <span class="contact__status-text">
+          {{ isAvailable ? 'Available for new projects' : 'Currently unavailable' }}
+        </span>
+      </div>
+    </div>
+
+    <div class="contact__content">
+      <!-- Contact Information -->
+      <div class="contact__info">
+        @if (profile()) {
+          <div class="contact__info-section">
+            <h3 class="contact__info-title">Contact Information</h3>
+            
+            <div class="contact__info-item">
+              <svg class="contact__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <a 
+                [href]="'mailto:' + profile()!.stats.social.email"
+                class="contact__link"
+                [attr.aria-label]="'Email: ' + profile()!.stats.social.email">
+                {{ profile()!.stats.social.email }}
+              </a>
+            </div>
+          </div>
+
+          <div class="contact__info-section">
+            <h3 class="contact__info-title">Social Links</h3>
+            
+            <div class="contact__social">
+              <a 
+                [href]="profile()!.stats.social.github"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="contact__social-link"
+                aria-label="GitHub profile">
+                <svg class="contact__social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                <span>GitHub</span>
+              </a>
+
+              <a 
+                [href]="profile()!.stats.social.linkedin"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="contact__social-link"
+                aria-label="LinkedIn profile">
+                <svg class="contact__social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                <span>LinkedIn</span>
+              </a>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Contact Form -->
+      <form 
+        class="contact__form"
+        [formGroup]="contactForm"
+        (ngSubmit)="onSubmit()"
+        novalidate>
+        
+        <div class="contact__form-group">
+          <label 
+            for="contact-name" 
+            class="contact__label">
+            Name <span class="contact__required" aria-label="required">*</span>
+          </label>
+          <input 
+            id="contact-name"
+            type="text"
+            class="contact__input"
+            formControlName="name"
+            [class.contact__input--error]="hasError('name')"
+            aria-required="true"
+            [attr.aria-invalid]="hasError('name')"
+            [attr.aria-describedby]="hasError('name') ? 'name-error' : null" />
+          @if (hasError('name')) {
+            <span 
+              id="name-error" 
+              class="contact__error"
+              role="alert">
+              {{ getErrorMessage('name') }}
+            </span>
+          }
+        </div>
+
+        <div class="contact__form-group">
+          <label 
+            for="contact-email" 
+            class="contact__label">
+            Email <span class="contact__required" aria-label="required">*</span>
+          </label>
+          <input 
+            id="contact-email"
+            type="email"
+            class="contact__input"
+            formControlName="email"
+            [class.contact__input--error]="hasError('email')"
+            aria-required="true"
+            [attr.aria-invalid]="hasError('email')"
+            [attr.aria-describedby]="hasError('email') ? 'email-error' : null" />
+          @if (hasError('email')) {
+            <span 
+              id="email-error" 
+              class="contact__error"
+              role="alert">
+              {{ getErrorMessage('email') }}
+            </span>
+          }
+        </div>
+
+        <div class="contact__form-group">
+          <label 
+            for="contact-subject" 
+            class="contact__label">
+            Subject <span class="contact__required" aria-label="required">*</span>
+          </label>
+          <input 
+            id="contact-subject"
+            type="text"
+            class="contact__input"
+            formControlName="subject"
+            [class.contact__input--error]="hasError('subject')"
+            aria-required="true"
+            [attr.aria-invalid]="hasError('subject')"
+            [attr.aria-describedby]="hasError('subject') ? 'subject-error' : null" />
+          @if (hasError('subject')) {
+            <span 
+              id="subject-error" 
+              class="contact__error"
+              role="alert">
+              {{ getErrorMessage('subject') }}
+            </span>
+          }
+        </div>
+
+        <div class="contact__form-group">
+          <label 
+            for="contact-message" 
+            class="contact__label">
+            Message <span class="contact__required" aria-label="required">*</span>
+          </label>
+          <textarea 
+            id="contact-message"
+            class="contact__textarea"
+            formControlName="message"
+            rows="5"
+            [class.contact__textarea--error]="hasError('message')"
+            aria-required="true"
+            [attr.aria-invalid]="hasError('message')"
+            [attr.aria-describedby]="hasError('message') ? 'message-error' : null">
+          </textarea>
+          @if (hasError('message')) {
+            <span 
+              id="message-error" 
+              class="contact__error"
+              role="alert">
+              {{ getErrorMessage('message') }}
+            </span>
+          }
+        </div>
+
+        @if (submitSuccess()) {
+          <div 
+            class="contact__success"
+            role="alert"
+            aria-live="polite">
+            Message sent successfully! We'll get back to you soon.
+          </div>
+        }
+
+        @if (submitError()) {
+          <div 
+            class="contact__form-error"
+            role="alert"
+            aria-live="assertive">
+            {{ submitError() }}
+          </div>
+        }
+
+        <button 
+          type="submit"
+          class="contact__submit"
+          [disabled]="isSubmitting()"
+          [attr.aria-busy]="isSubmitting()">
+          @if (isSubmitting()) {
+            <span>Sending...</span>
+          } @else {
+            <span>{{ contact()?.callToAction?.primaryButton || 'Send Message' }}</span>
+          }
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
