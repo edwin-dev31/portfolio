@@ -1,0 +1,183 @@
+@use '../../../../../styles/abstracts/mixins' as *;
+@use '../../../../../styles/abstracts/variables' as *;
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  overflow: hidden;
+
+  // Animated gradient background
+  &__background {
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-primary);
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease infinite;
+    z-index: -1;
+
+    // Add overlay for better text contrast
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-overlay);
+    }
+  }
+
+  &__content {
+    max-width: 800px;
+    text-align: center;
+    z-index: 1;
+  }
+
+  &__loading {
+    color: var(--color-text-primary);
+    font-size: var(--text-lg);
+  }
+
+  &__text {
+    animation: fadeInUp 0.8s var(--ease-smooth) forwards;
+  }
+
+  &__name {
+    font-family: var(--font-headline);
+    font-size: var(--text-4xl);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-sm);
+    line-height: var(--leading-tight);
+
+    @include tablet {
+      font-size: var(--text-5xl);
+    }
+
+    @include desktop {
+      font-size: var(--text-6xl);
+    }
+  }
+
+  &__title {
+    font-family: var(--font-body);
+    font-size: var(--text-xl);
+    font-weight: var(--font-medium);
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--space-md);
+
+    @include tablet {
+      font-size: var(--text-2xl);
+    }
+
+    @include desktop {
+      font-size: var(--text-3xl);
+    }
+  }
+
+  &__tagline {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--font-normal);
+    color: var(--color-text-tertiary);
+    margin: 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @include tablet {
+      font-size: var(--text-lg);
+    }
+
+    @include desktop {
+      font-size: var(--text-xl);
+    }
+  }
+
+  &__scroll-indicator {
+    position: absolute;
+    bottom: var(--space-xl);
+    left: 50%;
+    transform: translateX(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-sm);
+    color: var(--color-text-primary);
+    transition: transform var(--transition-base) var(--ease-smooth),
+                opacity var(--transition-base) var(--ease-smooth);
+    animation: bounce 2s infinite;
+    z-index: 1;
+
+    &:hover {
+      transform: translateX(-50%) translateY(4px);
+      opacity: 0.8;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  &__scroll-icon {
+    width: 32px;
+    height: 32px;
+    display: block;
+
+    @include tablet {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+
+// Screen reader only text
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// Animations
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
