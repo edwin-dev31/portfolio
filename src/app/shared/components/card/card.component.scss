@@ -1,0 +1,73 @@
+@use '../../../../styles/abstracts/tokens' as *;
+@use '../../../../styles/abstracts/mixins' as *;
+
+.card {
+  position: relative;
+  border-radius: var(--radius-md);
+  
+  // Glassmorphism effect
+  @include glass;
+  
+  // Smooth transitions for hover effects
+  @include transition(transform, box-shadow);
+  
+  // Elevation variants (shadow depth)
+  &--elevation-none {
+    box-shadow: none;
+  }
+  
+  &--elevation-sm {
+    box-shadow: var(--shadow-sm);
+  }
+  
+  &--elevation-md {
+    box-shadow: var(--shadow-base);
+  }
+  
+  &--elevation-lg {
+    box-shadow: var(--shadow-lg);
+  }
+  
+  &--elevation-xl {
+    box-shadow: var(--shadow-xl);
+  }
+  
+  // Padding variants
+  &--padding-none {
+    padding: 0;
+  }
+  
+  &--padding-sm {
+    padding: var(--space-sm);
+  }
+  
+  &--padding-md {
+    padding: var(--space-md);
+  }
+  
+  &--padding-lg {
+    padding: var(--space-lg);
+  }
+  
+  &--padding-xl {
+    padding: var(--space-xl);
+  }
+  
+  // Hover micro-interactions with custom easing
+  &--hoverable {
+    cursor: pointer;
+    
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+      
+      // Enhanced glassmorphism on hover
+      background: var(--glass-background-hover, var(--glass-background));
+    }
+    
+    &:active {
+      transform: translateY(-2px);
+      transition-duration: var(--transition-fast);
+    }
+  }
+}
