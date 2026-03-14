@@ -1,0 +1,273 @@
+// Typography Styles
+// Font imports and typographic scale
+
+// Import variables for breakpoints
+@use '../abstracts/variables' as *;
+
+// ============================================
+// Font Imports
+// ============================================
+// Manrope for headlines
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+
+// Inter for body text
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+// ============================================
+// Base Typography
+// ============================================
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-normal);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+// ============================================
+// Headings
+// ============================================
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headline);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--text-6xl);
+  font-weight: var(--font-extrabold);
+  letter-spacing: -0.02em;
+
+  @media (max-width: $breakpoint-tablet) {
+    font-size: var(--text-4xl);
+  }
+
+  @media (max-width: $breakpoint-mobile-lg) {
+    font-size: var(--text-3xl);
+  }
+}
+
+h2 {
+  font-size: var(--text-5xl);
+  font-weight: var(--font-bold);
+  letter-spacing: -0.01em;
+
+  @media (max-width: $breakpoint-tablet) {
+    font-size: var(--text-3xl);
+  }
+
+  @media (max-width: $breakpoint-mobile-lg) {
+    font-size: var(--text-2xl);
+  }
+}
+
+h3 {
+  font-size: var(--text-4xl);
+  font-weight: var(--font-bold);
+
+  @media (max-width: $breakpoint-tablet) {
+    font-size: var(--text-2xl);
+  }
+
+  @media (max-width: $breakpoint-mobile-lg) {
+    font-size: var(--text-xl);
+  }
+}
+
+h4 {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-semibold);
+
+  @media (max-width: $breakpoint-tablet) {
+    font-size: var(--text-xl);
+  }
+
+  @media (max-width: $breakpoint-mobile-lg) {
+    font-size: var(--text-lg);
+  }
+}
+
+h5 {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-semibold);
+
+  @media (max-width: $breakpoint-tablet) {
+    font-size: var(--text-lg);
+  }
+}
+
+h6 {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+
+  @media (max-width: $breakpoint-tablet) {
+    font-size: var(--text-base);
+  }
+}
+
+// ============================================
+// Paragraphs
+// ============================================
+p {
+  margin: 0 0 var(--space-md) 0;
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// ============================================
+// Links
+// ============================================
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast) var(--ease-smooth);
+
+  &:hover {
+    color: var(--color-primary-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+// ============================================
+// Lists
+// ============================================
+ul, ol {
+  margin: 0 0 var(--space-md) 0;
+  padding-left: var(--space-lg);
+  color: var(--color-text-secondary);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+li {
+  margin-bottom: var(--space-xs);
+  line-height: var(--leading-relaxed);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// ============================================
+// Text Utilities
+// ============================================
+.text-primary {
+  color: var(--color-text-primary);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-tertiary {
+  color: var(--color-text-tertiary);
+}
+
+.text-accent {
+  color: var(--color-primary);
+}
+
+// Font Sizes
+.text-xs { font-size: var(--text-xs); }
+.text-sm { font-size: var(--text-sm); }
+.text-base { font-size: var(--text-base); }
+.text-lg { font-size: var(--text-lg); }
+.text-xl { font-size: var(--text-xl); }
+.text-2xl { font-size: var(--text-2xl); }
+.text-3xl { font-size: var(--text-3xl); }
+.text-4xl { font-size: var(--text-4xl); }
+.text-5xl { font-size: var(--text-5xl); }
+.text-6xl { font-size: var(--text-6xl); }
+
+// Font Weights
+.font-light { font-weight: var(--font-light); }
+.font-normal { font-weight: var(--font-normal); }
+.font-medium { font-weight: var(--font-medium); }
+.font-semibold { font-weight: var(--font-semibold); }
+.font-bold { font-weight: var(--font-bold); }
+.font-extrabold { font-weight: var(--font-extrabold); }
+
+// Text Alignment
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+// Text Transform
+.uppercase { text-transform: uppercase; }
+.lowercase { text-transform: lowercase; }
+.capitalize { text-transform: capitalize; }
+
+// Line Height
+.leading-tight { line-height: var(--leading-tight); }
+.leading-snug { line-height: var(--leading-snug); }
+.leading-normal { line-height: var(--leading-normal); }
+.leading-relaxed { line-height: var(--leading-relaxed); }
+.leading-loose { line-height: var(--leading-loose); }
+
+// ============================================
+// Code & Preformatted Text
+// ============================================
+code, pre {
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+code {
+  padding: 0.125rem 0.25rem;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-sm);
+  color: var(--color-primary);
+}
+
+pre {
+  padding: var(--space-md);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  margin: 0 0 var(--space-md) 0;
+
+  code {
+    padding: 0;
+    background-color: transparent;
+  }
+}
+
+// ============================================
+// Blockquotes
+// ============================================
+blockquote {
+  margin: 0 0 var(--space-md) 0;
+  padding-left: var(--space-lg);
+  border-left: 4px solid var(--color-primary);
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+// ============================================
+// Selection
+// ============================================
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+}
+
+::-moz-selection {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+}

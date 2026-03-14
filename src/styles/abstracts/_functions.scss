@@ -1,0 +1,215 @@
+// SCSS Functions
+// Utility functions for calculations and transformations
+
+// Import Sass math module
+@use 'sass:math';
+
+// ============================================
+// Spacing Functions
+// ============================================
+
+// Convert spacing scale to rem
+@function spacing($multiplier) {
+  @return $multiplier * 0.5rem; // 8px base
+}
+
+// Get spacing value from scale
+@function space($size) {
+  $spacing-map: (
+    'xs': 0.5rem,
+    'sm': 1rem,
+    'md': 1.5rem,
+    'lg': 2rem,
+    'xl': 3rem,
+    '2xl': 4rem,
+    '3xl': 6rem,
+    '4xl': 8rem
+  );
+  
+  @return map-get($spacing-map, $size);
+}
+
+// ============================================
+// Color Functions
+// ============================================
+
+// Lighten color (for light theme adjustments)
+@function lighten-color($color, $percentage) {
+  @return lighten($color, $percentage);
+}
+
+// Darken color (for dark theme adjustments)
+@function darken-color($color, $percentage) {
+  @return darken($color, $percentage);
+}
+
+// Add alpha transparency to color
+@function alpha($color, $opacity) {
+  @return rgba($color, $opacity);
+}
+
+// ============================================
+// Typography Functions
+// ============================================
+
+// Convert px to rem
+@function rem($pixels, $base: 16) {
+  @return #{$pixels / $base}rem;
+}
+
+// Convert px to em
+@function em($pixels, $base: 16) {
+  @return #{$pixels / $base}em;
+}
+
+// Fluid typography calculation
+@function fluid-type($min-size, $max-size, $min-width: 320, $max-width: 1440) {
+  $slope: ($max-size - $min-size) / ($max-width - $min-width);
+  $y-axis-intersection: -$min-width * $slope + $min-size;
+  
+  @return clamp(#{$min-size}px, #{$y-axis-intersection}px + #{$slope * 100}vw, #{$max-size}px);
+}
+
+// ============================================
+// Layout Functions
+// ============================================
+
+// Calculate grid column width
+@function grid-width($columns, $total-columns: 12) {
+  @return math.percentage(math.div($columns, $total-columns));
+}
+
+// Calculate aspect ratio padding
+@function aspect-ratio-padding($width, $height) {
+  @return math.percentage(math.div($height, $width));
+}
+
+// ============================================
+// Z-Index Functions
+// ============================================
+
+// Get z-index from scale
+@function z-index($layer) {
+  $z-layers: (
+    'base': 1,
+    'dropdown': 100,
+    'sticky': 200,
+    'fixed': 300,
+    'modal-backdrop': 400,
+    'modal': 500,
+    'popover': 600,
+    'tooltip': 700
+  );
+  
+  @return map-get($z-layers, $layer);
+}
+
+// ============================================
+// Breakpoint Functions
+// ============================================
+
+// Get breakpoint value
+@function breakpoint($name) {
+  @return map-get($breakpoints, $name);
+}
+
+// ============================================
+// Math Functions
+// ============================================
+
+// Power function
+@function pow($number, $exponent) {
+  $result: 1;
+  
+  @if $exponent > 0 {
+    @for $i from 1 through $exponent {
+      $result: $result * $number;
+    }
+  } @else if $exponent < 0 {
+    @for $i from -1 through $exponent {
+      $result: $result / $number;
+    }
+  }
+  
+  @return $result;
+}
+
+// Strip unit from value
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+// Clamp value between min and max
+@function clamp-value($value, $min, $max) {
+  @return max($min, min($value, $max));
+}
+
+// ============================================
+// String Functions
+// ============================================
+
+// Replace substring in string
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+  
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+  
+  @return $string;
+}
+
+// ============================================
+// Easing Functions
+// ============================================
+
+// Get easing function
+@function easing($name) {
+  $easings: (
+    'smooth': cubic-bezier(0.4, 0.0, 0.2, 1),
+    'bounce': cubic-bezier(0.68, -0.55, 0.265, 1.55),
+    'in': cubic-bezier(0.4, 0.0, 1, 1),
+    'out': cubic-bezier(0.0, 0.0, 0.2, 1),
+    'in-out': cubic-bezier(0.4, 0.0, 0.2, 1)
+  );
+  
+  @return map-get($easings, $name);
+}
+
+// ============================================
+// Shadow Functions
+// ============================================
+
+// Create custom shadow
+@function shadow($x, $y, $blur, $spread, $color, $opacity: 0.1) {
+  @return $x $y $blur $spread rgba($color, $opacity);
+}
+
+// ============================================
+// Utility Functions
+// ============================================
+
+// Check if value is number
+@function is-number($value) {
+  @return type-of($value) == 'number';
+}
+
+// Check if value is string
+@function is-string($value) {
+  @return type-of($value) == 'string';
+}
+
+// Check if value is color
+@function is-color($value) {
+  @return type-of($value) == 'color';
+}
+
+// Check if value is list
+@function is-list($value) {
+  @return type-of($value) == 'list';
+}
+
+// Check if value is map
+@function is-map($value) {
+  @return type-of($value) == 'map';
+}

@@ -1,0 +1,30 @@
+// Main SCSS file following 7-1 architecture pattern
+// This file imports all partial SCSS files from the 7-1 structure
+
+// 1. Abstracts
+@use 'abstracts/variables' as *;
+@use 'abstracts/functions' as *;
+@use 'abstracts/mixins' as *;
+@use 'abstracts/tokens';
+
+// 2. Vendors
+// Import third-party styles here if needed
+
+// 3. Base
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/base';
+
+// 4. Layout
+@use 'layout/grid';
+@use 'layout/containers';
+
+// 5. Components
+// Component-specific styles will be imported here as needed
+
+// 6. Pages
+// Page-specific styles will be imported here as needed
+
+// 7. Themes
+@use 'themes/dark';
+@use 'themes/light';

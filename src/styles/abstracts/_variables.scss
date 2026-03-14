@@ -1,0 +1,68 @@
+// SCSS Variables
+// These are compile-time variables that complement CSS custom properties
+
+// ============================================
+// Breakpoints
+// ============================================
+$breakpoint-mobile: 320px;
+$breakpoint-mobile-lg: 480px;
+$breakpoint-tablet: 768px;
+$breakpoint-tablet-lg: 1024px;
+$breakpoint-desktop: 1280px;
+$breakpoint-desktop-lg: 1440px;
+$breakpoint-desktop-xl: 1920px;
+$breakpoint-desktop-2xl: 2560px;
+
+// Breakpoint map for iteration
+$breakpoints: (
+  'mobile': $breakpoint-mobile,
+  'mobile-lg': $breakpoint-mobile-lg,
+  'tablet': $breakpoint-tablet,
+  'tablet-lg': $breakpoint-tablet-lg,
+  'desktop': $breakpoint-desktop,
+  'desktop-lg': $breakpoint-desktop-lg,
+  'desktop-xl': $breakpoint-desktop-xl,
+  'desktop-2xl': $breakpoint-desktop-2xl
+);
+
+// ============================================
+// Grid System
+// ============================================
+$grid-columns: 12;
+$grid-gutter: 1.5rem; // 24px
+$grid-max-width: 1440px;
+
+// ============================================
+// Container Widths
+// ============================================
+$container-sm: 640px;
+$container-md: 768px;
+$container-lg: 1024px;
+$container-xl: 1280px;
+$container-2xl: 1440px;
+
+// ============================================
+// Animation Durations
+// ============================================
+$duration-instant: 0ms;
+$duration-fast: 150ms;
+$duration-base: 300ms;
+$duration-slow: 500ms;
+$duration-slower: 700ms;
+
+// ============================================
+// Z-Index Scale
+// ============================================
+$z-base: 1;
+$z-dropdown: 100;
+$z-sticky: 200;
+$z-fixed: 300;
+$z-modal-backdrop: 400;
+$z-modal: 500;
+$z-popover: 600;
+$z-tooltip: 700;
+
+// ============================================
+// Max Nesting Depth
+// ============================================
+$max-nesting-depth: 3;
