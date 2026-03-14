@@ -1,0 +1,68 @@
+<div class="rich-text-editor">
+  <!-- Toolbar -->
+  <div class="rich-text-editor__toolbar" role="toolbar" aria-label="Text formatting">
+    <button
+      type="button"
+      class="rich-text-editor__btn"
+      [class.rich-text-editor__btn--active]="isBold()"
+      (click)="toggleBold()"
+      title="Bold"
+      aria-label="Bold">
+      <strong>B</strong>
+    </button>
+
+    <button
+      type="button"
+      class="rich-text-editor__btn"
+      [class.rich-text-editor__btn--active]="isItalic()"
+      (click)="toggleItalic()"
+      title="Italic"
+      aria-label="Italic">
+      <em>I</em>
+    </button>
+
+    <div class="rich-text-editor__separator"></div>
+
+    <button
+      type="button"
+      class="rich-text-editor__btn"
+      (click)="insertUnorderedList()"
+      title="Bullet list"
+      aria-label="Bullet list">
+      ☰
+    </button>
+
+    <button
+      type="button"
+      class="rich-text-editor__btn"
+      (click)="insertOrderedList()"
+      title="Numbered list"
+      aria-label="Numbered list">
+      ≡
+    </button>
+
+    <div class="rich-text-editor__separator"></div>
+
+    <button
+      type="button"
+      class="rich-text-editor__btn"
+      (click)="insertLink()"
+      title="Insert link"
+      aria-label="Insert link">
+      🔗
+    </button>
+  </div>
+
+  <!-- Editor -->
+  <div
+    #editor
+    class="rich-text-editor__content"
+    contenteditable="true"
+    [innerHTML]="content()"
+    (input)="onContentChange($event)"
+    (paste)="onPaste($event)"
+    role="textbox"
+    aria-multiline="true"
+    aria-label="Rich text editor">
+  </div>
+</div>

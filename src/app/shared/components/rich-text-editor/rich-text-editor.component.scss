@@ -1,0 +1,120 @@
+@use '../../../../styles/abstracts/tokens' as *;
+@use '../../../../styles/abstracts/mixins' as *;
+
+.rich-text-editor {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--color-surface);
+
+  &__toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm);
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-surface-elevated);
+  }
+
+  &__btn {
+    @include button-reset;
+    @include flex-center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 var(--space-xs);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+    @include transition(background-color, color);
+
+    &:hover {
+      background-color: var(--color-surface);
+      color: var(--color-text-primary);
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    &--active {
+      background-color: var(--color-primary);
+      color: var(--color-background);
+
+      &:hover {
+        background-color: var(--color-primary-hover);
+      }
+    }
+
+    strong, em {
+      font-size: var(--text-base);
+    }
+  }
+
+  &__separator {
+    width: 1px;
+    height: 24px;
+    background-color: var(--color-border);
+    margin: 0 var(--space-xs);
+  }
+
+  &__content {
+    min-height: 200px;
+    max-height: 500px;
+    padding: var(--space-md);
+    overflow-y: auto;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--color-text-primary);
+    @include custom-scrollbar;
+
+    &:focus {
+      outline: none;
+    }
+
+    // Formatting styles
+    strong, b {
+      font-weight: 600;
+    }
+
+    em, i {
+      font-style: italic;
+    }
+
+    ul, ol {
+      margin: var(--space-sm) 0;
+      padding-left: var(--space-lg);
+    }
+
+    li {
+      margin: var(--space-xs) 0;
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: underline;
+
+      &:hover {
+        color: var(--color-primary-hover);
+      }
+    }
+
+    p {
+      margin: var(--space-sm) 0;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    // Placeholder
+    &:empty::before {
+      content: 'Start typing...';
+      color: var(--color-text-tertiary);
+    }
+  }
+}
