@@ -49,3 +49,7 @@ Thumbs.db
 .env.*.local
 src/environments/environment.ts
 src/environments/environment.prod.ts
+
+# Firebase service account keys
+*-firebase-adminsdk-*.json
+portfolio-31e-firebase-adminsdk-fbsvc-7a3ffa82f9.json

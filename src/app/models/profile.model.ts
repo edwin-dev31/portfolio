@@ -22,11 +22,8 @@ export interface Profile {
   /** Year available for new projects */
   yearAvailable: number;
   
-  /** Professional statistics */
+  /** Professional statistics (includes social links) */
   stats: ProfileStats;
-  
-  /** Social media links */
-  social: SocialLinks;
 }
 
 /**
@@ -38,6 +35,9 @@ export interface ProfileStats {
   
   /** Number of awards received */
   awards: number;
+  
+  /** Social media links */
+  social: SocialLinks;
 }
 
 /**
