@@ -3,7 +3,7 @@
 
 :root {
   // ============================================
-  // Spacing Tokens (8px grid system)
+  // Spacing Tokens (8px grid system - Stitch spacing scale: 2)
   // ============================================
   --space-xs: 0.5rem;    // 8px
   --space-sm: 1rem;      // 16px
@@ -15,10 +15,10 @@
   --space-4xl: 8rem;     // 128px
 
   // ============================================
-  // Border Radius
+  // Border Radius (from Stitch Design - 8px roundness)
   // ============================================
   --radius-sm: 4px;
-  --radius-md: 8px;
+  --radius-md: 8px;      // 0.5rem - Stitch standard
   --radius-lg: 16px;
   --radius-xl: 24px;
   --radius-full: 9999px;
@@ -65,9 +65,10 @@
   --transition-slower: 700ms;
 
   // ============================================
-  // Easing Functions
+  // Easing Functions (from Stitch Design)
   // ============================================
   --ease-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-custom: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   --ease-in: cubic-bezier(0.4, 0.0, 1, 1);
   --ease-out: cubic-bezier(0.0, 0.0, 0.2, 1);
@@ -100,32 +101,59 @@
 // Dark Theme (Default)
 // ============================================
 [data-theme="dark"] {
-  // Colors
+  // Primary Colors (from Stitch Material Design)
   --color-primary: #4cd7f6;
+  --color-primary-container: #06b6d4;
   --color-primary-hover: #3bc5e4;
   --color-primary-light: rgba(76, 215, 246, 0.1);
-  --color-primary-dark: #2aa3c0;
+  --color-primary-dark: #003640;
+  --color-primary-fixed: #acedff;
+  --color-primary-fixed-dim: #4cd7f6;
 
-  // Background Colors
+  // Secondary Colors (from Stitch Material Design)
+  --color-secondary: #adc6ff;
+  --color-secondary-container: #0566d9;
+  --color-secondary-dark: #002e6a;
+
+  // Tertiary Colors (from Stitch Material Design)
+  --color-tertiary: #b9c8de;
+  --color-tertiary-container: #99a8bd;
+
+  // Surface Colors (from Stitch Material Design)
   --color-background: #0b1326;
-  --color-surface: #1a2332;
+  --color-surface: #0b1326;
+  --color-surface-container-lowest: #060e20;
+  --color-surface-container-low: #131b2e;
+  --color-surface-container: #171f33;
+  --color-surface-container-high: #222a3d;
+  --color-surface-container-highest: #2d3449;
+  --color-surface-bright: #31394d;
+  --color-surface-variant: #2d3449;
   --color-surface-elevated: #242d3d;
   --color-surface-hover: #2d3748;
 
-  // Text Colors
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #a0aec0;
-  --color-text-tertiary: #718096;
+  // Text Colors (from Stitch Material Design)
+  --color-text-primary: #dae2fd;
+  --color-text-secondary: #bcc9cd;
+  --color-text-tertiary: #869397;
   --color-text-disabled: #4a5568;
+  --color-on-surface: #dae2fd;
+  --color-on-surface-variant: #bcc9cd;
+  --color-on-background: #dae2fd;
+  --color-on-primary: #003640;
+  --color-on-secondary: #002e6a;
 
-  // Border Colors
+  // Border Colors (from Stitch Material Design)
   --color-border: rgba(255, 255, 255, 0.1);
   --color-border-hover: rgba(255, 255, 255, 0.2);
   --color-border-focus: var(--color-primary);
+  --color-outline: #869397;
+  --color-outline-variant: #3d494c;
 
-  // Status Colors
-  --color-error: #fc8181;
-  --color-error-light: rgba(252, 129, 129, 0.1);
+  // Status Colors (from Stitch Material Design)
+  --color-error: #ffb4ab;
+  --color-error-light: rgba(255, 180, 171, 0.1);
+  --color-on-error: #690005;
   --color-success: #68d391;
   --color-success-light: rgba(104, 211, 145, 0.1);
   --color-warning: #f6ad55;
@@ -133,13 +161,13 @@
   --color-info: #63b3ed;
   --color-info-light: rgba(99, 179, 237, 0.1);
 
-  // Glassmorphism
+  // Glassmorphism (from Stitch Design)
   --glass-background: rgba(26, 35, 50, 0.7);
   --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-blur: blur(10px);
+  --glass-blur: blur(12px);
 
-  // Gradient Overlays
-  --gradient-primary: linear-gradient(135deg, #4cd7f6 0%, #2aa3c0 100%);
+  // Gradient Overlays (from Stitch Design - 135deg)
+  --gradient-primary: linear-gradient(135deg, #4cd7f6 0%, #06b6d4 100%);
   --gradient-surface: linear-gradient(135deg, rgba(26, 35, 50, 0.9) 0%, rgba(11, 19, 38, 0.9) 100%);
   --gradient-overlay: linear-gradient(180deg, rgba(11, 19, 38, 0) 0%, rgba(11, 19, 38, 0.8) 100%);
 
