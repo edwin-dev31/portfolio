@@ -1,6 +1,13 @@
-const fs = require('fs');
-const path = require('path');
-require('dotenv').config();
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import dotenv from 'dotenv';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+dotenv.config();
 
 const targetPath = path.join(__dirname, '../src/environments/environment.ts');
 const targetProdPath = path.join(__dirname, '../src/environments/environment.prod.ts');

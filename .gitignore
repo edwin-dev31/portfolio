@@ -52,4 +52,7 @@ src/environments/environment.prod.ts
 
 # Firebase service account keys
 *-firebase-adminsdk-*.json
+
+# Documentation (internal use only)
+.doc/
 portfolio-31e-firebase-adminsdk-fbsvc-7a3ffa82f9.json
