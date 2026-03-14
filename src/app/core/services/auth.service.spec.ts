@@ -1,17 +1,24 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import * as fc from 'fast-check';
 import { TestBed } from '@angular/core/testing';
-import { Auth, signInWithEmailAndPassword, signOut, onAuthStateChanged, UserCredential, User as FirebaseUser, Unsubscribe, NextOrObserver } from '@angular/fire/auth';
-import { AuthService } from './auth.service';
+import { Auth, UserCredential, User as FirebaseUser, Unsubscribe, NextOrObserver } from '@angular/fire/auth';
 import { User } from '../../models';
 
-// Mock Firebase Auth functions
+// Create mock functions
+const mockSignInWithEmailAndPassword = vi.fn();
+const mockSignOut = vi.fn();
+const mockOnAuthStateChanged = vi.fn();
+
+// Mock the entire @angular/fire/auth module
 vi.mock('@angular/fire/auth', () => ({
-  Auth: vi.fn(),
-  signInWithEmailAndPassword: vi.fn(),
-  signOut: vi.fn(),
-  onAuthStateChanged: vi.fn()
+  Auth: class MockAuth {},
+  signInWithEmailAndPassword: (...args: any[]) => mockSignInWithEmailAndPassword(...args),
+  signOut: (...args: any[]) => mockSignOut(...args),
+  onAuthStateChanged: (...args: any[]) => mockOnAuthStateChanged(...args)
 }));
+
+// Import AuthService after setting up mocks
+import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -22,14 +29,17 @@ describe('AuthService', () => {
     // Reset auth state callback
     authStateCallback = null;
 
+    // Clear all mocks
+    vi.clearAllMocks();
+
     // Create mock Auth instance
     mockAuth = {
       currentUser: null
     };
 
     // Mock onAuthStateChanged to capture the callback
-    vi.mocked(onAuthStateChanged).mockImplementation((
-      auth: Auth, 
+    mockOnAuthStateChanged.mockImplementation((
+      _auth: any, 
       nextOrObserver: NextOrObserver<FirebaseUser | null>
     ): Unsubscribe => {
       // Extract the callback function
@@ -69,7 +79,7 @@ describe('AuthService', () => {
     });
 
     it('should set up auth state listener on initialization', () => {
-      expect(onAuthStateChanged).toHaveBeenCalledWith(mockAuth, expect.any(Function));
+      expect(mockOnAuthStateChanged).toHaveBeenCalledWith(mockAuth, expect.any(Function));
     });
   });
 
@@ -92,13 +102,13 @@ describe('AuthService', () => {
         user: mockFirebaseUser as FirebaseUser
       };
 
-      vi.mocked(signInWithEmailAndPassword).mockResolvedValue(mockUserCredential as UserCredential);
+      mockSignInWithEmailAndPassword.mockResolvedValue(mockUserCredential as UserCredential);
 
       // Act
       const result = await service.login(email, password);
 
       // Assert
-      expect(signInWithEmailAndPassword).toHaveBeenCalledWith(mockAuth, email, password);
+      expect(mockSignInWithEmailAndPassword).toHaveBeenCalledWith(mockAuth, email, password);
       expect(result).toEqual(mockUserCredential);
     });
 
@@ -168,7 +178,7 @@ describe('AuthService', () => {
       const password = 'password123';
       const mockError = { code: 'auth/invalid-email' };
 
-      vi.mocked(signInWithEmailAndPassword).mockRejectedValue(mockError);
+      mockSignInWithEmailAndPassword.mockRejectedValue(mockError);
 
       // Act & Assert
       await expect(service.login(email, password)).rejects.toThrow('El correo electrónico no es válido');
@@ -180,7 +190,7 @@ describe('AuthService', () => {
       const password = 'password123';
       const mockError = { code: 'auth/user-not-found' };
 
-      vi.mocked(signInWithEmailAndPassword).mockRejectedValue(mockError);
+      mockSignInWithEmailAndPassword.mockRejectedValue(mockError);
 
       // Act & Assert
       await expect(service.login(email, password)).rejects.toThrow('No existe una cuenta con este correo electrónico');
@@ -192,7 +202,7 @@ describe('AuthService', () => {
       const password = 'wrongpassword';
       const mockError = { code: 'auth/wrong-password' };
 
-      vi.mocked(signInWithEmailAndPassword).mockRejectedValue(mockError);
+      mockSignInWithEmailAndPassword.mockRejectedValue(mockError);
 
       // Act & Assert
       await expect(service.login(email, password)).rejects.toThrow('Contraseña incorrecta');
@@ -204,7 +214,7 @@ describe('AuthService', () => {
       const password = 'wrongpassword';
       const mockError = { code: 'auth/invalid-credential' };
 
-      vi.mocked(signInWithEmailAndPassword).mockRejectedValue(mockError);
+      mockSignInWithEmailAndPassword.mockRejectedValue(mockError);
 
       // Act & Assert
       await expect(service.login(email, password)).rejects.toThrow('Credenciales inválidas. Verifica tu correo y contraseña');
@@ -216,7 +226,7 @@ describe('AuthService', () => {
       const password = 'password123';
       const mockError = { code: 'auth/too-many-requests' };
 
-      vi.mocked(signInWithEmailAndPassword).mockRejectedValue(mockError);
+      mockSignInWithEmailAndPassword.mockRejectedValue(mockError);
 
       // Act & Assert
       await expect(service.login(email, password)).rejects.toThrow('Demasiados intentos fallidos. Intenta de nuevo más tarde');
@@ -228,7 +238,7 @@ describe('AuthService', () => {
       const password = 'password123';
       const mockError = { code: 'auth/network-request-failed' };
 
-      vi.mocked(signInWithEmailAndPassword).mockRejectedValue(mockError);
+      mockSignInWithEmailAndPassword.mockRejectedValue(mockError);
 
       // Act & Assert
       await expect(service.login(email, password)).rejects.toThrow('Error de conexión. Verifica tu conexión a internet');
@@ -240,7 +250,7 @@ describe('AuthService', () => {
       const password = 'password123';
       const mockError = { code: 'auth/unknown-error' };
 
-      vi.mocked(signInWithEmailAndPassword).mockRejectedValue(mockError);
+      mockSignInWithEmailAndPassword.mockRejectedValue(mockError);
 
       // Act & Assert
       await expect(service.login(email, password)).rejects.toThrow('Error de autenticación. Por favor intenta de nuevo');
@@ -270,20 +280,20 @@ describe('AuthService', () => {
       expect(service.currentUser()).not.toBeNull();
 
       // Mock signOut to succeed
-      vi.mocked(signOut).mockResolvedValue();
+      mockSignOut.mockResolvedValue(undefined);
 
       // Act
       await service.logout();
 
       // Assert
-      expect(signOut).toHaveBeenCalledWith(mockAuth);
+      expect(mockSignOut).toHaveBeenCalledWith(mockAuth);
       expect(service.currentUser()).toBeNull();
       expect(service.isAuthenticated()).toBe(false);
     });
 
     it('should clear signals even if Firebase signOut is called', async () => {
       // Arrange
-      vi.mocked(signOut).mockResolvedValue();
+      mockSignOut.mockResolvedValue(undefined);
 
       // Act
       await service.logout();
@@ -296,7 +306,7 @@ describe('AuthService', () => {
     it('should handle logout errors gracefully', async () => {
       // Arrange
       const mockError = { code: 'auth/network-request-failed' };
-      vi.mocked(signOut).mockRejectedValue(mockError);
+      mockSignOut.mockRejectedValue(mockError);
 
       // Act & Assert
       await expect(service.logout()).rejects.toThrow('Error de conexión. Verifica tu conexión a internet');
@@ -454,9 +464,9 @@ describe('AuthService', () => {
       (mockError as any).code = 'auth/network-request-failed';
 
       // Mock onAuthStateChanged to trigger error callback
-      vi.mocked(onAuthStateChanged).mockImplementation((
-        auth: Auth,
-        nextOrObserver: NextOrObserver<FirebaseUser | null>,
+      mockOnAuthStateChanged.mockImplementation((
+        _auth: any,
+        _nextOrObserver: NextOrObserver<FirebaseUser | null>,
         error?: (error: Error) => void
       ): Unsubscribe => {
         // Trigger error callback immediately
@@ -487,7 +497,7 @@ describe('AuthService', () => {
     it('should unsubscribe properly when observable is unsubscribed', () => {
       // Arrange
       const mockUnsubscribe = vi.fn();
-      vi.mocked(onAuthStateChanged).mockReturnValue(mockUnsubscribe);
+      mockOnAuthStateChanged.mockReturnValue(mockUnsubscribe);
 
       // Act
       const subscription = service.checkAuthState().subscribe();
@@ -502,7 +512,7 @@ describe('AuthService', () => {
     it('should transform auth/user-disabled error', async () => {
       // Arrange
       const mockError = { code: 'auth/user-disabled' };
-      vi.mocked(signInWithEmailAndPassword).mockRejectedValue(mockError);
+      mockSignInWithEmailAndPassword.mockRejectedValue(mockError);
 
       // Act & Assert
       await expect(service.login('test@example.com', 'password')).rejects.toThrow('Esta cuenta ha sido deshabilitada');
@@ -511,7 +521,7 @@ describe('AuthService', () => {
     it('should transform auth/email-already-in-use error', async () => {
       // Arrange
       const mockError = { code: 'auth/email-already-in-use' };
-      vi.mocked(signInWithEmailAndPassword).mockRejectedValue(mockError);
+      mockSignInWithEmailAndPassword.mockRejectedValue(mockError);
 
       // Act & Assert
       await expect(service.login('test@example.com', 'password')).rejects.toThrow('Ya existe una cuenta con este correo electrónico');
@@ -520,7 +530,7 @@ describe('AuthService', () => {
     it('should transform auth/weak-password error', async () => {
       // Arrange
       const mockError = { code: 'auth/weak-password' };
-      vi.mocked(signInWithEmailAndPassword).mockRejectedValue(mockError);
+      mockSignInWithEmailAndPassword.mockRejectedValue(mockError);
 
       // Act & Assert
       await expect(service.login('test@example.com', 'weak')).rejects.toThrow('La contraseña debe tener al menos 6 caracteres');
@@ -529,7 +539,7 @@ describe('AuthService', () => {
     it('should transform auth/operation-not-allowed error', async () => {
       // Arrange
       const mockError = { code: 'auth/operation-not-allowed' };
-      vi.mocked(signInWithEmailAndPassword).mockRejectedValue(mockError);
+      mockSignInWithEmailAndPassword.mockRejectedValue(mockError);
 
       // Act & Assert
       await expect(service.login('test@example.com', 'password')).rejects.toThrow('Operación no permitida. Contacta al administrador');
@@ -625,7 +635,7 @@ describe('AuthService', () => {
           async (errorCode) => {
             // Arrange
             const mockError = { code: errorCode };
-            vi.mocked(signInWithEmailAndPassword).mockRejectedValue(mockError);
+            mockSignInWithEmailAndPassword.mockRejectedValue(mockError);
 
             // Act
             let caughtError: Error | null = null;
@@ -728,7 +738,7 @@ describe('AuthService', () => {
             const mockError = { code: errorCode };
 
             // Test login error transformation
-            vi.mocked(signInWithEmailAndPassword).mockRejectedValue(mockError);
+            mockSignInWithEmailAndPassword.mockRejectedValue(mockError);
             let loginError: Error | null = null;
             try {
               await service.login('test@example.com', 'password');
@@ -737,7 +747,7 @@ describe('AuthService', () => {
             }
 
             // Test logout error transformation
-            vi.mocked(signOut).mockRejectedValue(mockError);
+            mockSignOut.mockRejectedValue(mockError);
             let logoutError: Error | null = null;
             try {
               await service.logout();
