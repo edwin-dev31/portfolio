@@ -1,0 +1,19 @@
+<section class="project-grid" id="projects">
+  @if (projects().length === 0) {
+    <div class="project-grid__empty" role="status">
+      <p>No projects available at the moment.</p>
+    </div>
+  } @else {
+    <div class="project-grid__container">
+      @for (project of projects(); track trackByProjectId($index, project)) {
+        <div 
+          class="project-grid__item"
+          [class]="'project-grid__item--' + getGridClass($index)">
+          <app-project-card 
+            [project]="project"
+            (cardClick)="onProjectClick($event)" />
+        </div>
+      }
+    </div>
+  }
+</section>
