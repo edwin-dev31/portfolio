@@ -1,0 +1,75 @@
+<div class="image-upload">
+  <!-- Upload Area -->
+  <div 
+    class="image-upload__dropzone"
+    [class.image-upload__dropzone--drag-over]="isDragOver()"
+    [class.image-upload__dropzone--disabled]="isMaxReached()"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)">
+    
+    <input
+      #fileInput
+      type="file"
+      accept="image/*"
+      multiple
+      [disabled]="isMaxReached()"
+      (change)="onFileSelect($event)"
+      class="image-upload__input"
+      aria-label="Upload images"
+    />
+
+    <div class="image-upload__dropzone-content">
+      @if (isUploading()) {
+        <div class="image-upload__loading">
+          <div class="image-upload__spinner"></div>
+          <p>Uploading images...</p>
+        </div>
+      } @else if (isMaxReached()) {
+        <div class="image-upload__max-reached">
+          <p>Maximum {{ maxImages() }} images reached</p>
+        </div>
+      } @else {
+        <div class="image-upload__prompt">
+          <svg class="image-upload__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg>
+          <p class="image-upload__text">
+            Drag and drop images here or 
+            <button 
+              type="button" 
+              class="image-upload__browse-btn"
+              (click)="fileInput.click()">
+              browse
+            </button>
+          </p>
+          <p class="image-upload__hint">
+            {{ images().length }} / {{ maxImages() }} images
+          </p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Image Previews -->
+  @if (previews().length > 0) {
+    <div class="image-upload__previews">
+      @for (preview of previews(); track preview; let i = $index) {
+        <div class="image-upload__preview-item">
+          <img 
+            [src]="preview" 
+            [alt]="'Preview ' + (i + 1)"
+            class="image-upload__preview-image"
+          />
+          <button
+            type="button"
+            class="image-upload__remove-btn"
+            (click)="removeImage(i)"
+            [attr.aria-label]="'Remove image ' + (i + 1)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      }
+    </div>
+  }
+</div>
