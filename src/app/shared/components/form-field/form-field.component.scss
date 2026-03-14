@@ -1,0 +1,69 @@
+@use '../../../../styles/abstracts/tokens' as *;
+@use '../../../../styles/abstracts/mixins' as *;
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  width: 100%;
+
+  &__label {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+  }
+
+  &__required {
+    color: var(--color-error);
+    margin-left: 2px;
+  }
+
+  &__input,
+  &__textarea {
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--text-base);
+    font-family: var(--font-body);
+    color: var(--color-text-primary);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    @include transition(border-color, box-shadow);
+
+    &::placeholder {
+      color: var(--color-text-tertiary);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(76, 215, 246, 0.1);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      background-color: var(--color-surface-elevated);
+    }
+
+    &--error {
+      border-color: var(--color-error);
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(252, 129, 129, 0.1);
+      }
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  &__error {
+    font-size: var(--text-sm);
+    color: var(--color-error);
+    margin-top: var(--space-xs);
+  }
+}
