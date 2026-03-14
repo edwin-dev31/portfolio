@@ -1,0 +1,28 @@
+@if (isOpen()) {
+  <div class="modal-backdrop" (click)="onBackdropClick($event)">
+    <div 
+      #dialog
+      class="modal-dialog" 
+      role="dialog" 
+      [attr.aria-modal]="true"
+      [attr.aria-labelledby]="title() ? 'modal-title' : null">
+      
+      <div class="modal-header">
+        @if (title()) {
+          <h2 id="modal-title" class="modal-title">{{ title() }}</h2>
+        }
+        <button 
+          type="button" 
+          class="modal-close" 
+          (click)="close.emit()"
+          aria-label="Close modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
+}

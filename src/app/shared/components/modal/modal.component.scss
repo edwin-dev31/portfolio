@@ -1,0 +1,83 @@
+@use '../../../../styles/abstracts/tokens' as *;
+@use '../../../../styles/abstracts/mixins' as *;
+
+.modal-backdrop {
+  @include fixed-cover;
+  @include flex-center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  padding: var(--space-md);
+  
+  // Fade in animation
+  @include fade-in;
+}
+
+.modal-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  
+  // Glassmorphism effect
+  @include glass-card;
+  
+  // Slide in animation
+  @include slide-in-up;
+  
+  // Custom scrollbar
+  @include custom-scrollbar;
+  
+  @include tablet {
+    max-width: 600px;
+  }
+  
+  @include desktop {
+    max-width: 700px;
+  }
+}
+
+.modal-header {
+  @include flex-between;
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-title {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-family: var(--font-headline);
+}
+
+.modal-close {
+  @include button-reset;
+  @include flex-center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  @include transition(background-color, color);
+  
+  &:hover {
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+  }
+  
+  &:focus-visible {
+    @include focus-ring;
+  }
+  
+  span {
+    font-size: var(--text-2xl);
+    line-height: 1;
+  }
+}
+
+.modal-body {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
