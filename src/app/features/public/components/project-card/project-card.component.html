@@ -1,0 +1,34 @@
+<article 
+  class="project-card"
+  (click)="onCardClick()"
+  (keydown)="onKeyDown($event)"
+  tabindex="0"
+  role="button"
+  [attr.aria-label]="'View project: ' + project().title">
+  
+  <div class="project-card__image-wrapper">
+    <img 
+      appLazyLoadImage
+      [src]="project().image"
+      [alt]="project().title"
+      class="project-card__image" />
+    <div class="project-card__overlay"></div>
+  </div>
+
+  <div class="project-card__content">
+    <h3 class="project-card__title">{{ project().title }}</h3>
+    <p class="project-card__category">{{ project().category }}</p>
+    <p class="project-card__description">{{ project().description }}</p>
+    
+    @if (project().tools && project().tools.length > 0) {
+      <div class="project-card__tools">
+        @for (tool of project().tools.slice(0, 3); track tool) {
+          <span class="project-card__tool">{{ tool }}</span>
+        }
+        @if (project().tools.length > 3) {
+          <span class="project-card__tool-more">+{{ project().tools.length - 3 }}</span>
+        }
+      </div>
+    }
+  </div>
+</article>

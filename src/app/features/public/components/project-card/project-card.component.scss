@@ -1,0 +1,170 @@
+@use '../../../../../styles/abstracts/mixins' as *;
+@use '../../../../../styles/abstracts/variables' as *;
+
+.project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform var(--transition-base) var(--ease-custom),
+              box-shadow var(--transition-base) var(--ease-custom);
+  height: 100%;
+
+  // Hover micro-interactions
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+
+    .project-card__overlay {
+      opacity: 0.3;
+    }
+
+    .project-card__image {
+      transform: scale(1.05);
+    }
+  }
+
+  // Focus state for accessibility
+  &:focus-visible {
+    @include focus-ring;
+    outline-offset: 4px;
+  }
+
+  // Active state
+  &:active {
+    transform: translateY(-4px) scale(1.01);
+  }
+
+  &__image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 66.67%; // 3:2 aspect ratio
+    overflow: hidden;
+    background: var(--color-surface-container);
+  }
+
+  &__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow) var(--ease-custom);
+
+    // Loading state
+    &.lazy-loading {
+      filter: blur(10px);
+      opacity: 0.5;
+    }
+
+    // Loaded state
+    &.lazy-loaded {
+      filter: blur(0);
+      opacity: 1;
+    }
+
+    // Error state
+    &.lazy-error {
+      opacity: 0.3;
+    }
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
+    opacity: 0.5;
+    transition: opacity var(--transition-base) var(--ease-smooth);
+  }
+
+  &__content {
+    padding: var(--space-md);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  &__title {
+    font-family: var(--font-headline);
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: var(--leading-tight);
+
+    @include tablet {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  &__category {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+  }
+
+  &__description {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--font-normal);
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: var(--leading-relaxed);
+    flex: 1;
+    
+    // Limit to 3 lines with ellipsis
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-top: var(--space-sm);
+  }
+
+  &__tool {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    color: var(--color-text-tertiary);
+    background: var(--color-surface-container);
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+  }
+
+  &__tool-more {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    color: var(--color-primary);
+    padding: 4px 8px;
+  }
+}
+
+// Responsive adjustments
+@include mobile {
+  .project-card {
+    &:hover {
+      // Reduce hover effect on mobile
+      transform: translateY(-4px) scale(1.01);
+    }
+  }
+}
