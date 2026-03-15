@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StateService } from '../../../../core/services/state.service';
+import { SeoService } from '../../../../core/services/seo.service';
 import { HeroComponent } from '../hero/hero.component';
 import { ProjectGridComponent } from '../project-grid/project-grid.component';
 import { ContactComponent } from '../contact/contact.component';
@@ -39,6 +40,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   private stateService = inject(StateService);
+  private seoService = inject(SeoService);
   private router = inject(Router);
 
   /**
@@ -53,6 +55,7 @@ export class HomeComponent implements OnInit {
   isLoading = this.stateService.isLoadingProjects;
 
   ngOnInit(): void {
+    this.seoService.setHomeMeta(window.location.href);
     this.loadProjects();
   }
 

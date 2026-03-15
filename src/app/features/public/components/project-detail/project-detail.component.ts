@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, inject, OnInit, signal } from '@ang
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StateService } from '../../../../core/services/state.service';
+import { SeoService } from '../../../../core/services/seo.service';
 import { Project } from '../../../../models/project.model';
 
 /**
@@ -33,6 +34,7 @@ import { Project } from '../../../../models/project.model';
 })
 export class ProjectDetailComponent implements OnInit {
   private stateService = inject(StateService);
+  private seoService = inject(SeoService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
@@ -85,6 +87,7 @@ export class ProjectDetailComponent implements OnInit {
       if (foundProject) {
         this.project.set(foundProject);
         this.stateService.selectProject(projectId);
+        this.seoService.setProjectMeta(foundProject, window.location.href);
       } else {
         this.notFound.set(true);
       }
