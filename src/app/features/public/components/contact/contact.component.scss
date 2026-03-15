@@ -40,7 +40,7 @@
     font-size: var(--text-lg);
     color: var(--color-text-secondary);
     margin: 0 0 var(--space-lg);
-    max-width: 600px;
+    max-width: 37.5rem;
     margin-left: auto;
     margin-right: auto;
 
@@ -56,17 +56,17 @@
     padding: var(--space-xs) var(--space-md);
     background: var(--color-surface-container);
     border-radius: var(--radius-full);
-    border: 1px solid var(--color-border);
+    border: 0.0625rem solid var(--color-border);
   }
 
   &__status-indicator {
-    width: 12px;
-    height: 12px;
+    width: 0.75rem;
+    height: 0.75rem;
     border-radius: 50%;
     
     &--available {
       background: var(--color-success);
-      box-shadow: 0 0 8px var(--color-success);
+      box-shadow: 0 0 0.5rem var(--color-success);
       animation: pulse 2s infinite;
     }
 
@@ -119,9 +119,9 @@
   }
 
   &__icon {
-    width: 20px;
-    height: 20px;
-    color: var(--color-primary);
+    width: 3rem;
+    height: 3rem;
+    border: 0.25rem solid var(--color-surface-elevated);
     flex-shrink: 0;
   }
 
@@ -154,7 +154,7 @@
     padding: var(--space-sm) var(--space-md);
     background: var(--color-surface-container);
     border-radius: var(--radius-md);
-    border: 1px solid var(--color-border);
+    border: 0.0625rem solid var(--color-border);
     color: var(--color-text-secondary);
     text-decoration: none;
     transition: all var(--transition-base) var(--ease-smooth);
@@ -163,7 +163,7 @@
       background: var(--color-surface-hover);
       border-color: var(--color-primary);
       color: var(--color-primary);
-      transform: translateX(4px);
+      transform: translateX(0.25rem);
     }
 
     &:focus-visible {
@@ -172,8 +172,8 @@
   }
 
   &__social-icon {
-    width: 20px;
-    height: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
     flex-shrink: 0;
   }
 
@@ -206,7 +206,7 @@
     font-size: var(--text-base);
     color: var(--color-text-primary);
     background: var(--color-surface-container);
-    border: 1px solid var(--color-border);
+    border: 0.0625rem solid var(--color-border);
     border-radius: var(--radius-md);
     padding: var(--space-sm) var(--space-md);
     transition: all var(--transition-base) var(--ease-smooth);
@@ -218,14 +218,14 @@
     &:focus {
       outline: none;
       border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px var(--color-primary-light);
+      box-shadow: 0 0 0 0.1875rem var(--color-primary-light);
     }
 
     &--error {
       border-color: var(--color-error);
 
       &:focus {
-        box-shadow: 0 0 0 3px var(--color-error-light);
+        box-shadow: 0 0 0 0.1875rem var(--color-error-light);
       }
     }
 
@@ -236,7 +236,7 @@
 
   &__textarea {
     resize: vertical;
-    min-height: 120px;
+    min-height: 7.5rem;
   }
 
   &__error {
@@ -251,7 +251,7 @@
   &__success {
     padding: var(--space-md);
     background: var(--color-success-light);
-    border: 1px solid var(--color-success);
+    border: 0.0625rem solid var(--color-success);
     border-radius: var(--radius-md);
     color: var(--color-success);
     font-family: var(--font-body);
@@ -261,7 +261,7 @@
   &__form-error {
     padding: var(--space-md);
     background: var(--color-error-light);
-    border: 1px solid var(--color-error);
+    border: 0.0625rem solid var(--color-error);
     border-radius: var(--radius-md);
     color: var(--color-error);
     font-family: var(--font-body);
@@ -283,7 +283,7 @@
 
     &:hover:not(:disabled) {
       background: var(--color-primary-hover);
-      transform: translateY(-2px);
+      transform: translateY(-0.125rem);
       box-shadow: var(--shadow-lg);
     }
 

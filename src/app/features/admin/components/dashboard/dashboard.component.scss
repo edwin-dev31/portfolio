@@ -3,7 +3,7 @@
 
 .dashboard {
   padding: var(--space-xl);
-  max-width: 1400px;
+  max-width: 87.5rem;
   margin: 0 auto;
 
   @include mobile {
@@ -37,7 +37,7 @@
 
   &__stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(15.625rem, 1fr));
     gap: var(--space-lg);
     margin-bottom: var(--space-2xl);
 
@@ -82,14 +82,14 @@
   @include transition(transform, box-shadow);
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-0.125rem);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   }
 
   &__icon {
     font-size: 2.5rem;
-    width: 60px;
-    height: 60px;
+    width: 3.75rem;
+    height: 3.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -119,7 +119,7 @@
 // Empty State
 .empty-state {
   text-align: center;
-  max-width: 400px;
+  max-width: 25rem;
 
   &__icon {
     font-size: 4rem;
@@ -149,16 +149,16 @@
 
   &__header {
     display: grid;
-    grid-template-columns: 80px 2fr 1fr 120px 150px;
+    grid-template-columns: 5rem 2fr 1fr 7.5rem 9.375rem;
     gap: var(--space-md);
     padding: var(--space-md) var(--space-lg);
     background: var(--color-surface-elevated);
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 0.0625rem solid var(--color-border);
     font-weight: 600;
     font-size: var(--text-sm);
     color: var(--color-text-secondary);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.03125rem;
 
     @include mobile {
       display: none;
@@ -174,10 +174,10 @@
 // Project Row
 .project-row {
   display: grid;
-  grid-template-columns: 80px 2fr 1fr 120px 150px;
+  grid-template-columns: 5rem 2fr 1fr 7.5rem 9.375rem;
   gap: var(--space-md);
   padding: var(--space-lg);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 0.0625rem solid var(--color-border);
   align-items: center;
   @include transition(background-color);
 
@@ -196,14 +196,14 @@
   }
 
   &__image {
-    width: 60px;
-    height: 60px;
+    width: 3.75rem;
+    height: 3.75rem;
     border-radius: var(--radius-sm);
     overflow: hidden;
 
     @include mobile {
       width: 100%;
-      height: 200px;
+      height: 12.5rem;
     }
   }
 
@@ -289,8 +289,8 @@
 
 // Action Buttons
 .action-btn {
-  width: 36px;
-  height: 36px;
+  width: 2.25rem;
+  height: 2.25rem;
   border: none;
   background: var(--color-surface-elevated);
   border-radius: var(--radius-sm);
@@ -325,9 +325,9 @@
 
 // Spinner
 .spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid var(--color-border);
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0.1875rem solid var(--color-border);
   border-top-color: var(--color-primary);
   border-radius: 50%;
   animation: spin 1s linear infinite;

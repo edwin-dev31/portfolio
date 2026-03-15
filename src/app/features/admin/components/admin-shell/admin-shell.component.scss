@@ -7,9 +7,9 @@
   background: var(--color-background);
 
   &__sidebar {
-    width: 280px;
+    width: 17.5rem;
     background: var(--color-surface);
-    border-right: 1px solid var(--color-border);
+    border-right: 0.0625rem solid var(--color-border);
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -21,7 +21,7 @@
 
     @include mobile {
       transform: translateX(-100%);
-      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0.125rem 0 0.5rem rgba(0, 0, 0, 0.1);
 
       &--open {
         transform: translateX(0);
@@ -54,7 +54,7 @@
 
   &__main {
     flex: 1;
-    margin-left: 280px;
+    margin-left: 17.5rem;
     display: flex;
     flex-direction: column;
 
@@ -64,9 +64,9 @@
   }
 
   &__header {
-    height: 70px;
+    height: 4.375rem;
     background: var(--color-surface);
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 0.0625rem solid var(--color-border);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -86,7 +86,7 @@
 .sidebar {
   &__header {
     padding: var(--space-lg);
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 0.0625rem solid var(--color-border);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -102,8 +102,8 @@
 
   &__close {
     display: none;
-    width: 32px;
-    height: 32px;
+    width: 2rem;
+    height: 2rem;
     border: none;
     background: transparent;
     color: var(--color-text-secondary);
@@ -159,7 +159,7 @@
 
   &__link-icon {
     font-size: 1.25rem;
-    width: 24px;
+    width: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -171,15 +171,15 @@
 
   &__user {
     padding: var(--space-lg);
-    border-top: 1px solid var(--color-border);
+    border-top: 0.0625rem solid var(--color-border);
     display: flex;
     align-items: center;
     gap: var(--space-md);
   }
 
   &__logout {
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
     border: none;
     background: var(--color-surface-elevated);
     border-radius: var(--radius-sm);
@@ -210,8 +210,8 @@
   min-width: 0;
 
   &__avatar {
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
     background: var(--color-primary);
     color: white;
@@ -232,7 +232,7 @@
     font-size: var(--text-sm);
     font-weight: 600;
     color: var(--color-text-primary);
-    margin: 0 0 2px 0;
+    margin: 0 0 0.125rem 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -252,8 +252,8 @@
 .header {
   &__menu-toggle {
     display: none;
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
     border: none;
     background: transparent;
     color: var(--color-text-primary);

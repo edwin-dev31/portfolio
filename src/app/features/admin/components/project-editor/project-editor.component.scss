@@ -1,5 +1,5 @@
 .project-editor {
-  max-width: 800px;
+  max-width: 50rem;
   margin: 0 auto;
   padding: var(--space-lg);
 
@@ -24,13 +24,13 @@
 
     &--success {
       background-color: rgba(104, 211, 145, 0.1);
-      border: 1px solid var(--color-success);
+      border: 0.0625rem solid var(--color-success);
       color: var(--color-success);
     }
 
     &--error {
       background-color: rgba(252, 129, 129, 0.1);
-      border: 1px solid var(--color-error);
+      border: 0.0625rem solid var(--color-error);
       color: var(--color-error);
     }
   }
@@ -65,21 +65,21 @@
   font-size: var(--text-base);
   color: var(--color-text-primary);
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 0.0625rem solid var(--color-border);
   border-radius: var(--radius-md);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 
   &:focus {
     outline: none;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(76, 215, 246, 0.1);
+    box-shadow: 0 0 0 0.1875rem rgba(76, 215, 246, 0.1);
   }
 
   &--error {
     border-color: var(--color-error);
 
     &:focus {
-      box-shadow: 0 0 0 3px rgba(252, 129, 129, 0.1);
+      box-shadow: 0 0 0 0.1875rem rgba(252, 129, 129, 0.1);
     }
   }
 
@@ -121,13 +121,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 16px;
-    height: 16px;
+    width: 1rem;
+    height: 1rem;
     padding: 0;
     background: transparent;
     border: none;
     color: var(--color-background);
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 1;
     cursor: pointer;
     transition: opacity var(--transition-fast);
@@ -137,9 +137,9 @@
     }
 
     &:focus {
-      outline: 2px solid var(--color-background);
-      outline-offset: 2px;
-      border-radius: 2px;
+      outline: 0.125rem solid var(--color-background);
+      outline-offset: 0.125rem;
+      border-radius: 0.125rem;
     }
   }
 }
@@ -151,7 +151,7 @@
   justify-content: flex-end;
   margin-top: var(--space-xl);
   padding-top: var(--space-lg);
-  border-top: 1px solid var(--color-border);
+  border-top: 0.0625rem solid var(--color-border);
 }
 
 // Unsaved Changes Indicator
@@ -164,7 +164,7 @@
   gap: var(--space-xs);
   padding: var(--space-sm) var(--space-md);
   background-color: var(--color-surface-elevated);
-  border: 1px solid var(--color-border);
+  border: 0.0625rem solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
@@ -172,8 +172,8 @@
   animation: slideUp 0.3s ease-out;
 
   &__dot {
-    width: 8px;
-    height: 8px;
+    width: 0.5rem;
+    height: 0.5rem;
     background-color: var(--color-primary);
     border-radius: 50%;
     animation: pulse 2s ease-in-out infinite;
@@ -184,7 +184,7 @@
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-0.625rem);
   }
   to {
     opacity: 1;
@@ -195,7 +195,7 @@
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(1.25rem);
   }
   to {
     opacity: 1;
@@ -213,7 +213,7 @@
 }
 
 // Responsive Design
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .project-editor {
     padding: var(--space-md);
 
