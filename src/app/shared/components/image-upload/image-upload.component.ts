@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy, input, model, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, model, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CloudinaryService } from '../../../core/services/cloudinary.service';
 
 /**
  * ImageUploadComponent
@@ -116,17 +117,20 @@ export class ImageUploadComponent {
     }
   }
 
+  private cloudinaryService = inject(CloudinaryService);
+
   /**
-   * Upload single image
-   * In mock mode: converts to object URL
-   * In Firebase mode: would upload to Firebase Storage
+   * Upload single image to Cloudinary
    */
   private async uploadImage(file: File): Promise<string> {
-    // Simulate upload delay
-    await new Promise(resolve => setTimeout(resolve, 100));
-    
-    // For now, use object URL (in production, upload to Firebase Storage)
-    return URL.createObjectURL(file);
+    try {
+      return await this.cloudinaryService.uploadImage(file, 'portfolio');
+    } catch (error) {
+      console.error('Failed to upload image to Cloudinary:', error);
+      // Fallback to object URL if upload fails (optional, but good for UX if you want to show SOMETHING)
+      // Actually, better to throw so the user knows it failed.
+      throw error;
+    }
   }
 
   /**

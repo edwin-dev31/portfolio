@@ -7,5 +7,10 @@ export const environment = {
     apiKey: '${FIREBASE_API_KEY}',
     authDomain: '${FIREBASE_AUTH_DOMAIN}',
     messagingSenderId: '${FIREBASE_MESSAGING_SENDER_ID}',
+  },
+  cloudinary: {
+    apiKey: '${CLOUDINARY_API_KEY}',
+    apiSecret: '${CLOUDINARY_API_SECRET}',
+    cloudName: '${CLOUDINARY_CLOUD_NAME}'
   }
 };
