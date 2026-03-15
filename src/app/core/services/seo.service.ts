@@ -1,14 +1,28 @@
 import { Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
-import { Project } from '../../models/project.model';
 
-export interface SeoMetaTags {
-  title: string;
-  description: string;
+/**
+ * SEO configuration for a page.
+ * Requirements: 12.2, 12.3, 12.5, 12.6
+ */
+export interface SeoConfig {
+  title?: string;
+  description?: string;
   keywords?: string;
   image?: string;
   url?: string;
+  type?: string; // 'website' | 'article'
+}
+
+/**
+ * JSON-LD structured data object.
+ * Requirements: 12.3
+ */
+export interface StructuredData {
+  '@context': string;
+  '@type': string;
+  [key: string]: unknown;
 }
 
 /**
@@ -31,45 +45,49 @@ export class SeoService {
   /**
    * Update all meta tags for a page.
    * Sets title, description, keywords, Open Graph, and Twitter Card tags.
+   * Requirements: 12.2, 12.6
    */
-  updateMetaTags(tags: SeoMetaTags): void {
-    const fullTitle = `${tags.title} | ${this.siteName}`;
+  updateMetaTags(config: SeoConfig): void {
+    const pageTitle = config.title ? `${config.title} | ${this.siteName}` : this.siteName;
+    const description = config.description ?? this.defaultDescription;
+    const ogType = config.type ?? 'website';
 
     // Basic meta
-    this.title.setTitle(fullTitle);
-    this.meta.updateTag({ name: 'description', content: tags.description });
-    if (tags.keywords) {
-      this.meta.updateTag({ name: 'keywords', content: tags.keywords });
+    this.title.setTitle(pageTitle);
+    this.meta.updateTag({ name: 'description', content: description });
+    if (config.keywords) {
+      this.meta.updateTag({ name: 'keywords', content: config.keywords });
     }
 
-    // Open Graph
-    this.meta.updateTag({ property: 'og:title', content: fullTitle });
-    this.meta.updateTag({ property: 'og:description', content: tags.description });
-    this.meta.updateTag({ property: 'og:type', content: 'website' });
+    // Open Graph tags (Requirement 12.6)
+    this.meta.updateTag({ property: 'og:title', content: pageTitle });
+    this.meta.updateTag({ property: 'og:description', content: description });
+    this.meta.updateTag({ property: 'og:type', content: ogType });
     this.meta.updateTag({ property: 'og:site_name', content: this.siteName });
-    if (tags.url) {
-      this.meta.updateTag({ property: 'og:url', content: tags.url });
+    if (config.url) {
+      this.meta.updateTag({ property: 'og:url', content: config.url });
     }
-    if (tags.image) {
-      this.meta.updateTag({ property: 'og:image', content: tags.image });
-      this.meta.updateTag({ property: 'og:image:alt', content: tags.title });
+    if (config.image) {
+      this.meta.updateTag({ property: 'og:image', content: config.image });
+      this.meta.updateTag({ property: 'og:image:alt', content: config.title ?? this.siteName });
     }
 
-    // Twitter Card
-    this.meta.updateTag({ name: 'twitter:card', content: tags.image ? 'summary_large_image' : 'summary' });
-    this.meta.updateTag({ name: 'twitter:title', content: fullTitle });
-    this.meta.updateTag({ name: 'twitter:description', content: tags.description });
-    if (tags.image) {
-      this.meta.updateTag({ name: 'twitter:image', content: tags.image });
-      this.meta.updateTag({ name: 'twitter:image:alt', content: tags.title });
+    // Twitter Card tags (Requirement 12.6)
+    this.meta.updateTag({ name: 'twitter:card', content: config.image ? 'summary_large_image' : 'summary' });
+    this.meta.updateTag({ name: 'twitter:title', content: pageTitle });
+    this.meta.updateTag({ name: 'twitter:description', content: description });
+    if (config.image) {
+      this.meta.updateTag({ name: 'twitter:image', content: config.image });
+      this.meta.updateTag({ name: 'twitter:image:alt', content: config.title ?? this.siteName });
     }
   }
 
   /**
    * Update or create the canonical URL link element.
+   * Requirement: 12.5
    */
   updateCanonicalUrl(url: string): void {
-    let link: HTMLLinkElement = this.document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+    let link = this.document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     if (!link) {
       link = this.document.createElement('link');
       link.setAttribute('rel', 'canonical');
@@ -80,10 +98,11 @@ export class SeoService {
 
   /**
    * Inject or update a JSON-LD structured data script tag.
+   * Requirement: 12.3
    */
-  updateStructuredData(data: object): void {
+  updateStructuredData(data: StructuredData): void {
     const id = 'structured-data-json-ld';
-    let script: HTMLScriptElement = this.document.getElementById(id) as HTMLScriptElement;
+    let script = this.document.getElementById(id) as HTMLScriptElement | null;
     if (!script) {
       script = this.document.createElement('script');
       script.id = id;
@@ -91,47 +110,5 @@ export class SeoService {
       this.document.head.appendChild(script);
     }
     script.textContent = JSON.stringify(data);
-  }
-
-  /**
-   * Set default home page meta tags.
-   */
-  setHomeMeta(url: string): void {
-    this.updateMetaTags({
-      title: 'Home',
-      description: this.defaultDescription,
-      url
-    });
-    this.updateCanonicalUrl(url);
-    this.updateStructuredData({
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      name: this.siteName,
-      url
-    });
-  }
-
-  /**
-   * Set project page meta tags and JSON-LD structured data.
-   */
-  setProjectMeta(project: Project, url: string): void {
-    this.updateMetaTags({
-      title: project.title,
-      description: project.description,
-      keywords: project.tools.join(', '),
-      image: project.image || undefined,
-      url
-    });
-    this.updateCanonicalUrl(url);
-    this.updateStructuredData({
-      '@context': 'https://schema.org',
-      '@type': 'CreativeWork',
-      name: project.title,
-      description: project.description,
-      url: project.links?.liveDemo || url,
-      image: project.image || undefined,
-      keywords: project.tools.join(', '),
-      codeRepository: project.links?.repository || undefined
-    });
   }
 }

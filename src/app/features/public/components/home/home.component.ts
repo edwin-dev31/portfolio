@@ -55,7 +55,12 @@ export class HomeComponent implements OnInit {
   isLoading = this.stateService.isLoadingProjects;
 
   ngOnInit(): void {
-    this.seoService.setHomeMeta(window.location.href);
+    this.seoService.updateMetaTags({
+      title: 'Home',
+      description: 'Professional portfolio showcasing projects, skills, and experience.',
+      url: window.location.href
+    });
+    this.seoService.updateCanonicalUrl(window.location.href);
     this.loadProjects();
   }
 

@@ -87,7 +87,22 @@ export class ProjectDetailComponent implements OnInit {
       if (foundProject) {
         this.project.set(foundProject);
         this.stateService.selectProject(projectId);
-        this.seoService.setProjectMeta(foundProject, window.location.href);
+        this.seoService.updateMetaTags({
+          title: foundProject.title,
+          description: foundProject.description,
+          image: foundProject.image,
+          url: window.location.href,
+          type: 'article'
+        });
+        this.seoService.updateCanonicalUrl(window.location.href);
+        this.seoService.updateStructuredData({
+          '@context': 'https://schema.org',
+          '@type': 'CreativeWork',
+          name: foundProject.title,
+          description: foundProject.description,
+          image: foundProject.image,
+          url: window.location.href
+        });
       } else {
         this.notFound.set(true);
       }
