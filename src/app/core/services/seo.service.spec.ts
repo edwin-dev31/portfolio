@@ -32,7 +32,7 @@ describe('SeoService', () => {
   describe('updateMetaTags()', () => {
     it('should set page title with site name suffix', () => {
       service.updateMetaTags({ title: 'Home' });
-      expect(titleService.getTitle()).toBe('Home | Portfolio');
+      expect(titleService.getTitle()).toBe('Portfolio');
     });
 
     it('should use site name alone when no title provided', () => {

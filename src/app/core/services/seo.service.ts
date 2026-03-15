@@ -48,7 +48,7 @@ export class SeoService {
    * Requirements: 12.2, 12.6
    */
   updateMetaTags(config: SeoConfig): void {
-    const pageTitle = config.title ? `${config.title} | ${this.siteName}` : this.siteName;
+    const pageTitle = (config.title && config.title !== 'Home') ? `${config.title} | ${this.siteName}` : this.siteName;
     const description = config.description ?? this.defaultDescription;
     const ogType = config.type ?? 'website';
 

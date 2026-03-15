@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="primary-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4cd7f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Background circle (matching site background) -->
+  <rect width="32" height="32" rx="6" fill="#050a14" />
+  
+  <!-- Abstract geometric shape: Floating Diamonds -->
+  <g transform="translate(16, 16) rotate(45)">
+    <!-- Outer Glow / Shadow -->
+    <rect x="-8" y="-8" width="16" height="16" rx="2" fill="url(#primary-gradient)" fill-opacity="0.3" filter="url(#glow)" />
+    
+    <!-- Main Diamond -->
+    <rect x="-7" y="-7" width="14" height="14" rx="2" fill="url(#primary-gradient)" />
+    
+    <!-- Accent Inner Diamond -->
+    <rect x="-3" y="-3" width="6" height="6" rx="1" fill="white" fill-opacity="0.8" />
+  </g>
+  
+  <!-- Smapll dots for details -->
+  <circle cx="6" cy="6" r="1.5" fill="#4cd7f6" fill-opacity="0.5" />
+  <circle cx="26" cy="26" r="1.5" fill="#06b6d4" fill-opacity="0.5" />
+</svg>
