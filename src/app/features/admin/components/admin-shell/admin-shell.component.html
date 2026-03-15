@@ -1,0 +1,88 @@
+<div class="admin-shell">
+  <!-- Sidebar -->
+  <aside 
+    class="admin-shell__sidebar"
+    [class.admin-shell__sidebar--open]="isMobileMenuOpen()">
+    
+    <!-- Logo/Brand -->
+    <div class="sidebar__header">
+      <h2 class="sidebar__logo">Portfolio Admin</h2>
+      <button 
+        class="sidebar__close"
+        (click)="closeMobileMenu()"
+        aria-label="Cerrar menú">
+        ✕
+      </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sidebar__nav">
+      <a 
+        routerLink="/admin/dashboard"
+        routerLinkActive="sidebar__link--active"
+        class="sidebar__link"
+        (click)="closeMobileMenu()">
+        <span class="sidebar__link-icon">📊</span>
+        <span class="sidebar__link-text">Dashboard</span>
+      </a>
+
+      <a 
+        routerLink="/admin/settings"
+        routerLinkActive="sidebar__link--active"
+        class="sidebar__link"
+        (click)="closeMobileMenu()">
+        <span class="sidebar__link-icon">⚙️</span>
+        <span class="sidebar__link-text">Configuración</span>
+      </a>
+    </nav>
+
+    <!-- User Info -->
+    <div class="sidebar__user">
+      <div class="user-info">
+        <div class="user-info__avatar">
+          <span>{{ getUserInitials() }}</span>
+        </div>
+        <div class="user-info__details">
+          <p class="user-info__name">{{ getUserDisplayName() }}</p>
+          <p class="user-info__email">{{ currentUser()?.email }}</p>
+        </div>
+      </div>
+
+      <button 
+        class="sidebar__logout"
+        (click)="logout()"
+        title="Cerrar sesión">
+        🚪
+      </button>
+    </div>
+  </aside>
+
+  <!-- Mobile Menu Overlay -->
+  <div 
+    class="admin-shell__overlay"
+    [class.admin-shell__overlay--visible]="isMobileMenuOpen()"
+    (click)="closeMobileMenu()">
+  </div>
+
+  <!-- Main Content -->
+  <div class="admin-shell__main">
+    <!-- Header -->
+    <header class="admin-shell__header">
+      <button 
+        class="header__menu-toggle"
+        (click)="toggleMobileMenu()"
+        aria-label="Abrir menú">
+        ☰
+      </button>
+
+      <div class="header__actions">
+        <app-theme-toggle />
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="admin-shell__content">
+      <router-outlet />
+    </main>
+  </div>
+</div>
