@@ -25,7 +25,7 @@ export const adminRoutes: Routes = [
         canDeactivate: [canDeactivateGuard]
       },
       {
-        path: 'projects/edit/:id',
+        path: 'projects/:id/edit',
         loadComponent: () => import('./components/project-editor/project-editor.component').then(m => m.ProjectEditorComponent),
         canDeactivate: [canDeactivateGuard]
       },
