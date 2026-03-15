@@ -1,7 +1,7 @@
 # ============================================================
 # Stage 1: Builder
 # ============================================================
-FROM node:18-alpine AS builder
+FROM node:22-alpine AS builder
 
 ARG FIREBASE_API_KEY
 ARG FIREBASE_AUTH_DOMAIN
