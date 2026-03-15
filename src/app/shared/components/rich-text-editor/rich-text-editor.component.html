@@ -58,7 +58,6 @@
     #editor
     class="rich-text-editor__content"
     contenteditable="true"
-    [innerHTML]="content()"
     (input)="onContentChange($event)"
     (paste)="onPaste($event)"
     role="textbox"

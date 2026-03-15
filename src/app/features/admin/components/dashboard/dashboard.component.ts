@@ -18,7 +18,7 @@ import { ButtonComponent } from '../../../../shared/components/button/button.com
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink, ModalComponent, ButtonComponent],
+  imports: [CommonModule, ModalComponent, ButtonComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit {
    * Navigate to project editor for creating new project
    */
   createNewProject(): void {
-    this.router.navigate(['/admin/project-editor']);
+    this.router.navigate(['/admin/projects/new']);
   }
 
   /**
@@ -70,7 +70,7 @@ export class DashboardComponent implements OnInit {
    * @param projectId - ID of project to edit
    */
   editProject(projectId: string): void {
-    this.router.navigate(['/admin/project-editor', projectId]);
+    this.router.navigate(['/admin/projects/edit', projectId]);
   }
 
   /**

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, model, signal, ElementRef, viewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, model, signal, ElementRef, viewChild, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -36,6 +36,26 @@ export class RichTextEditorComponent {
    */
   isBold = signal<boolean>(false);
   isItalic = signal<boolean>(false);
+
+  /**
+   * Flag to prevent circular updates
+   */
+  private isUpdatingFromUser = false;
+
+  constructor() {
+    // Update editor content when content model changes externally
+    effect(() => {
+      const newContent = this.content();
+      const editor = this.editorElement();
+      
+      if (editor && !this.isUpdatingFromUser) {
+        const currentContent = editor.nativeElement.innerHTML;
+        if (currentContent !== newContent) {
+          editor.nativeElement.innerHTML = newContent;
+        }
+      }
+    });
+  }
 
   /**
    * Execute formatting command
@@ -88,8 +108,10 @@ export class RichTextEditorComponent {
    * Handle content changes
    */
   onContentChange(event: Event): void {
+    this.isUpdatingFromUser = true;
     this.updateContent();
     this.updateToolbarState();
+    this.isUpdatingFromUser = false;
   }
 
   /**

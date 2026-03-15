@@ -79,7 +79,7 @@ describe('DashboardComponent', () => {
   it('should navigate to project editor when creating new project', () => {
     component.createNewProject();
     
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/admin/project-editor']);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/admin/projects/new']);
   });
 
   it('should navigate to project editor with id when editing project', () => {
@@ -87,7 +87,7 @@ describe('DashboardComponent', () => {
     
     component.editProject(projectId);
     
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/admin/project-editor', projectId]);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/admin/projects/edit', projectId]);
   });
 
   it('should open delete modal when confirming delete', () => {

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard } from '../../core/guards/auth.guard';
+import { authGuard, canDeactivateGuard } from '../../core/guards';
 
 /**
  * Admin feature routes
@@ -18,6 +18,16 @@ export const adminRoutes: Routes = [
       {
         path: 'dashboard',
         loadComponent: () => import('./components/dashboard/dashboard.component').then(m => m.DashboardComponent)
+      },
+      {
+        path: 'projects/new',
+        loadComponent: () => import('./components/project-editor/project-editor.component').then(m => m.ProjectEditorComponent),
+        canDeactivate: [canDeactivateGuard]
+      },
+      {
+        path: 'projects/edit/:id',
+        loadComponent: () => import('./components/project-editor/project-editor.component').then(m => m.ProjectEditorComponent),
+        canDeactivate: [canDeactivateGuard]
       },
       {
         path: '',

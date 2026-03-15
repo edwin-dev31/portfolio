@@ -1,0 +1,169 @@
+<div class="project-editor">
+  <div class="project-editor__header">
+    <h1 class="project-editor__title">{{ pageTitle() }}</h1>
+    
+    <!-- Success/Error Messages -->
+    @if (successMessage()) {
+      <div class="project-editor__message project-editor__message--success">
+        {{ successMessage() }}
+      </div>
+    }
+    
+    @if (errorMessage()) {
+      <div class="project-editor__message project-editor__message--error">
+        {{ errorMessage() }}
+      </div>
+    }
+  </div>
+
+  <form [formGroup]="projectForm" (ngSubmit)="saveProject()" class="project-editor__form">
+    
+    <!-- Title Field -->
+    <div class="form-group">
+      <label for="title" class="form-label">
+        Project Title <span class="required">*</span>
+      </label>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+        class="form-input"
+        [class.form-input--error]="hasError('title', 'required') || hasError('title', 'minlength')"
+        placeholder="Enter project title"
+      />
+      @if (hasError('title', 'required') || hasError('title', 'minlength')) {
+        <span class="form-error">{{ getErrorMessage('title') }}</span>
+      }
+    </div>
+
+    <!-- Category Field -->
+    <div class="form-group">
+      <label for="category" class="form-label">
+        Category <span class="required">*</span>
+      </label>
+      <input
+        type="text"
+        id="category"
+        formControlName="category"
+        class="form-input"
+        [class.form-input--error]="hasError('category', 'required')"
+        placeholder="e.g., ecommerce, ai-tools, web-app"
+      />
+      @if (hasError('category', 'required')) {
+        <span class="form-error">{{ getErrorMessage('category') }}</span>
+      }
+    </div>
+
+    <!-- Description Field with Rich Text Editor -->
+    <div class="form-group">
+      <label class="form-label">
+        Description <span class="required">*</span>
+      </label>
+      <app-rich-text-editor
+        [(content)]="descriptionContent"
+      ></app-rich-text-editor>
+      @if (hasError('description', 'required')) {
+        <span class="form-error">{{ getErrorMessage('description') }}</span>
+      }
+    </div>
+
+    <!-- Image Upload -->
+    <div class="form-group">
+      <label class="form-label">
+        Project Image <span class="required">*</span>
+      </label>
+      <app-image-upload
+        [images]="getCurrentImages()"
+        [maxImages]="1"
+        (imagesChange)="onImagesChange($event)"
+      ></app-image-upload>
+      @if (hasError('image', 'required')) {
+        <span class="form-error">{{ getErrorMessage('image') }}</span>
+      }
+    </div>
+
+    <!-- Tools/Technologies -->
+    <div class="form-group">
+      <label class="form-label">Tools & Technologies</label>
+      
+      <div class="tools-input">
+        <input
+          type="text"
+          #toolInput
+          class="form-input"
+          placeholder="Add a tool (press Enter)"
+          (keydown.enter)="$event.preventDefault(); addTool(toolInput.value); toolInput.value = ''"
+        />
+      </div>
+
+      @if (getTools().length > 0) {
+        <div class="tools-list">
+          @for (tool of getTools(); track tool; let i = $index) {
+            <span class="tool-tag">
+              {{ tool }}
+              <button
+                type="button"
+                class="tool-tag__remove"
+                (click)="removeTool(i)"
+                aria-label="Remove tool"
+              >
+                ×
+              </button>
+            </span>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Repository Link -->
+    <div class="form-group">
+      <label for="repository" class="form-label">Repository URL</label>
+      <input
+        type="url"
+        id="repository"
+        formControlName="repository"
+        class="form-input"
+        placeholder="https://github.com/username/repo"
+      />
+    </div>
+
+    <!-- Live Demo Link -->
+    <div class="form-group">
+      <label for="liveDemo" class="form-label">Live Demo URL</label>
+      <input
+        type="url"
+        id="liveDemo"
+        formControlName="liveDemo"
+        class="form-input"
+        placeholder="https://example.com"
+      />
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <app-button
+        type="button"
+        variant="secondary"
+        (click)="cancel()"
+      >
+        Cancel
+      </app-button>
+
+      <app-button
+        type="submit"
+        variant="primary"
+        [disabled]="!canSave()"
+      >
+        {{ saveButtonText() }}
+      </app-button>
+    </div>
+
+    <!-- Unsaved Changes Indicator -->
+    @if (hasUnsavedChanges()) {
+      <div class="unsaved-indicator">
+        <span class="unsaved-indicator__dot"></span>
+        Unsaved changes
+      </div>
+    }
+  </form>
+</div>
