@@ -5,15 +5,41 @@
     </div>
   } @else {
     <div class="project-grid__container">
-      @for (project of projects(); track trackByProjectId($index, project)) {
-        <div 
-          class="project-grid__item"
-          [class]="'project-grid__item--' + getGridClass($index)">
+      @for (project of displayedProjects(); track trackByProjectId($index, project)) {
+        <div class="project-grid__item">
           <app-project-card 
             [project]="project"
             (cardClick)="onProjectClick($event)" />
         </div>
       }
     </div>
+
+    @if (canShowMore() || canShowLess()) {
+      <div class="project-grid__actions">
+        @if (canShowMore()) {
+          <button 
+            type="button" 
+            class="btn-toggle" 
+            (click)="showMore()">
+            <span>See More Projects</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        }
+
+        @if (canShowLess()) {
+          <button 
+            type="button" 
+            class="btn-toggle btn-toggle--secondary" 
+            (click)="showLess()">
+            <span>See Less</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="rotate" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        }
+      </div>
+    }
   }
 </section>

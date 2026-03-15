@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Project } from '../../../../models/project.model';
 import { ProjectCardComponent } from '../project-card/project-card.component';
@@ -6,18 +6,12 @@ import { ProjectCardComponent } from '../project-card/project-card.component';
 /**
  * ProjectGridComponent
  * 
- * Displays projects in an asymmetric grid layout with responsive behavior.
+ * Displays projects in a responsive grid layout.
  * 
  * Features:
- * - Asymmetric grid layout using CSS Grid
- * - Pattern-based grid classes: ['span-2', 'span-1', 'span-1', 'span-2']
+ * - Responsive: 1 column (mobile), 2 columns (tablet), 3 columns (desktop)
+ * - "See More / See Less" functionalilty for large project lists
  * - TrackBy function for performance optimization
- * - Responsive: 1 column (mobile), 2 columns (tablet), 4 columns (desktop)
- * 
- * @example
- * <app-project-grid 
- *   [projects]="projects" 
- *   (projectClick)="onProjectClick($event)" />
  */
 @Component({
   selector: 'app-project-grid',
@@ -40,20 +34,53 @@ export class ProjectGridComponent {
   projectClick = output<string>();
 
   /**
-   * Grid class pattern for asymmetric layout
-   * Pattern repeats every 4 items: large, small, small, large
+   * Initial number of projects to show
    */
-  private readonly gridPattern = ['span-2', 'span-1', 'span-1', 'span-2'];
+  private readonly initialLimit = 3;
 
   /**
-   * Get grid class for a project based on its index
-   * Implements asymmetric grid pattern
-   * 
-   * @param index - Project index in the array
-   * @returns CSS class for grid span
+   * Step for loading more projects
    */
-  getGridClass(index: number): string {
-    return this.gridPattern[index % this.gridPattern.length];
+  private readonly loadStep = 3;
+
+  /**
+   * Current number of visible projects
+   */
+  visibleLimit = signal(this.initialLimit);
+
+  /**
+   * Projects to display based on the current limit
+   */
+  displayedProjects = computed(() => {
+    return this.projects().slice(0, this.visibleLimit());
+  });
+
+  /**
+   * Whether more projects can be shown
+   */
+  canShowMore = computed(() => {
+    return this.visibleLimit() < this.projects().length;
+  });
+
+  /**
+   * Whether we can return to the initial view
+   */
+  canShowLess = computed(() => {
+    return this.visibleLimit() > this.initialLimit;
+  });
+
+  /**
+   * Increase the number of visible projects
+   */
+  showMore(): void {
+    this.visibleLimit.update(limit => limit + this.loadStep);
+  }
+
+  /**
+   * Reset to the initial number of visible projects
+   */
+  showLess(): void {
+    this.visibleLimit.set(this.initialLimit);
   }
 
   /**

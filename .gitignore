@@ -56,3 +56,4 @@ src/environments/environment.prod.ts
 # Documentation (internal use only)
 .doc/
 portfolio-31e-firebase-adminsdk-fbsvc-7a3ffa82f9.json
+scripts/seed-projects.js

@@ -4,44 +4,30 @@
 <!-- Skills Section -->
 <app-skills />
 
-<!-- Projects Section -->
-<section id="projects" class="projects-section">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">Featured Projects</h2>
-      <p class="section-subtitle">Explore my latest work and creative solutions</p>
-    </div>
-
-    <!-- Loading State -->
-    @if (isLoading()) {
-      <div class="loading-state" role="status" aria-live="polite">
-        <div class="spinner"></div>
-        <p>Loading projects...</p>
-      </div>
-    }
-
-    <!-- Projects Grid -->
-    @else if (projects().length > 0) {
-      <app-project-grid 
-        [projects]="projects()" 
-        (projectClick)="onProjectClick($event)"
-        aria-label="Portfolio projects grid" />
-    }
-
-    <!-- Empty State -->
-    @else {
-      <div class="empty-state">
-        <p>No projects available at the moment.</p>
-      </div>
-    }
+<!-- Projects Grid Section -->
+<div class="container section-padding">
+  <div class="section-header">
+    <h2 class="section-title">Featured Projects</h2>
+    <p class="section-subtitle">A collection of my recent work and personal projects.</p>
   </div>
-</section>
+  
+  @if (isLoading()) {
+    <div class="loading-state" role="status" aria-busy="true">
+      <div class="spinner"></div>
+      <p>Loading projects...</p>
+    </div>
+  } @else {
+    <app-project-grid 
+      [projects]="projects()" 
+      (projectClick)="onProjectClick($event)" />
+  }
+</div>
 
 <!-- Contact Section -->
 <app-contact />
 
 <!-- Project Detail Modal -->
-@if (isModalOpen()) {
+@if (isModalOpen() && selectedProjectId()) {
   <app-project-detail 
     [projectId]="selectedProjectId()!" 
     (close)="closeModal()" />
