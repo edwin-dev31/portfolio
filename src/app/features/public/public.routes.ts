@@ -14,11 +14,6 @@ export const publicRoutes: Routes = [
     title: 'Home'
   },
   {
-    path: 'project/:id',
-    loadComponent: () => import('./components/project-detail/project-detail.component').then(m => m.ProjectDetailComponent),
-    title: 'Project Detail'
-  },
-  {
     path: 'contact',
     loadComponent: () => import('./components/contact/contact.component').then(m => m.ContactComponent),
     title: 'Contact'

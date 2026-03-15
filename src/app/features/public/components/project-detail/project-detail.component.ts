@@ -1,6 +1,5 @@
-import { Component, ChangeDetectionStrategy, inject, OnInit, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, OnInit, signal, input, output, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
 import { StateService } from '../../../../core/services/state.service';
 import { SeoService } from '../../../../core/services/seo.service';
 import { Project } from '../../../../models/project.model';
@@ -13,8 +12,8 @@ import { Project } from '../../../../models/project.model';
  * 
  * Features:
  * - Loads project by ID from route params
+ * - Loads project by ID from route params
  * - Displays full project information
- * - Image lightbox for full-size viewing
  * - Back navigation to home
  * - Handles project not found with error message
  * - Implements OnPush change detection strategy
@@ -32,11 +31,19 @@ import { Project } from '../../../../models/project.model';
   styleUrl: './project-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectDetailComponent implements OnInit {
+export class ProjectDetailComponent implements OnInit, OnChanges {
   private stateService = inject(StateService);
   private seoService = inject(SeoService);
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
+
+  /**
+   * Project ID input
+   */
+  projectId = input.required<string>();
+
+  /**
+   * Close modal output
+   */
+  close = output<void>();
 
   /**
    * Current project being displayed
@@ -53,21 +60,21 @@ export class ProjectDetailComponent implements OnInit {
    */
   notFound = signal(false);
 
-  /**
-   * Lightbox state
-   */
-  lightboxOpen = signal(false);
-  lightboxImage = signal<string>('');
-
   ngOnInit(): void {
     this.loadProject();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['projectId'] && !changes['projectId'].isFirstChange()) {
+      this.loadProject();
+    }
   }
 
   /**
    * Load project from route params
    */
   private async loadProject(): Promise<void> {
-    const projectId = this.route.snapshot.paramMap.get('id');
+    const projectId = this.projectId();
     
     if (!projectId) {
       this.notFound.set(true);
@@ -115,51 +122,20 @@ export class ProjectDetailComponent implements OnInit {
   }
 
   /**
-   * Open image in lightbox
-   * @param imageUrl - URL of the image to display
-   */
-  openLightbox(imageUrl: string): void {
-    this.lightboxImage.set(imageUrl);
-    this.lightboxOpen.set(true);
-    // Prevent body scroll when lightbox is open
-    document.body.style.overflow = 'hidden';
-  }
-
-  /**
-   * Close lightbox
-   */
-  closeLightbox(): void {
-    this.lightboxOpen.set(false);
-    this.lightboxImage.set('');
-    // Restore body scroll
-    document.body.style.overflow = '';
-  }
-
-  /**
-   * Handle lightbox backdrop click
-   * @param event - Mouse event
-   */
-  onLightboxBackdropClick(event: MouseEvent): void {
-    if (event.target === event.currentTarget) {
-      this.closeLightbox();
-    }
-  }
-
-  /**
-   * Handle escape key to close lightbox
+   * Handle escape key to close modal
    * @param event - Keyboard event
    */
   onEscapeKey(event: KeyboardEvent): void {
-    if (event.key === 'Escape' && this.lightboxOpen()) {
-      this.closeLightbox();
+    if (event.key === 'Escape') {
+      this.goBack();
     }
   }
 
   /**
-   * Navigate back to home
+   * Close the modal
    */
   goBack(): void {
-    this.router.navigate(['/']);
+    this.close.emit();
   }
 
   /**

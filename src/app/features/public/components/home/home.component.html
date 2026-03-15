@@ -39,3 +39,10 @@
 
 <!-- Contact Section -->
 <app-contact />
+
+<!-- Project Detail Modal -->
+@if (isModalOpen()) {
+  <app-project-detail 
+    [projectId]="selectedProjectId()!" 
+    (close)="closeModal()" />
+}

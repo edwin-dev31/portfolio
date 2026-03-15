@@ -5,7 +5,8 @@ import { SeoService } from '../../../../core/services/seo.service';
 import { HeroComponent } from '../hero/hero.component';
 import { ProjectGridComponent } from '../project-grid/project-grid.component';
 import { ContactComponent } from '../contact/contact.component';
-import { Router } from '@angular/router';
+import { ProjectDetailComponent } from '../project-detail/project-detail.component';
+import { signal } from '@angular/core';
 import { SkillsComponent } from '../skills/skills.component';
 
 /**
@@ -34,7 +35,8 @@ import { SkillsComponent } from '../skills/skills.component';
     HeroComponent,
     SkillsComponent,
     ProjectGridComponent,
-    ContactComponent
+    ContactComponent,
+    ProjectDetailComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -43,7 +45,6 @@ import { SkillsComponent } from '../skills/skills.component';
 export class HomeComponent implements OnInit {
   private stateService = inject(StateService);
   private seoService = inject(SeoService);
-  private router = inject(Router);
 
   /**
    * Published projects from state service
@@ -55,6 +56,16 @@ export class HomeComponent implements OnInit {
    * Loading state for projects
    */
   isLoading = this.stateService.isLoadingProjects;
+
+  /**
+   * Selected project for modal
+   */
+  selectedProjectId = signal<string | null>(null);
+
+  /**
+   * Modal open state
+   */
+  isModalOpen = signal(false);
 
   ngOnInit(): void {
     this.seoService.updateMetaTags({
@@ -78,10 +89,21 @@ export class HomeComponent implements OnInit {
   }
 
   /**
-   * Handle project click navigation
+   * Handle project click conceptually opens the modal
    * @param projectId - ID of the clicked project
    */
   onProjectClick(projectId: string): void {
-    this.router.navigate(['/project', projectId]);
+    this.selectedProjectId.set(projectId);
+    this.isModalOpen.set(true);
+    document.body.classList.add('no-scroll');
+  }
+
+  /**
+   * Close the project modal
+   */
+  closeModal(): void {
+    this.isModalOpen.set(false);
+    this.selectedProjectId.set(null);
+    document.body.classList.remove('no-scroll');
   }
 }

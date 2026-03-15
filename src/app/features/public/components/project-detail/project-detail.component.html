@@ -1,159 +1,116 @@
 <!-- Loading State -->
 @if (isLoading()) {
-  <div class="loading-container" role="status" aria-live="polite">
-    <div class="spinner"></div>
-    <p>Loading project...</p>
+  <div class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-container">
+      <div class="loading-container" role="status" aria-live="polite">
+        <div class="spinner"></div>
+        <p>Loading project...</p>
+      </div>
+    </div>
   </div>
 }
 
 <!-- Not Found State -->
 @else if (notFound()) {
-  <div class="error-container">
-    <div class="error-content">
-      <h1 class="error-title">Project Not Found</h1>
-      <p class="error-message">
-        The project you're looking for doesn't exist or has been removed.
-      </p>
-      <button 
-        type="button"
-        class="btn btn--primary"
-        (click)="goBack()"
-        aria-label="Go back to home page">
-        Back to Home
+  <div class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-container error-content">
+      <button class="close-btn" (click)="goBack()" aria-label="Close modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
+      <h2 class="error-title">Project Not Found</h2>
+      <p class="error-message">The project you're looking for doesn't exist.</p>
     </div>
   </div>
 }
 
-<!-- Project Detail -->
+<!-- Project Detail Modal -->
 @else if (project()) {
-  <article class="project-detail" (keydown)="onEscapeKey($event)">
-    <div class="project-detail__background"></div>
-    
-    <!-- Back Navigation -->
-    <div class="container">
-      <button 
-        type="button"
-        class="back-button"
-        (click)="goBack()"
-        aria-label="Go back to home page">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span>Back to Projects</span>
+  <div class="modal-overlay" role="dialog" aria-modal="true" (keydown)="onEscapeKey($event)">
+    <article class="modal-container project-detail-modal">
+      <button class="close-btn" (click)="goBack()" aria-label="Close modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-    </div>
 
-    <!-- Project Header -->
-    <header class="project-header">
-      <div class="container">
-        <h1 class="project-title">{{ project()!.title }}</h1>
-        <p class="project-category">{{ project()!.category }}</p>
-      </div>
-    </header>
+      <div class="project-modal-body">
+        <!-- Project Header -->
+        <header class="project-header">
+          <h2 class="project-title">{{ project()!.title }}</h2>
+          <p class="project-category">{{ project()!.category }}</p>
+        </header>
 
-    <!-- Project Image -->
-    <section class="project-image-section">
-      <div class="container">
-        <div class="image-wrapper">
-          <img 
-            [src]="project()!.image" 
-            [alt]="project()!.title"
-            class="project-image"
-            (click)="openLightbox(project()!.image)"
+        <!-- Project Image -->
+        <div class="project-image-section">
+          <div 
+            class="image-wrapper"
+            (click)="openLink(project()!.links.liveDemo)"
             role="button"
             tabindex="0"
-            (keydown.enter)="openLightbox(project()!.image)"
-            (keydown.space)="openLightbox(project()!.image)"
-            aria-label="Click to view full-size image" />
-          <div class="image-overlay">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            (keydown.enter)="openLink(project()!.links.liveDemo)"
+            (keydown.space)="openLink(project()!.links.liveDemo)"
+            aria-label="Visit live demo">
+            <img 
+              [src]="project()!.image" 
+              [alt]="project()!.title"
+              class="project-image" />
+            <div class="image-overlay">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M10 6H6C4.89543 6 4 6.89543 4 8V18C4 19.1046 4.89543 20 6 20H16C17.1046 20 18 19.1046 18 18V14M14 4H20M20 4V10M20 4L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Project Content -->
-    <section class="project-content">
-      <div class="container">
-        <div class="content-grid">
-          <!-- Description -->
-          <div class="description-section">
-            <h2 class="section-title">About This Project</h2>
-            <p class="project-description">{{ project()!.description }}</p>
-          </div>
-
-          <!-- Metadata Sidebar -->
-          <aside class="metadata-section">
-            <!-- Tools -->
-            <div class="metadata-card">
-              <h3 class="metadata-title">Technologies</h3>
-              <ul class="tools-list" role="list">
-                @for (tool of project()!.tools; track tool) {
-                  <li class="tool-tag">{{ tool }}</li>
-                }
-              </ul>
+        <!-- Project Content -->
+        <div class="project-content">
+          <div class="content-grid">
+            <!-- Description -->
+            <div class="description-section">
+              <h3 class="section-title">About This Project</h3>
+              <p class="project-description">{{ project()!.description }}</p>
             </div>
 
-            <!-- Links -->
-            <div class="metadata-card">
-              <h3 class="metadata-title">Links</h3>
-              <div class="links-list">
-                @if (project()!.links.repository) {
-                  <button 
-                    type="button"
-                    class="link-button"
-                    (click)="openLink(project()!.links.repository)"
-                    aria-label="View source code on GitHub">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-                    </svg>
-                    <span>View Code</span>
-                  </button>
-                }
-                @if (project()!.links.liveDemo) {
-                  <button 
-                    type="button"
-                    class="link-button"
-                    (click)="openLink(project()!.links.liveDemo)"
-                    aria-label="View live demo">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M10 6H6C4.89543 6 4 6.89543 4 8V18C4 19.1046 4.89543 20 6 20H16C17.1046 20 18 19.1046 18 18V14M14 4H20M20 4V10M20 4L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span>Live Demo</span>
-                  </button>
-                }
+            <!-- Metadata Sidebar -->
+            <aside class="metadata-section">
+              <!-- Tools -->
+              <div class="metadata-card">
+                <h4 class="metadata-title">Technologies</h4>
+                <ul class="tools-list" role="list">
+                  @for (tool of project()!.tools; track tool) {
+                    <li class="tool-tag">{{ tool }}</li>
+                  }
+                </ul>
               </div>
-            </div>
-          </aside>
+
+              <!-- Links -->
+              <div class="metadata-card">
+                <h4 class="metadata-title">Links</h4>
+                <div class="links-list">
+                  @if (project()!.links.repository) {
+                    <button 
+                      type="button"
+                      class="link-button"
+                      (click)="openLink(project()!.links.repository)"
+                      aria-label="View source code on GitHub">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                      <span>View Code</span>
+                    </button>
+                  }
+                  @if (project()!.links.liveDemo) {
+                    <button 
+                      type="button"
+                      class="link-button"
+                      (click)="openLink(project()!.links.liveDemo)"
+                      aria-label="View live demo">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10 6H6C4.89543 6 4 6.89543 4 8V18C4 19.1046 4.89543 20 6 20H16C17.1046 20 18 19.1046 18 18V14M14 4H20M20 4V10M20 4L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span>Live Demo</span>
+                    </button>
+                  }
+                </div>
+              </div>
+            </aside>
+          </div>
         </div>
       </div>
-    </section>
-  </article>
-
-  <!-- Image Lightbox -->
-  @if (lightboxOpen()) {
-    <div 
-      class="lightbox"
-      (click)="onLightboxBackdropClick($event)"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Full-size project image">
-      <button 
-        type="button"
-        class="lightbox-close"
-        (click)="closeLightbox()"
-        aria-label="Close lightbox">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      <img 
-        [src]="lightboxImage()" 
-        [alt]="project()!.title"
-        class="lightbox-image" />
-    </div>
-  }
+    </article>
+  </div>
 }

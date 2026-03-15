@@ -150,6 +150,7 @@ textarea {
 .overflow-hidden { overflow: hidden; }
 .overflow-visible { overflow: visible; }
 .overflow-scroll { overflow: scroll; }
+.no-scroll { overflow: hidden !important; }
 
 // Width & Height
 .w-full { width: 100%; }
