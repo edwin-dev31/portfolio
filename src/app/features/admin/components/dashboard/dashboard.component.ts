@@ -70,7 +70,7 @@ export class DashboardComponent implements OnInit {
    * @param projectId - ID of project to edit
    */
   editProject(projectId: string): void {
-    this.router.navigate(['/admin/projects/edit', projectId]);
+    this.router.navigate(['/admin/projects', projectId, 'edit']);
   }
 
   /**
