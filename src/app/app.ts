@@ -2,10 +2,11 @@ import { Component, signal, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ThemeService } from './core/services/theme.service';
 import { ThemeToggleComponent } from './shared/components/theme-toggle/theme-toggle.component';
+import { ToastComponent } from './shared/components/toast/toast.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ThemeToggleComponent],
+  imports: [RouterOutlet, ThemeToggleComponent, ToastComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
