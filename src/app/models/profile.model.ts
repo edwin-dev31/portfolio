@@ -21,6 +21,9 @@ export interface Profile {
   
   /** Year available for new projects */
   yearAvailable: number;
+
+  /** Profile photo URL */
+  image?: string;
   
   /** Professional statistics (includes social links) */
   stats: ProfileStats;

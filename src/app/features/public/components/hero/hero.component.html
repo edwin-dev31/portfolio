@@ -1,33 +1,56 @@
 <section class="hero" role="banner">
   <div class="hero__background"></div>
-  
+
   <div class="hero__content">
     @if (isLoading()) {
       <div class="hero__loading" role="status" aria-live="polite">
         <span class="sr-only">Loading profile information...</span>
       </div>
     } @else if (profile()) {
+
+      <!-- Photo -->
+      <div class="hero__photo-wrap" aria-hidden="true">
+        <div class="hero__hex-glow"></div>
+        <div class="hero__hex">
+          @if (profile()!.image) {
+            <img
+              class="hero__photo"
+              [src]="profile()!.image"
+              [alt]="profile()!.name"
+              loading="eager" />
+          } @else {
+            <div class="hero__photo-placeholder">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+              </svg>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Text -->
       <div class="hero__text">
         <h1 class="hero__name">{{ profile()!.name }}</h1>
         <p class="hero__title">{{ profile()!.title }}</p>
         <p class="hero__tagline">{{ profile()!.tagline }}</p>
       </div>
+
     }
   </div>
 
-  <button 
+  <button
     class="hero__scroll-indicator"
     (click)="scrollToProjects()"
     aria-label="Scroll to projects section"
     type="button">
-    <svg 
-      class="hero__scroll-icon" 
-      xmlns="http://www.w3.org/2000/svg" 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      stroke-width="2" 
-      stroke-linecap="round" 
+    <svg
+      class="hero__scroll-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
       stroke-linejoin="round"
       aria-hidden="true">
       <polyline points="6 9 12 15 18 9"></polyline>

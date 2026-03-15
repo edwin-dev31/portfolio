@@ -38,6 +38,7 @@ export class DataService {
               tagline: data['tagline'],
               description: data['description'],
               yearAvailable: data['yearAvailable'],
+              image: data['image'] || null,
               stats: {
                 deployments: data['stats']?.['deployments'] || 0,
                 awards: data['stats']?.['awards'] || 0,
