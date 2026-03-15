@@ -23,8 +23,12 @@ RUN npx ng build --configuration production
 # ============================================================
 FROM nginx:alpine AS runtime
 
-# Install curl for health check
-RUN apk add --no-cache curl
+# Install curl for health check and sed for runtime variable replacement
+RUN apk add --no-cache curl sed
+
+# Copy entrypoint script
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
 # Create non-root user for security
 RUN addgroup -g 1001 -S appgroup && \
@@ -53,5 +57,5 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
   CMD curl -f http://localhost:8080/health || exit 1
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start with entrypoint script
+ENTRYPOINT ["/docker-entrypoint.sh"]
