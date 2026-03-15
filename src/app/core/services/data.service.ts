@@ -546,34 +546,56 @@ export class DataService {
   // ==================== Error Handling ====================
 
   /**
-   * Handle Firestore errors and transform to user-friendly messages
+   * Handle Firestore errors and transform to user-friendly messages.
+   * Bound as an arrow function so `this` is preserved when used in catchError.
    * @param error - The error to handle
    * @returns Observable that throws a user-friendly error
    */
-  private handleError(error: unknown): Observable<never> {
+  private handleError = (error: unknown): Observable<never> => {
     console.error('Firestore error:', error);
     return throwError(() => this.transformError(error));
-  }
+  };
 
   /**
-   * Transform Firestore errors to user-friendly messages
+   * Transform Firestore / Firebase errors to user-friendly messages.
+   * Handles specific error codes: permission-denied, unavailable, not-found,
+   * unauthenticated, resource-exhausted, deadline-exceeded, cancelled.
    * @param error - The error to transform
    * @returns Error with user-friendly message
    */
   private transformError(error: unknown): Error {
     if (typeof error === 'object' && error !== null && 'code' in error) {
       const errorCode = (error as { code: string }).code;
-      
-      if (errorCode === 'permission-denied') {
-        return new Error('No tienes permisos para acceder a estos datos');
-      }
-      if (errorCode === 'unavailable') {
-        return new Error('Servicio temporalmente no disponible. Intenta de nuevo.');
-      }
-      if (errorCode === 'not-found') {
-        return new Error('Los datos solicitados no fueron encontrados');
+
+      switch (errorCode) {
+        case 'permission-denied':
+          return new Error('No tienes permisos para acceder a estos datos');
+        case 'unavailable':
+          return new Error('Servicio temporalmente no disponible. Intenta de nuevo.');
+        case 'not-found':
+          return new Error('Los datos solicitados no fueron encontrados');
+        case 'unauthenticated':
+          return new Error('Debes iniciar sesión para realizar esta acción');
+        case 'resource-exhausted':
+          return new Error('Límite de solicitudes alcanzado. Intenta de nuevo más tarde.');
+        case 'deadline-exceeded':
+          return new Error('La solicitud tardó demasiado. Verifica tu conexión e intenta de nuevo.');
+        case 'cancelled':
+          return new Error('La operación fue cancelada. Por favor intenta de nuevo.');
+        case 'already-exists':
+          return new Error('El recurso ya existe');
+        case 'failed-precondition':
+          return new Error('Operación no permitida en el estado actual');
+        case 'internal':
+          return new Error('Error interno del servidor. Por favor intenta de nuevo.');
       }
     }
+
+    // Re-use already-transformed errors (e.g. from nested calls)
+    if (error instanceof Error) {
+      return error;
+    }
+
     return new Error('Error al cargar datos. Por favor intenta de nuevo.');
   }
 }
