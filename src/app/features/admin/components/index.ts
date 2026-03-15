@@ -1,1 +1,3 @@
 export * from './login/login.component';
+export * from './dashboard/dashboard.component';
+export * from './admin-shell/admin-shell.component';
