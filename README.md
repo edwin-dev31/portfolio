@@ -1,59 +1,78 @@
-# PortfolioAngular
+# Modern Professional Portfolio
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.0.
+A high-performance, accessible and stunning portfolio built with **Angular 21** and modern **SCSS**. This project showcases advanced techniques in frontend development, featuring an immersive glassmorphism design, infinite carousels and a robust project management system.
 
-## Development server
+> [!IMPORTANT]
+> **Live Demo:** [portfolio.dev-ka.duckdns.org](https://portfolio.dev-ka.duckdns.org/)
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## 🚀 Key Features
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Angular 21 Architecture:** Built using the latest standalone components and signals for optimal state management.
+- **Advanced SCSS System:** 
+  - Custom design tokens for consistent spacing, colors and typography.
+  - Responsive layouts using modern `clamp()` and CSS Grid.
+- **Stunning Aesthetics:** Immersive dark mode with glassmorphism effects, dynamic gradients and fluid animations.
+- **Admin Dashboard:** Secure area for project management, featuring a rich-text editor and image upload capabilities.
+- **SEO Optimized:** Automated metadata management and semantic HTML structure.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🛠️ Technology Stack
 
-```bash
-ng generate component component-name
-```
+- **Core:** Angular 21 (TypeScript)
+- **Styling:** SCSS (Sassy CSS) with custom mixins and design tokens.
+- **Animations:** CSS Keyframes & Web Animations API.
+- **State:** Angular Signals.
+- **Testing:** Vitest for unit testing.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 📦 Getting Started
 
-## Building
+### Prerequisites
 
-To build the project run:
+- Node.js (Latest LTS recommended)
+- Angular CLI installed globally (`npm install -g @angular/cli`)
 
-```bash
-ng build
-```
+### Installation
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/edwin-dev31/portfolio.git
+   cd portfolio
+   ```
 
-## Running unit tests
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+3. **Start the development server:**
+   ```bash
+   npm run start
+   ```
+   Navigate to `http://localhost:4200/` to view the application.
 
-```bash
-ng test
-```
+> [!TIP]
+> Use `npm run build` to generate a production-ready bundle in the `dist/` directory.
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 🔧 Project Structure
 
-```bash
-ng e2e
-```
+> [!NOTE]
+> The project follows a feature-based architecture. Public components are located in `src/app/features/public/components`, while administrative tools reside in `src/app/features/admin/components`.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- `src/styles/`: Contains global tokens, mixins and variable definitions.
+- `src/app/shared/`: Reusable components (buttons, modals, form fields).
+- `src/app/core/`: Essential services (SEO, Authentication, API).
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📄 License
+
+This project is specialized for professional showcase. All rights reserved.
+
+
