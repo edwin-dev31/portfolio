@@ -1,0 +1,16 @@
+.app-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.theme-toggle-wrapper {
+  position: fixed;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  z-index: var(--z-fixed);
+
+  @media (max-width: 768px) {
+    top: var(--space-md);
+    right: var(--space-md);
+  }
+}

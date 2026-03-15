@@ -1,0 +1,49 @@
+@use '../../../../styles/abstracts/mixins' as *;
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  @include transition(all);
+
+  &:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    color: var(--color-primary);
+    @include transition(transform);
+
+    .theme-toggle:hover & {
+      transform: rotate(15deg) scale(1.1);
+    }
+  }
+
+  &__label {
+    @include mobile {
+      display: none;
+    }
+  }
+}

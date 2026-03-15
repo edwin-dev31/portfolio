@@ -35,40 +35,16 @@
     }
 
     @include desktop {
-      // Desktop: 4 columns for asymmetric layout
-      grid-template-columns: repeat(4, 1fr);
+      // Desktop: 3 columns - uniform layout
+      grid-template-columns: repeat(3, 1fr);
       gap: var(--space-2xl);
     }
   }
 
   &__item {
-    // Base item styles
+    // All items have the same size
     display: flex;
-    
-    // Mobile: all items span 1 column
     grid-column: span 1;
-
-    @include tablet {
-      // Tablet: maintain pattern but adjusted for 2 columns
-      &--span-2 {
-        grid-column: span 2;
-      }
-
-      &--span-1 {
-        grid-column: span 1;
-      }
-    }
-
-    @include desktop {
-      // Desktop: full asymmetric pattern with 4 columns
-      &--span-2 {
-        grid-column: span 2;
-      }
-
-      &--span-1 {
-        grid-column: span 1;
-      }
-    }
   }
 }
 

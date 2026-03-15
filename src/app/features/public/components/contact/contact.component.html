@@ -50,7 +50,7 @@
             
             <div class="contact__social">
               <a 
-                [href]="profile()!.stats.social.github"
+                [href]="normalizeUrl(profile()!.stats.social.github)"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="contact__social-link"
@@ -62,7 +62,7 @@
               </a>
 
               <a 
-                [href]="profile()!.stats.social.linkedin"
+                [href]="normalizeUrl(profile()!.stats.social.linkedin)"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="contact__social-link"

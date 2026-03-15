@@ -142,4 +142,21 @@ export class ContactComponent implements OnInit {
     const profile = this.profile();
     return profile ? profile.yearAvailable >= this.currentYear : false;
   }
+
+  /**
+   * Ensure URL has proper protocol
+   * @param url - URL to normalize
+   * @returns URL with https:// protocol
+   */
+  normalizeUrl(url: string): string {
+    if (!url) return '';
+    
+    // If URL already has protocol, return as is
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
+    }
+    
+    // Add https:// protocol
+    return `https://${url}`;
+  }
 }
