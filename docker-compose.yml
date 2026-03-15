@@ -1,0 +1,18 @@
+services:
+  portfolio-angular:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: portfolio-angular:latest
+    container_name: portfolio-angular
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    environment:
+      - NODE_ENV=production

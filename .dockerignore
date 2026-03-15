@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Build output
+dist/
+tmp/
+out-tsc/
+
+# Angular cache
+.angular/
+
+# Git
+.git/
+.gitignore
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-workspace
+.editorconfig
+
+# Environment files (injected at build time via scripts/set-env.js)
+.env
+.env.local
+.env.*.local
+
+# Firebase service account keys (sensitive)
+*-firebase-adminsdk-*.json
+
+# Test and coverage
+coverage/
+__screenshots__/
+
+# Documentation
+.doc/
+*.md
+!README.md
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Docker files (not needed inside image)
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Spec files
+*.spec.ts
