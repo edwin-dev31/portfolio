@@ -1,0 +1,106 @@
+<div class="login">
+  <div class="login__container">
+    <div class="login__card">
+      <!-- Header -->
+      <div class="login__header">
+        <h1 class="login__title">Iniciar Sesión</h1>
+        <p class="login__subtitle">Accede al panel de administración</p>
+      </div>
+
+      <!-- Error Message -->
+      @if (errorMessage()) {
+        <div class="login__error" role="alert" aria-live="assertive">
+          <svg class="login__error-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 15H9V13H11V15ZM11 11H9V5H11V11Z" fill="currentColor"/>
+          </svg>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
+      <!-- Login Form -->
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login__form">
+        <!-- Email Field -->
+        <div class="form-group">
+          <label for="email" class="form-label">
+            Correo Electrónico
+            <span class="form-label__required" aria-label="requerido">*</span>
+          </label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="form-input"
+            [class.form-input--error]="emailControl?.invalid && emailControl?.touched"
+            placeholder="tu@email.com"
+            autocomplete="email"
+            [attr.aria-invalid]="emailControl?.invalid && emailControl?.touched"
+            [attr.aria-describedby]="emailControl?.invalid && emailControl?.touched ? 'email-error' : null"
+          />
+          @if (emailControl?.invalid && emailControl?.touched) {
+            <span id="email-error" class="form-error" role="alert">
+              {{ getEmailError() }}
+            </span>
+          }
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label for="password" class="form-label">
+            Contraseña
+            <span class="form-label__required" aria-label="requerido">*</span>
+          </label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            class="form-input"
+            [class.form-input--error]="passwordControl?.invalid && passwordControl?.touched"
+            placeholder="••••••••"
+            autocomplete="current-password"
+            [attr.aria-invalid]="passwordControl?.invalid && passwordControl?.touched"
+            [attr.aria-describedby]="passwordControl?.invalid && passwordControl?.touched ? 'password-error' : null"
+          />
+          @if (passwordControl?.invalid && passwordControl?.touched) {
+            <span id="password-error" class="form-error" role="alert">
+              {{ getPasswordError() }}
+            </span>
+          }
+        </div>
+
+        <!-- Remember Me Checkbox -->
+        <div class="form-group form-group--checkbox">
+          <label class="form-checkbox">
+            <input
+              type="checkbox"
+              formControlName="rememberMe"
+              class="form-checkbox__input"
+            />
+            <span class="form-checkbox__label">Recordarme</span>
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="login__actions">
+          <app-button
+            type="submit"
+            variant="primary"
+            size="lg"
+            [disabled]="isLoading()"
+            class="login__submit"
+          >
+            @if (isLoading()) {
+              <span class="login__loading">
+                <svg class="login__spinner" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="50.265" stroke-dashoffset="12.566" />
+                </svg>
+                Iniciando sesión...
+              </span>
+            } @else {
+              Iniciar Sesión
+            }
+          </app-button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
