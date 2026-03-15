@@ -36,6 +36,25 @@
           },
           "configurations": {
             "production": {
+              "aot": true,
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": true
+                },
+                "fonts": true
+              },
+              "buildOptimizer": true,
+              "sourceMap": {
+                "scripts": true,
+                "styles": false,
+                "hidden": true,
+                "vendor": false
+              },
+              "outputHashing": "all",
+              "extractLicenses": true,
+              "namedChunks": false,
               "budgets": [
                 {
                   "type": "initial",
@@ -47,13 +66,36 @@
                   "maximumWarning": "4kB",
                   "maximumError": "8kB"
                 }
-              ],
-              "outputHashing": "all"
+              ]
+            },
+            "staging": {
+              "aot": true,
+              "optimization": true,
+              "buildOptimizer": true,
+              "sourceMap": true,
+              "outputHashing": "all",
+              "extractLicenses": true,
+              "namedChunks": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ]
             },
             "development": {
+              "aot": true,
               "optimization": false,
+              "buildOptimizer": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
@@ -63,6 +105,9 @@
           "configurations": {
             "production": {
               "buildTarget": "portfolio-angular:build:production"
+            },
+            "staging": {
+              "buildTarget": "portfolio-angular:build:staging"
             },
             "development": {
               "buildTarget": "portfolio-angular:build:development"

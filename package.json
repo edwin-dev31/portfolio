@@ -7,8 +7,12 @@
     "start": "npm run config && ng serve",
     "build": "npm run config && ng build",
     "build:prod": "npm run config && ng build --configuration production",
+    "build:staging": "npm run config && ng build --configuration staging",
     "watch": "npm run config && ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "docker:build": "docker build -t portfolio-angular:latest .",
+    "docker:run": "docker run -p 8080:8080 portfolio-angular:latest",
+    "docker:compose": "docker-compose up --build"
   },
   "prettier": {
     "printWidth": 100,
