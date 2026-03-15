@@ -45,7 +45,6 @@
                 },
                 "fonts": true
               },
-              "buildOptimizer": true,
               "sourceMap": {
                 "scripts": true,
                 "styles": false,
@@ -71,7 +70,6 @@
             "staging": {
               "aot": true,
               "optimization": true,
-              "buildOptimizer": true,
               "sourceMap": true,
               "outputHashing": "all",
               "extractLicenses": true,
@@ -92,7 +90,6 @@
             "development": {
               "aot": true,
               "optimization": false,
-              "buildOptimizer": false,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true

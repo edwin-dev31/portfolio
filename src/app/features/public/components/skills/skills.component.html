@@ -1,0 +1,46 @@
+<section class="skills-section" id="skills" aria-label="Technologies I master">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">
+        Technologies <span class="highlight">I master</span>
+      </h2>
+      <p class="section-subtitle">Modern tools for robust, scalable solutions</p>
+    </div>
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading-state" role="status" aria-live="polite">
+      <div class="spinner"></div>
+    </div>
+  } @else {
+    <div class="carousels">
+      @for (row of rows(); track $index) {
+        <div class="carousel-wrapper">
+          <!-- #track holds the original set; JS clones enough copies to fill viewport -->
+          <div
+            #track
+            class="carousel-track"
+            [class.track-left]="row.direction === 'left'"
+            [class.track-right]="row.direction === 'right'">
+
+            @for (skill of row.items; track skill.name) {
+              <div class="skill-card" [style.--brand]="getBrandColor(skill.name)">
+                <div class="skill-icon">
+                  <i [class]="getDeviconClass(skill.name)" aria-hidden="true"></i>
+                </div>
+                <span class="skill-name">{{ skill.name }}</span>
+              </div>
+            }
+
+          </div>
+        </div>
+      }
+    </div>
+
+    <ul class="sr-only" aria-label="Technologies I master">
+      @for (skill of skills(); track skill.name) {
+        <li>{{ skill.name }}</li>
+      }
+    </ul>
+  }
+</section>

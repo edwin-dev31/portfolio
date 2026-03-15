@@ -6,6 +6,7 @@ import { HeroComponent } from '../hero/hero.component';
 import { ProjectGridComponent } from '../project-grid/project-grid.component';
 import { ContactComponent } from '../contact/contact.component';
 import { Router } from '@angular/router';
+import { SkillsComponent } from '../skills/skills.component';
 
 /**
  * HomeComponent
@@ -31,6 +32,7 @@ import { Router } from '@angular/router';
   imports: [
     CommonModule,
     HeroComponent,
+    SkillsComponent,
     ProjectGridComponent,
     ContactComponent
   ],
