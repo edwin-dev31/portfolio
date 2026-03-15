@@ -3,20 +3,6 @@
 # ============================================================
 FROM node:22-alpine AS builder
 
-ARG FIREBASE_API_KEY
-ARG FIREBASE_AUTH_DOMAIN
-ARG FIREBASE_PROJECT_ID
-ARG FIREBASE_STORAGE_BUCKET
-ARG FIREBASE_MESSAGING_SENDER_ID
-ARG FIREBASE_APP_ID
-
-ENV FIREBASE_API_KEY=${FIREBASE_API_KEY}
-ENV FIREBASE_AUTH_DOMAIN=${FIREBASE_AUTH_DOMAIN}
-ENV FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}
-ENV FIREBASE_STORAGE_BUCKET=${FIREBASE_STORAGE_BUCKET}
-ENV FIREBASE_MESSAGING_SENDER_ID=${FIREBASE_MESSAGING_SENDER_ID}
-ENV FIREBASE_APP_ID=${FIREBASE_APP_ID}
-
 # Set working directory
 WORKDIR /app
 
@@ -29,8 +15,8 @@ RUN npm ci --legacy-peer-deps --ignore-scripts
 # Copy source code
 COPY . .
 
-# Run environment config script and build for production
-RUN npm run config && npx ng build --configuration production
+# Build for production (uses default/placeholder values)
+RUN npx ng build --configuration production
 
 # ============================================================
 # Stage 2: Runtime (nginx)
