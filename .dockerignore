@@ -47,7 +47,6 @@ Thumbs.db
 logs/
 
 # Docker files (not needed inside image)
-Dockerfile
 docker-compose.yml
 .dockerignore
 
