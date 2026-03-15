@@ -16,7 +16,7 @@ RUN npm ci --legacy-peer-deps --ignore-scripts
 COPY . .
 
 # Build for production (uses default/placeholder values)
-RUN npx ng build --configuration production
+RUN npm run build
 
 # ============================================================
 # Stage 2: Runtime (nginx)
