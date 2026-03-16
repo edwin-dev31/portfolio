@@ -2,7 +2,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DataService } from '../../../../core/services/data.service';
-import { Profile, About, Contact } from '../../../../models';
+import { Profile, About, Contact, TECH_COLORS } from '../../../../models';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { RichTextEditorComponent } from '../../../../shared/components/rich-text-editor/rich-text-editor.component';
 import { CloudinaryService } from '../../../../core/services/cloudinary.service';
@@ -39,8 +39,12 @@ export class SettingsComponent implements OnInit {
   contactForm!: FormGroup;
   skillForm!: FormGroup;
 
-  // Data signals
   skills = signal<Skill[]>([]);
+  
+  skillSearchResults = signal<string[]>([]);
+  showSkillDropdown = signal(false);
+  
+  availableTechs = Object.keys(TECH_COLORS).sort();
   
   // For About Rich Text
   aboutDescriptionContent = '';
@@ -235,22 +239,67 @@ export class SettingsComponent implements OnInit {
   async addSkill() {
     if (this.skillForm.invalid) return;
 
+    const skillName = this.skillForm.value.name.trim();
+    if (!TECH_COLORS[skillName.toLowerCase()]) {
+      this.errorMessage.set('Please select a valid technology from the list');
+      return;
+    }
+
+    const existingSkill = this.skills().find(
+      s => s.name.toLowerCase() === skillName.toLowerCase()
+    );
+    if (existingSkill) {
+      this.errorMessage.set('This skill already exists');
+      return;
+    }
+
     this.isLoading.set(true);
     try {
       const newSkill: Partial<Skill> = {
-        name: this.skillForm.value.name,
+        name: skillName,
         category: this.skillForm.value.category,
         order: this.skills().length + 1
       };
       await this.dataService.createSkill(newSkill);
       this.skillForm.reset({ category: 'language' });
-      // Reload skills locally or wait for subscription (if implemented)
+      this.skillSearchResults.set([]);
       this.dataService.getSkills().subscribe(s => this.skills.set(s));
       this.showMessage('Skill added successfully');
     } catch (err: any) {
       this.errorMessage.set(err.message);
     } finally {
       this.isLoading.set(false);
+    }
+  }
+
+  onSkillInput(event: Event): void {
+    const value = (event.target as HTMLInputElement).value.toLowerCase();
+    if (value.length < 1) {
+      this.skillSearchResults.set([]);
+      this.showSkillDropdown.set(false);
+      return;
+    }
+
+    const filtered = this.availableTechs.filter(tech => 
+      tech.toLowerCase().includes(value)
+    );
+    this.skillSearchResults.set(filtered);
+    this.showSkillDropdown.set(filtered.length > 0);
+  }
+
+  selectSkill(tech: string): void {
+    this.skillForm.patchValue({ name: tech });
+    this.showSkillDropdown.set(false);
+    this.skillSearchResults.set([]);
+  }
+
+  onSkillBlur(): void {
+    setTimeout(() => this.showSkillDropdown.set(false), 200);
+  }
+
+  onSkillFocus(): void {
+    if (this.skillSearchResults().length > 0) {
+      this.showSkillDropdown.set(true);
     }
   }
 
@@ -290,5 +339,9 @@ export class SettingsComponent implements OnInit {
   private showMessage(msg: string) {
     this.successMessage.set(msg);
     setTimeout(() => this.successMessage.set(null), 3000);
+  }
+
+  getTechColor(name: string): string {
+    return TECH_COLORS[name.toLowerCase()] ?? '#888888';
   }
 }
