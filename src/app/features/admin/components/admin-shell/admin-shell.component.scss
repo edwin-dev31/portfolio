@@ -142,6 +142,11 @@
     font-weight: 500;
     @include transition(background-color, color);
 
+    .material-symbols-rounded {
+      color: var(--color-primary);
+      @include transition(color);
+    }
+
     &:hover {
       background: var(--color-surface-elevated);
       color: var(--color-text-primary);
@@ -154,15 +159,18 @@
       &:hover {
         background: var(--color-primary-hover);
       }
+
+      .material-symbols-rounded {
+        color: white;
+      }
     }
   }
 
   &__link-icon {
-    font-size: 1.25rem;
-    width: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--color-primary);
   }
 
   &__link-text {
@@ -197,6 +205,10 @@
 
     &:active {
       transform: scale(0.95);
+    }
+
+    .material-symbols-rounded {
+      color: var(--color-error);
     }
   }
 }

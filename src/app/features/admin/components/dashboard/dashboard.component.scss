@@ -95,6 +95,10 @@
     justify-content: center;
     background: var(--color-surface-elevated);
     border-radius: var(--radius-md);
+
+    .material-symbols-rounded {
+      color: var(--color-primary);
+    }
   }
 
   &__content {
@@ -124,6 +128,7 @@
   &__icon {
     font-size: 4rem;
     margin-bottom: var(--space-md);
+    color: var(--color-text-tertiary);
   }
 
   &__title {
@@ -301,6 +306,10 @@
   justify-content: center;
   @include transition(background-color, transform);
 
+  .material-symbols-rounded {
+    color: var(--color-text-primary);
+  }
+
   &:hover {
     background: var(--color-surface);
     transform: scale(1.05);
@@ -312,14 +321,26 @@
 
   &--edit:hover {
     background: rgba(66, 153, 225, 0.2);
+
+    .material-symbols-rounded {
+      color: var(--color-info);
+    }
   }
 
   &--toggle:hover {
     background: rgba(237, 137, 54, 0.2);
+
+    .material-symbols-rounded {
+      color: var(--color-warning);
+    }
   }
 
   &--delete:hover {
     background: rgba(252, 129, 129, 0.2);
+
+    .material-symbols-rounded {
+      color: var(--color-error);
+    }
   }
 }
 

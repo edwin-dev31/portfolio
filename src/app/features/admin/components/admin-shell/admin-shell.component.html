@@ -11,7 +11,7 @@
         class="sidebar__close"
         (click)="closeMobileMenu()"
         aria-label="Close menu">
-        ✕
+        <span class="material-symbols-rounded">close</span>
       </button>
     </div>
 
@@ -22,7 +22,7 @@
         routerLinkActive="sidebar__link--active"
         class="sidebar__link"
         (click)="closeMobileMenu()">
-        <span class="sidebar__link-icon">📊</span>
+        <span class="material-symbols-rounded sidebar__link-icon">dashboard</span>
         <span class="sidebar__link-text">Dashboard</span>
       </a>
 
@@ -31,7 +31,7 @@
         routerLinkActive="sidebar__link--active"
         class="sidebar__link"
         (click)="closeMobileMenu()">
-        <span class="sidebar__link-icon">⚙️</span>
+        <span class="material-symbols-rounded sidebar__link-icon">settings</span>
         <span class="sidebar__link-text">Settings</span>
       </a>
     </nav>
@@ -52,7 +52,7 @@
         class="sidebar__logout"
         (click)="logout()"
         title="Logout">
-        🚪
+        <span class="material-symbols-rounded">logout</span>
       </button>
     </div>
   </aside>
@@ -72,12 +72,9 @@
         class="header__menu-toggle"
         (click)="toggleMobileMenu()"
         aria-label="Open menu">
-        ☰
+        <span class="material-symbols-rounded">menu</span>
       </button>
 
-      <div class="header__actions">
-        <app-theme-toggle />
-      </div>
     </header>
 
     <!-- Content -->

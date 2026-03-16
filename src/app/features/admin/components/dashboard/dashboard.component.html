@@ -5,14 +5,17 @@
       variant="primary" 
       size="md"
       (click)="createNewProject()">
-      + Create New Project
+      <span class="material-symbols-rounded mr-2">add</span>
+      Create New Project
     </app-button>
   </div>
 
   <!-- Statistics Cards -->
   <div class="dashboard__stats">
     <div class="stat-card">
-      <div class="stat-card__icon">📊</div>
+      <div class="stat-card__icon">
+        <span class="material-symbols-rounded">folder</span>
+      </div>
       <div class="stat-card__content">
         <h3 class="stat-card__value">{{ projects().length }}</h3>
         <p class="stat-card__label">Total Projects</p>
@@ -20,7 +23,9 @@
     </div>
 
     <div class="stat-card">
-      <div class="stat-card__icon">✅</div>
+      <div class="stat-card__icon">
+        <span class="material-symbols-rounded">check_circle</span>
+      </div>
       <div class="stat-card__content">
         <h3 class="stat-card__value">{{ publishedCount() }}</h3>
         <p class="stat-card__label">Published</p>
@@ -28,7 +33,9 @@
     </div>
 
     <div class="stat-card">
-      <div class="stat-card__icon">📝</div>
+      <div class="stat-card__icon">
+        <span class="material-symbols-rounded">description</span>
+      </div>
       <div class="stat-card__content">
         <h3 class="stat-card__value">{{ draftCount() }}</h3>
         <p class="stat-card__label">Drafts</p>
@@ -49,7 +56,9 @@
     <!-- Empty State -->
     <div *ngIf="!isLoading() && projects().length === 0" class="dashboard__empty">
       <div class="empty-state">
-        <div class="empty-state__icon">📁</div>
+        <div class="empty-state__icon">
+          <span class="material-symbols-rounded" style="font-size: 3rem;">folder_open</span>
+        </div>
         <h3 class="empty-state__title">No projects found</h3>
         <p class="empty-state__description">
           Start by creating your first project to display in your portfolio
@@ -112,21 +121,21 @@
               class="action-btn action-btn--edit"
               (click)="editProject(project.id)"
               title="Edit project">
-              ✏️
+              <span class="material-symbols-rounded" style="font-size: 1.25rem;">edit</span>
             </button>
             
             <button 
               class="action-btn action-btn--toggle"
               (click)="togglePublishStatus(project)"
               title="Toggle publish status">
-              🔄
+              <span class="material-symbols-rounded" style="font-size: 1.25rem;">sync</span>
             </button>
             
             <button 
               class="action-btn action-btn--delete"
               (click)="confirmDelete(project)"
               title="Delete project">
-              🗑️
+              <span class="material-symbols-rounded" style="font-size: 1.25rem;">delete</span>
             </button>
           </div>
         </div>
