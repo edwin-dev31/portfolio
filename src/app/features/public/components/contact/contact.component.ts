@@ -2,7 +2,9 @@ import { Component, ChangeDetectionStrategy, inject, OnInit, signal } from '@ang
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StateService } from '../../../../core/services/state.service';
+import { ContactFormService } from '../../../../core/services/contact-form.service';
 import { Contact } from '../../../../models/contact.model';
+import { ContactMessage } from '../../../../models/contact-message.model';
 import { Profile } from '../../../../models/profile.model';
 
 /**
@@ -30,6 +32,7 @@ import { Profile } from '../../../../models/profile.model';
 })
 export class ContactComponent implements OnInit {
   private stateService = inject(StateService);
+  private contactFormService = inject(ContactFormService);
   private fb = inject(FormBuilder);
 
   contact = signal<Contact | null>(null);
@@ -45,8 +48,8 @@ export class ContactComponent implements OnInit {
     this.contactForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      subject: ['', [Validators.required, Validators.minLength(3)]],
-      message: ['', [Validators.required, Validators.minLength(10)]]
+      subject: ['Proposal for new project', [Validators.required, Validators.minLength(3)]],
+      message: ['I would like to discuss a potential project with you.', [Validators.required, Validators.minLength(10)]]
     });
   }
 
@@ -113,16 +116,24 @@ export class ContactComponent implements OnInit {
     this.submitSuccess.set(false);
 
     try {
-      // Simulate form submission (replace with actual API call)
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const message: ContactMessage = this.contactForm.value;
       
-      console.log('Contact form submitted:', this.contactForm.value);
+      await new Promise((resolve, reject) => {
+        this.contactFormService.sendMessage(message).subscribe({
+          next: (response: any) => {
+            resolve(response);
+          },
+          error: (error: any) => {
+            console.error('Form submission error:', error);
+            reject(error);
+          }
+        });
+      });
       
       this.submitSuccess.set(true);
       this.contactForm.reset();
     } catch (error) {
       this.submitError.set('Failed to send message. Please try again.');
-      console.error('Form submission error:', error);
     } finally {
       this.isSubmitting.set(false);
     }

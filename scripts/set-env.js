@@ -28,8 +28,8 @@ const envContent = envTemplate
   .replace('${FIREBASE_APP_ID}', process.env.FIREBASE_APP_ID || '')
   .replace('${CLOUDINARY_API_KEY}', process.env.CLOUDINARY_API_KEY || '')
   .replace('${CLOUDINARY_API_SECRET}', process.env.CLOUDINARY_API_SECRET || '')
-  .replace('${CLOUDINARY_CLOUD_NAME}', process.env.CLOUDINARY_CLOUD_NAME || '');
-
+  .replace('${CLOUDINARY_CLOUD_NAME}', process.env.CLOUDINARY_CLOUD_NAME || '')
+  .replace('${CONTACT_WEBHOOK_URL}', process.env.CONTACT_WEBHOOK_URL || '');
 // For prod (Docker): keep __PLACEHOLDER__ as-is so the entrypoint replaces them at runtime
 // The prod template already uses __PLACEHOLDER__ syntax, just copy it directly
 const envProdContent = envProdTemplate;
