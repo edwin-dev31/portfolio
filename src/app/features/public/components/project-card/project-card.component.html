@@ -1,34 +1,53 @@
-<article 
-  class="project-card"
-  (click)="onCardClick()"
-  (keydown)="onKeyDown($event)"
-  tabindex="0"
-  role="button"
-  [attr.aria-label]="'View project: ' + project().title">
-  
-  <div class="project-card__image-wrapper">
-    <img 
-      appLazyLoadImage
-      [src]="project().image"
-      [alt]="project().title"
-      class="project-card__image" />
-    <div class="project-card__overlay"></div>
+@if (isLoading()) {
+  <div class="project-card project-card--skeleton">
+    <div class="project-card__image-container">
+      <div class="skeleton skeleton--image"></div>
+    </div>
+    <div class="project-card__content">
+      <div class="skeleton skeleton--badge"></div>
+      <div class="skeleton skeleton--title"></div>
+      <div class="skeleton skeleton--description"></div>
+      <div class="skeleton skeleton--tools"></div>
+    </div>
   </div>
+} @else {
+  <article
+    class="project-card"
+    (click)="onCardClick()"
+    (keydown.enter)="onCardClick()"
+    tabindex="0"
+    role="button"
+    [attr.aria-label]="'View details for ' + project().title">
 
-  <div class="project-card__content">
-    <h3 class="project-card__title">{{ project().title }}</h3>
-    <p class="project-card__category">{{ project().category }}</p>
-    <p class="project-card__description">{{ project().description }}</p>
-    
-    @if (project().tools && project().tools.length > 0) {
-      <div class="project-card__tools">
-        @for (tool of project().tools.slice(0, 3); track tool) {
-          <span class="project-card__tool">{{ tool }}</span>
-        }
-        @if (project().tools.length > 3) {
-          <span class="project-card__tool-more">+{{ project().tools.length - 3 }}</span>
-        }
+    <!-- Image Header -->
+    <div class="project-card__image-container">
+      <img
+        [ngSrc]="project().image"
+        [alt]="project().title"
+        class="project-card__image"
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+      <div class="project-card__overlay">
+        <span class="project-card__view-text">View Details</span>
       </div>
-    }
-  </div>
-</article>
+    </div>
+
+    <!-- Content -->
+    <div class="project-card__content">
+      <span class="project-card__category">{{ project().category }}</span>
+      <h3 class="project-card__title">{{ project().title }}</h3>
+      <p class="project-card__description">{{ project().description }}</p>
+
+      <div class="project-card__footer">
+        <div class="project-card__tools">
+          @for (tool of project().tools.slice(0, 3); track tool) {
+            <span class="tool-tag">{{ tool }}</span>
+          }
+          @if (project().tools.length > 3) {
+            <span class="tool-tag tool-tag--more">+{{ project().tools.length - 3 }}</span>
+          }
+        </div>
+      </div>
+    </div>
+  </article>
+}

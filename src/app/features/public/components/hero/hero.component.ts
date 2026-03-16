@@ -3,21 +3,6 @@ import { CommonModule } from '@angular/common';
 import { StateService } from '../../../../core/services/state.service';
 import { Profile } from '../../../../models/profile.model';
 
-/**
- * HeroComponent
- * 
- * Displays the hero section on the home page with portfolio name, title, tagline,
- * animated gradient background, and scroll-down indicator.
- * 
- * Features:
- * - Displays portfolio information from Profile model
- * - Animated gradient background
- * - Scroll-down indicator with smooth scroll
- * - Fully responsive with mobile-first approach
- * 
- * @example
- * <app-hero />
- */
 @Component({
   selector: 'app-hero',
   standalone: true,
@@ -28,7 +13,7 @@ import { Profile } from '../../../../models/profile.model';
 })
 export class HeroComponent implements OnInit {
   private stateService = inject(StateService);
-  
+
   profile = signal<Profile | null>(null);
   isLoading = signal(true);
 
@@ -47,13 +32,10 @@ export class HeroComponent implements OnInit {
     }
   }
 
-  /**
-   * Smooth scroll to the next section
-   */
   scrollToProjects(): void {
     const projectsSection = document.getElementById('projects');
     if (projectsSection) {
-      projectsSection.scrollIntoView({ 
+      projectsSection.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       });

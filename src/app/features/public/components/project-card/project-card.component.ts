@@ -1,7 +1,6 @@
 import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Project } from '../../../../models/project.model';
-import { LazyLoadImageDirective } from '../../../../shared/directives/lazy-load-image.directive';
 
 /**
  * ProjectCardComponent
@@ -12,7 +11,7 @@ import { LazyLoadImageDirective } from '../../../../shared/directives/lazy-load-
  * - Displays project title, short description, and featured image
  * - Hover micro-interactions (scale, shadow)
  * - Emits cardClick event when clicked
- * - Uses LazyLoadImageDirective for optimized image loading
+ * - Uses NgOptimizedImage for optimized image loading
  * 
  * @example
  * <app-project-card 
@@ -22,7 +21,7 @@ import { LazyLoadImageDirective } from '../../../../shared/directives/lazy-load-
 @Component({
   selector: 'app-project-card',
   standalone: true,
-  imports: [CommonModule, LazyLoadImageDirective],
+  imports: [CommonModule, NgOptimizedImage],
   templateUrl: './project-card.component.html',
   styleUrl: './project-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -32,6 +31,11 @@ export class ProjectCardComponent {
    * Project data to display
    */
   project = input.required<Project>();
+
+  /**
+   * Loading state for skeleton display
+   */
+  isLoading = input<boolean>(false);
 
   /**
    * Event emitted when card is clicked
