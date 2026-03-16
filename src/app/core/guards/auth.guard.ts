@@ -8,12 +8,13 @@ import { AuthService } from '../services/auth.service';
  * 
  * Requirements: 4.2, 8.3
  */
-export const authGuard: CanActivateFn = (route, state) => {
+export const authGuard: CanActivateFn = async (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  // Check if user is authenticated using signal
-  if (authService.isAuthenticated()) {
+  const user = await authService.waitForAuth();
+
+  if (user) {
     return true;
   }
 

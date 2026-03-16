@@ -105,7 +105,7 @@ export class DashboardComponent implements OnInit {
       this.projectToDelete.set(null);
     } catch (error) {
       console.error('Error deleting project:', error);
-      alert('Error al eliminar el proyecto. Por favor intenta de nuevo.');
+      alert('Error deleting project. Please try again.');
     } finally {
       this.isDeleting.set(false);
     }
@@ -120,7 +120,7 @@ export class DashboardComponent implements OnInit {
   async togglePublishStatus(project: Project): Promise<void> {
     // Placeholder - Project model doesn't have status field yet
     console.warn('Toggle publish status not implemented - Project model needs status field');
-    alert('Esta funcionalidad estará disponible próximamente');
+    alert('This feature will be available soon');
   }
 
   /**
@@ -142,6 +142,6 @@ export class DashboardComponent implements OnInit {
    */
   getStatusText(project: Project): string {
     // Placeholder - all projects are considered published for now
-    return 'Publicado';
+    return 'Published';
   }
 }

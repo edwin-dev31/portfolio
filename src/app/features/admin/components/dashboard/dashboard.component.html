@@ -5,7 +5,7 @@
       variant="primary" 
       size="md"
       (click)="createNewProject()">
-      + Crear Nuevo Proyecto
+      + Create New Project
     </app-button>
   </div>
 
@@ -15,7 +15,7 @@
       <div class="stat-card__icon">📊</div>
       <div class="stat-card__content">
         <h3 class="stat-card__value">{{ projects().length }}</h3>
-        <p class="stat-card__label">Total Proyectos</p>
+        <p class="stat-card__label">Total Projects</p>
       </div>
     </div>
 
@@ -23,7 +23,7 @@
       <div class="stat-card__icon">✅</div>
       <div class="stat-card__content">
         <h3 class="stat-card__value">{{ publishedCount() }}</h3>
-        <p class="stat-card__label">Publicados</p>
+        <p class="stat-card__label">Published</p>
       </div>
     </div>
 
@@ -31,34 +31,34 @@
       <div class="stat-card__icon">📝</div>
       <div class="stat-card__content">
         <h3 class="stat-card__value">{{ draftCount() }}</h3>
-        <p class="stat-card__label">Borradores</p>
+        <p class="stat-card__label">Drafts</p>
       </div>
     </div>
   </div>
 
   <!-- Projects List -->
   <div class="dashboard__projects">
-    <h2 class="dashboard__section-title">Todos los Proyectos</h2>
+    <h2 class="dashboard__section-title">All Projects</h2>
 
     <!-- Loading State -->
     <div *ngIf="isLoading()" class="dashboard__loading">
       <div class="spinner"></div>
-      <p>Cargando proyectos...</p>
+      <p>Loading projects...</p>
     </div>
 
     <!-- Empty State -->
     <div *ngIf="!isLoading() && projects().length === 0" class="dashboard__empty">
       <div class="empty-state">
         <div class="empty-state__icon">📁</div>
-        <h3 class="empty-state__title">No hay proyectos</h3>
+        <h3 class="empty-state__title">No projects found</h3>
         <p class="empty-state__description">
-          Comienza creando tu primer proyecto para mostrar en tu portfolio
+          Start by creating your first project to display in your portfolio
         </p>
         <app-button 
           variant="primary" 
           size="md"
           (click)="createNewProject()">
-          Crear Primer Proyecto
+          Create First Project
         </app-button>
       </div>
     </div>
@@ -66,11 +66,11 @@
     <!-- Projects Table -->
     <div *ngIf="!isLoading() && projects().length > 0" class="projects-table">
       <div class="projects-table__header">
-        <div class="projects-table__col projects-table__col--image">Imagen</div>
-        <div class="projects-table__col projects-table__col--title">Título</div>
-        <div class="projects-table__col projects-table__col--category">Categoría</div>
-        <div class="projects-table__col projects-table__col--status">Estado</div>
-        <div class="projects-table__col projects-table__col--actions">Acciones</div>
+        <div class="projects-table__col projects-table__col--image">Image</div>
+        <div class="projects-table__col projects-table__col--title">Title</div>
+        <div class="projects-table__col projects-table__col--category">Category</div>
+        <div class="projects-table__col projects-table__col--status">Status</div>
+        <div class="projects-table__col projects-table__col--actions">Actions</div>
       </div>
 
       <div class="projects-table__body">
@@ -111,21 +111,21 @@
             <button 
               class="action-btn action-btn--edit"
               (click)="editProject(project.id)"
-              title="Editar proyecto">
+              title="Edit project">
               ✏️
             </button>
             
             <button 
               class="action-btn action-btn--toggle"
               (click)="togglePublishStatus(project)"
-              title="Cambiar estado de publicación">
+              title="Toggle publish status">
               🔄
             </button>
             
             <button 
               class="action-btn action-btn--delete"
               (click)="confirmDelete(project)"
-              title="Eliminar proyecto">
+              title="Delete project">
               🗑️
             </button>
           </div>
@@ -138,15 +138,15 @@
 <!-- Delete Confirmation Modal -->
 <app-modal 
   [isOpen]="showDeleteModal()"
-  [title]="'Confirmar Eliminación'"
+  [title]="'Confirm Deletion'"
   (close)="cancelDelete()">
   <div class="delete-modal">
     <p class="delete-modal__message">
-      ¿Estás seguro de que deseas eliminar el proyecto 
+      Are you sure you want to delete the project 
       <strong>{{ projectToDelete()?.title }}</strong>?
     </p>
     <p class="delete-modal__warning">
-      Esta acción no se puede deshacer.
+      This action cannot be undone.
     </p>
     
     <div class="delete-modal__actions">
@@ -155,7 +155,7 @@
         size="md"
         [disabled]="isDeleting()"
         (click)="cancelDelete()">
-        Cancelar
+        Cancel
       </app-button>
       
       <app-button 
@@ -163,7 +163,7 @@
         size="md"
         [disabled]="isDeleting()"
         (click)="deleteProject()">
-        {{ isDeleting() ? 'Eliminando...' : 'Eliminar' }}
+        {{ isDeleting() ? 'Deleting...' : 'Delete' }}
       </app-button>
     </div>
   </div>

@@ -18,9 +18,22 @@
     @include glass;
     padding: var(--space-2xl);
     border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-2xl);
 
     @include mobile {
       padding: var(--space-xl);
+    }
+
+    // High specificity for dark theme glow
+    :host-context([data-theme="dark"]) & {
+      box-shadow: 0 0 30px rgba(76, 215, 246, 0.25), var(--shadow-2xl) !important;
+      border: 1px solid rgba(76, 215, 246, 0.4) !important;
+    }
+    
+    // Fallback if host-context isn't supported or structured differently
+    [data-theme="dark"] & {
+      box-shadow: 0 0 30px rgba(76, 215, 246, 0.25), var(--shadow-2xl) !important;
+      border: 1px solid rgba(76, 215, 246, 0.4) !important;
     }
   }
 
@@ -71,7 +84,16 @@
   }
 
   &__submit {
+    display: block;
     width: 100%;
+
+    // Use ::ng-deep to force internal button styles
+    ::ng-deep .btn {
+      width: 100% !important;
+      height: 3rem !important;
+      min-height: unset !important;
+      display: flex !important;
+    }
   }
 
   &__loading {
