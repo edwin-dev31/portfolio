@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, model, signal, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, model, signal, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CloudinaryService } from '../../../core/services/cloudinary.service';
 
@@ -47,6 +47,13 @@ export class ImageUploadComponent {
    * Drag over state for visual feedback
    */
   isDragOver = signal<boolean>(false);
+
+  constructor() {
+    // Sync previews with images whenever they change
+    effect(() => {
+      this.previews.set(this.images());
+    });
+  }
 
   /**
    * Handle file selection from input

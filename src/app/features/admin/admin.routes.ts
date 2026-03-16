@@ -30,6 +30,10 @@ export const adminRoutes: Routes = [
         canDeactivate: [canDeactivateGuard]
       },
       {
+        path: 'settings',
+        loadComponent: () => import('./components/settings/settings.component').then(m => m.SettingsComponent)
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'
