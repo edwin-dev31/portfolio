@@ -20,7 +20,6 @@ export class ContactFormService {
    * @returns Observable of the response
    */
   sendMessage(message: ContactMessage): Observable<any> {
-    console.log(this.webhookUrl)
     return this.http.post(this.webhookUrl, message);
   }
 }

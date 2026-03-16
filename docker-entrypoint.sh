@@ -10,6 +10,7 @@ find /usr/share/nginx/html -type f -name "*.js" | while read file; do
   sed -i "s|__FIREBASE_STORAGE_BUCKET__|${FIREBASE_STORAGE_BUCKET}|g" "$file"
   sed -i "s|__FIREBASE_MESSAGING_SENDER_ID__|${FIREBASE_MESSAGING_SENDER_ID}|g" "$file"
   sed -i "s|__FIREBASE_APP_ID__|${FIREBASE_APP_ID}|g" "$file"
+  sed -i "s|__CONTACT_WEBHOOK_URL__|${CONTACT_WEBHOOK_URL}|g" "$file"
 done
 
 echo "Done. Starting nginx..."
