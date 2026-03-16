@@ -12,5 +12,6 @@ export const environment = {
     apiKey: '${CLOUDINARY_API_KEY}',
     apiSecret: '${CLOUDINARY_API_SECRET}',
     cloudName: '${CLOUDINARY_CLOUD_NAME}'
-  }
+  },
+  contactWebhookUrl: '${CONTACT_WEBHOOK_URL}',
 };
