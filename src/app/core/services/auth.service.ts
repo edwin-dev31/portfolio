@@ -104,11 +104,29 @@ export class AuthService {
     try {
       const currentUser = this.auth.currentUser;
       if (currentUser) {
-        await currentUser.getIdToken(true); // Force refresh
+        await currentUser.getIdToken(true);
       }
     } catch (error: any) {
       throw this.transformAuthError(error);
     }
+  }
+
+  /**
+   * Wait for the initial authentication state to be resolved.
+   * Useful for router guards during page reload.
+   * @returns Promise that resolves with User or null
+   */
+  async waitForAuth(): Promise<User | null> {
+    return new Promise((resolve) => {
+      const unsubscribe = onAuthStateChanged(this.auth, (firebaseUser) => {
+        unsubscribe();
+        if (firebaseUser) {
+          resolve(this.mapFirebaseUserToUser(firebaseUser));
+        } else {
+          resolve(null);
+        }
+      });
+    });
   }
 
   /**
@@ -142,29 +160,29 @@ export class AuthService {
 
     switch (error.code) {
       case 'auth/invalid-email':
-        return new Error('El correo electrónico no es válido');
+        return new Error('Invalid email address');
       case 'auth/user-disabled':
-        return new Error('Esta cuenta ha sido deshabilitada');
+        return new Error('This account has been disabled');
       case 'auth/user-not-found':
-        return new Error('No existe una cuenta con este correo electrónico');
+        return new Error('No account found with this email');
       case 'auth/wrong-password':
-        return new Error('Contraseña incorrecta');
+        return new Error('Incorrect password');
       case 'auth/invalid-credential':
-        return new Error('Credenciales inválidas. Verifica tu correo y contraseña');
+        return new Error('Invalid credentials. Check your email and password');
       case 'auth/too-many-requests':
-        return new Error('Demasiados intentos fallidos. Intenta de nuevo más tarde');
+        return new Error('Too many failed attempts. Try again later');
       case 'auth/network-request-failed':
-        return new Error('Error de conexión. Verifica tu conexión a internet');
+        return new Error('Connection error. Check your internet connection');
       case 'auth/email-already-in-use':
-        return new Error('Ya existe una cuenta con este correo electrónico');
+        return new Error('An account already exists with this email');
       case 'auth/weak-password':
-        return new Error('La contraseña debe tener al menos 6 caracteres');
+        return new Error('Password must be at least 6 characters');
       case 'auth/operation-not-allowed':
-        return new Error('Operación no permitida. Contacta al administrador');
+        return new Error('Operation not allowed. Contact the administrator');
       case 'auth/requires-recent-login':
-        return new Error('Por seguridad, debes iniciar sesión nuevamente');
+        return new Error('Security requirement: Please log in again');
       default:
-        return new Error('Error de autenticación. Por favor intenta de nuevo');
+        return new Error('Authentication error. Please try again');
     }
   }
 }

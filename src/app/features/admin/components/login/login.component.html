@@ -3,8 +3,8 @@
     <div class="login__card">
       <!-- Header -->
       <div class="login__header">
-        <h1 class="login__title">Iniciar Sesión</h1>
-        <p class="login__subtitle">Accede al panel de administración</p>
+        <h1 class="login__title">Login</h1>
+        <p class="login__subtitle">Access the administration panel</p>
       </div>
 
       <!-- Error Message -->
@@ -22,8 +22,8 @@
         <!-- Email Field -->
         <div class="form-group">
           <label for="email" class="form-label">
-            Correo Electrónico
-            <span class="form-label__required" aria-label="requerido">*</span>
+            Email Address
+            <span class="form-label__required" aria-label="required">*</span>
           </label>
           <input
             id="email"
@@ -31,7 +31,7 @@
             formControlName="email"
             class="form-input"
             [class.form-input--error]="emailControl?.invalid && emailControl?.touched"
-            placeholder="tu@email.com"
+            placeholder="name@email.com"
             autocomplete="email"
             [attr.aria-invalid]="emailControl?.invalid && emailControl?.touched"
             [attr.aria-describedby]="emailControl?.invalid && emailControl?.touched ? 'email-error' : null"
@@ -46,8 +46,8 @@
         <!-- Password Field -->
         <div class="form-group">
           <label for="password" class="form-label">
-            Contraseña
-            <span class="form-label__required" aria-label="requerido">*</span>
+            Password
+            <span class="form-label__required" aria-label="required">*</span>
           </label>
           <input
             id="password"
@@ -67,24 +67,13 @@
           }
         </div>
 
-        <!-- Remember Me Checkbox -->
-        <div class="form-group form-group--checkbox">
-          <label class="form-checkbox">
-            <input
-              type="checkbox"
-              formControlName="rememberMe"
-              class="form-checkbox__input"
-            />
-            <span class="form-checkbox__label">Recordarme</span>
-          </label>
-        </div>
 
         <!-- Submit Button -->
         <div class="login__actions">
           <app-button
             type="submit"
             variant="primary"
-            size="lg"
+            size="md"
             [disabled]="isLoading()"
             class="login__submit"
           >
@@ -93,10 +82,10 @@
                 <svg class="login__spinner" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="50.265" stroke-dashoffset="12.566" />
                 </svg>
-                Iniciando sesión...
+                Logging in...
               </span>
             } @else {
-              Iniciar Sesión
+              Log In
             }
           </app-button>
         </div>

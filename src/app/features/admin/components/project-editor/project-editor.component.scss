@@ -171,6 +171,10 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   animation: slideUp 0.3s ease-out;
 
+  .material-symbols-rounded {
+    color: var(--color-primary);
+  }
+
   &__dot {
     width: 0.5rem;
     height: 0.5rem;

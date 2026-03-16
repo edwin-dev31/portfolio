@@ -38,14 +38,6 @@ $hex: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     animation: gradientShift 8s ease infinite;
   }
 
-  &__loading {
-    color: var(--color-text-primary);
-    font-size: var(--text-lg);
-    z-index: 1;
-  }
-
-  // ── Layout ─────────────────────────────────────────────
-
   &__content {
     display: flex;
     align-items: center;
@@ -54,13 +46,56 @@ $hex: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     width: 100%;
     max-width: 68.75rem;
     z-index: 1;
-    animation: fadeInUp 0.8s var(--ease-smooth) forwards;
+
+    // Angular animations (@crossFade) handle :enter + :leave transitions
+    // for both --skeleton and --visible modifiers.
 
     @include mobile {
       flex-direction: column-reverse;
       text-align: center;
       align-items: center;
     }
+  }
+
+  // Animation host – wraps both skeleton and real content during transition
+  &__anim-host {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    min-height: 28rem;
+
+    // Both children fill the host so :leave stays in place when it becomes absolute
+    .hero__content {
+      width: 100%;
+    }
+  }
+
+  // ── Skeleton ───────────────────────────────────────────
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.04) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0.04) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeletonLoading 1.8s ease-in-out infinite;
+    border-radius: var(--radius-sm);
+
+    &--greeting { width: 6.25rem; height: 1.25rem; }
+    &--name { width: 75%; height: 3.5rem; margin-top: var(--space-xs); }
+    &--title { width: 55%; height: 1.5rem; margin-top: var(--space-xs); }
+    &--description { width: 100%; height: 4.5rem; margin-top: var(--space-md); border-radius: var(--radius-md); }
+    &--cta { width: 9.375rem; height: 3rem; margin-top: var(--space-lg); border-radius: 50px; }
+    &--social-btn { width: 2.625rem; height: 2.625rem; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+  }
+
+  @keyframes skeletonLoading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
   }
 
   // ── Text ───────────────────────────────────────────────
@@ -238,6 +273,11 @@ $hex: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     background: var(--color-primary);
     padding: 0.1rem; // Borde "hilo" (el azul se reduce al mínimo)
 
+    &--skeleton {
+      background: rgba(255, 255, 255, 0.05);
+      animation: skeletonLoading 1.5s infinite linear;
+    }
+
     @include mobile {
       padding: 0;
       background: transparent;
@@ -323,8 +363,13 @@ $hex: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(1.875rem); }
+  from { opacity: 0; transform: translateY(1.5rem); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 @keyframes bounce {

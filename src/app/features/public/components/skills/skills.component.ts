@@ -4,67 +4,14 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../../../../core/services/data.service';
-import { Skill } from '../../../../models/skill.model';
+import { Skill, TECH_COLORS } from '../../../../models';
 
 interface CarouselRow {
   items: Skill[];
   direction: 'left' | 'right';
 }
 
-const ROW_SIZE = 7;
-
-/** Brand colors per technology name (lowercase) */
-const BRAND_COLORS: Record<string, string> = {
-  'angular':        '#dd0031',
-  'react':          '#61dafb',
-  'vue':            '#42b883',
-  'typescript':     '#3178c6',
-  'javascript':     '#f7df1e',
-  'node.js':        '#339933',
-  'nodejs':         '#339933',
-  'python':         '#3776ab',
-  'java':           '#f89820',
-  'kotlin':         '#7f52ff',
-  'swift':          '#f05138',
-  'go':             '#00add8',
-  'rust':           '#ce422b',
-  'docker':         '#2496ed',
-  'kubernetes':     '#326ce5',
-  'postgresql':     '#336791',
-  'mysql':          '#4479a1',
-  'mongodb':        '#47a248',
-  'redis':          '#dc382d',
-  'graphql':        '#e10098',
-  'git':            '#f05032',
-  'linux':          '#fcc624',
-  'aws':            '#ff9900',
-  'firebase':       '#ffca28',
-  'figma':          '#f24e1e',
-  'sass':           '#cc6699',
-  'scss':           '#cc6699',
-  'tailwind':       '#06b6d4',
-  'tailwindcss':    '#06b6d4',
-  'spring':         '#6db33f',
-  'springboot':     '#6db33f',
-  'django':         '#092e20',
-  'flutter':        '#02569b',
-  'dart':           '#0175c2',
-  'c#':             '#239120',
-  'csharp':         '#239120',
-  'c++':            '#00599c',
-  'cplusplus':      '#00599c',
-  'html5':          '#e34f26',
-  'html':           '#e34f26',
-  'css3':           '#1572b6',
-  'css':            '#1572b6',
-  'nextjs':         '#ffffff',
-  'next.js':        '#ffffff',
-  'nuxt':           '#00dc82',
-  'svelte':         '#ff3e00',
-  'terraform':      '#7b42bc',
-  'nginx':          '#009639',
-  'jenkins':        '#d33833',
-};
+const ROW_SIZE = 10;
 
 @Component({
   selector: 'app-skills',
@@ -83,10 +30,14 @@ export class SkillsComponent implements OnInit, AfterViewInit {
 
   rows = computed<CarouselRow[]>(() => {
     const all = this.skills();
+    const totalRows = Math.ceil(all.length / ROW_SIZE);
+    const itemsPerRow = Math.ceil(all.length / totalRows);
     const rows: CarouselRow[] = [];
-    for (let i = 0; i < all.length; i += ROW_SIZE) {
+    
+    for (let i = 0; i < all.length; i += itemsPerRow) {
+      const items = all.slice(i, i + itemsPerRow);
       rows.push({
-        items: all.slice(i, i + ROW_SIZE),
+        items,
         direction: rows.length % 2 === 0 ? 'left' : 'right'
       });
     }
@@ -146,6 +97,6 @@ export class SkillsComponent implements OnInit, AfterViewInit {
 
   /** Returns the brand color for a skill, falls back to primary */
   getBrandColor(name: string): string {
-    return BRAND_COLORS[name.toLowerCase()] ?? 'var(--color-primary)';
+    return TECH_COLORS[name.toLowerCase()] ?? 'var(--color-primary)';
   }
 }

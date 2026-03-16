@@ -11,3 +11,4 @@ export * from './project.model';
 export * from './contact.model';
 export * from './contact-message.model';
 export * from './user.model';
+export * from './tech-colors.model';

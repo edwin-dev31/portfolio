@@ -69,6 +69,7 @@ export class DataService {
       if (profile.tagline !== undefined) firestoreData['tagline'] = profile.tagline;
       if (profile.description !== undefined) firestoreData['description'] = profile.description;
       if (profile.yearAvailable !== undefined) firestoreData['yearAvailable'] = profile.yearAvailable;
+      if (profile.image !== undefined) firestoreData['image'] = profile.image;
       
       if (profile.stats) {
         firestoreData['stats'] = {

@@ -45,8 +45,7 @@ export class LoginComponent {
    */
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    rememberMe: [false]
+    password: ['', [Validators.required, Validators.minLength(6)]]
   });
 
   /**
@@ -69,10 +68,10 @@ export class LoginComponent {
   getEmailError(): string {
     const control = this.emailControl;
     if (control?.hasError('required')) {
-      return 'El correo electrónico es requerido';
+      return 'Email is required';
     }
     if (control?.hasError('email')) {
-      return 'Ingresa un correo electrónico válido';
+      return 'Enter a valid email address';
     }
     return '';
   }
@@ -83,10 +82,10 @@ export class LoginComponent {
   getPasswordError(): string {
     const control = this.passwordControl;
     if (control?.hasError('required')) {
-      return 'La contraseña es requerida';
+      return 'Password is required';
     }
     if (control?.hasError('minlength')) {
-      return 'La contraseña debe tener al menos 6 caracteres';
+      return 'Password must be at least 6 characters';
     }
     return '';
   }
@@ -121,7 +120,7 @@ export class LoginComponent {
       await this.router.navigate(['/admin/dashboard']);
     } catch (error: any) {
       // Display error message
-      this.errorMessage.set(error.message || 'Error al iniciar sesión. Por favor intenta de nuevo.');
+      this.errorMessage.set(error.message || 'Login failed. Please try again.');
     } finally {
       this.isLoading.set(false);
     }

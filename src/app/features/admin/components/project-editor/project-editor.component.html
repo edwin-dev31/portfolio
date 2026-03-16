@@ -107,7 +107,7 @@
                 (click)="removeTool(i)"
                 aria-label="Remove tool"
               >
-                ×
+                <span class="material-symbols-rounded" style="font-size: 1rem;">close</span>
               </button>
             </span>
           }
@@ -161,7 +161,7 @@
     <!-- Unsaved Changes Indicator -->
     @if (hasUnsavedChanges()) {
       <div class="unsaved-indicator">
-        <span class="unsaved-indicator__dot"></span>
+        <span class="material-symbols-rounded mr-1" style="font-size: 1rem;">error</span>
         Unsaved changes
       </div>
     }

@@ -2,8 +2,6 @@ import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
-import { ThemeService } from '../../../../core/services/theme.service';
-import { ThemeToggleComponent } from '../../../../shared/components/theme-toggle/theme-toggle.component';
 
 /**
  * AdminShellComponent
@@ -21,8 +19,7 @@ import { ThemeToggleComponent } from '../../../../shared/components/theme-toggle
     CommonModule, 
     RouterOutlet, 
     RouterLink, 
-    RouterLinkActive,
-    ThemeToggleComponent
+    RouterLinkActive
   ],
   templateUrl: './admin-shell.component.html',
   styleUrl: './admin-shell.component.scss',
@@ -30,12 +27,10 @@ import { ThemeToggleComponent } from '../../../../shared/components/theme-toggle
 })
 export class AdminShellComponent {
   private authService = inject(AuthService);
-  private themeService = inject(ThemeService);
   private router = inject(Router);
 
   // State
   currentUser = this.authService.currentUser;
-  currentTheme = this.themeService.currentTheme;
   isMobileMenuOpen = signal(false);
 
   /**

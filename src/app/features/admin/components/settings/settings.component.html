@@ -1,0 +1,271 @@
+<div class="settings">
+  <div class="settings__header">
+    <h1 class="settings__title">Settings</h1>
+    <p class="settings__subtitle">Manage your portfolio content and global configurations</p>
+  </div>
+
+  <!-- Tabs Navigation -->
+  <div class="settings__tabs">
+    <button 
+      class="tab-btn" 
+      [class.tab-btn--active]="activeTab() === 'profile'"
+      (click)="setActiveTab('profile')">
+      <span class="material-symbols-rounded">person</span>
+      Profile
+    </button>
+    <button 
+      class="tab-btn" 
+      [class.tab-btn--active]="activeTab() === 'about'"
+      (click)="setActiveTab('about')">
+      <span class="material-symbols-rounded">info</span>
+      About
+    </button>
+    <button 
+      class="tab-btn" 
+      [class.tab-btn--active]="activeTab() === 'skills'"
+      (click)="setActiveTab('skills')">
+      <span class="material-symbols-rounded">psychology</span>
+      Skills
+    </button>
+    <button 
+      class="tab-btn" 
+      [class.tab-btn--active]="activeTab() === 'contact'"
+      (click)="setActiveTab('contact')">
+      <span class="material-symbols-rounded">contact_mail</span>
+      Contact
+    </button>
+  </div>
+
+  <div class="settings__content">
+    <!-- Feedback Messages -->
+    @if (successMessage()) {
+      <div class="message message--success">
+        <span class="material-symbols-rounded">check_circle</span>
+        {{ successMessage() }}
+      </div>
+    }
+    @if (errorMessage()) {
+      <div class="message message--error">
+        <span class="material-symbols-rounded">error</span>
+        {{ errorMessage() }}
+      </div>
+    }
+
+    <!-- Profile Tab -->
+    @if (activeTab() === 'profile') {
+      <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="settings-form">
+        <div class="section-divider">Profile Photo</div>
+        <div class="profile-photo-upload">
+          @if (profilePreview()) {
+            <div class="profile-photo-preview">
+              <img [src]="profilePreview()" alt="Profile Preview">
+              <button type="button" class="remove-photo" (click)="removeProfileImage()">
+                <span class="material-symbols-rounded">close</span>
+              </button>
+            </div>
+          } @else {
+            <div class="profile-photo-placeholder" (click)="fileInput.click()">
+              <span class="material-symbols-rounded">add_a_photo</span>
+              <p>Click to select profile photo</p>
+            </div>
+          }
+          <input 
+            #fileInput
+            type="file" 
+            (change)="onProfileImageSelect($event)" 
+            accept="image/*" 
+            style="display: none">
+          <p class="upload-hint">New images will be uploaded when you save the profile.</p>
+        </div>
+
+        <div class="section-divider">General Information</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" formControlName="name" class="form-input" placeholder="e.g. Edwin Arias">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Professional Title</label>
+            <input type="text" formControlName="title" class="form-input" placeholder="e.g. Full Stack Developer">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tagline</label>
+          <input type="text" formControlName="tagline" class="form-input" placeholder="Catchy one-liner">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Short Description</label>
+          <textarea formControlName="description" class="form-input" rows="3"></textarea>
+        </div>
+
+        <div class="section-divider">Statistics & Global</div>
+        <div class="form-grid form-grid--3">
+          <div class="form-group">
+            <label class="form-label">Deployments</label>
+            <input type="number" formControlName="deployments" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Awards</label>
+            <input type="number" formControlName="awards" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Year Available</label>
+            <input type="number" formControlName="yearAvailable" class="form-input">
+          </div>
+        </div>
+
+        <div class="section-divider">Social Links</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">GitHub URL</label>
+            <input type="text" formControlName="github" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">LinkedIn URL</label>
+            <input type="text" formControlName="linkedin" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <app-button type="submit" variant="primary" [disabled]="profileForm.invalid || isLoading()">
+            {{ isLoading() ? 'Saving...' : 'Save Profile Changes' }}
+          </app-button>
+        </div>
+      </form>
+    }
+
+    <!-- About Tab -->
+    @if (activeTab() === 'about') {
+      <form [formGroup]="aboutForm" (ngSubmit)="saveAbout()" class="settings-form">
+        <div class="section-divider">Professional Journey</div>
+        <div class="form-group">
+          <label class="form-label">Journey Title</label>
+          <input type="text" formControlName="journeyTitle" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Journey Details</label>
+          <app-rich-text-editor [(content)]="aboutDescriptionContent"></app-rich-text-editor>
+        </div>
+
+        <div class="form-actions">
+          <app-button type="submit" variant="primary" [disabled]="aboutForm.invalid || isLoading()">
+            {{ isLoading() ? 'Saving...' : 'Save About Changes' }}
+          </app-button>
+        </div>
+      </form>
+    }
+
+    <!-- Skills Tab -->
+    @if (activeTab() === 'skills') {
+      <div class="skills-management">
+        <div class="section-divider">Add New Skill</div>
+        <form [formGroup]="skillForm" (ngSubmit)="addSkill()" class="skill-add-form">
+          <div class="form-grid">
+            <div class="form-group autocomplete-wrapper">
+              <label class="form-label">Skill Name</label>
+              <input 
+                type="text" 
+                formControlName="name" 
+                class="form-input" 
+                placeholder="Type to search..."
+                (input)="onSkillInput($event)"
+                (blur)="onSkillBlur()"
+                (focus)="onSkillFocus()"
+                autocomplete="off">
+              @if (showSkillDropdown()) {
+                <ul class="autocomplete-dropdown">
+                  @for (tech of skillSearchResults(); track tech) {
+                    <li class="autocomplete-option" (mousedown)="selectSkill(tech)">
+                      <span class="tech-color" [style.background]="getTechColor(tech)"></span>
+                      {{ tech }}
+                    </li>
+                  }
+                </ul>
+              }
+            </div>
+            <div class="form-group">
+              <label class="form-label">Category</label>
+              <select formControlName="category" class="form-input">
+                <option value="language">Language</option>
+                <option value="frontend">Frontend</option>
+                <option value="backend">Backend</option>
+                <option value="framework">Framework</option>
+                <option value="tool">Tool</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-actions">
+            <app-button type="submit" variant="primary" [disabled]="skillForm.invalid || isLoading()">
+              Add Skill
+            </app-button>
+          </div>
+        </form>
+
+        <div class="section-divider">Existing Skills</div>
+        <div class="skills-grid">
+          @for (category of ['language', 'frontend', 'backend', 'framework', 'tool', 'other']; track category) {
+            <div class="skill-category-group">
+              <h3 class="skill-category-title">{{ category | titlecase }}</h3>
+              <div class="skill-tags-list">
+                @for (skill of skills(); track skill.name) {
+                  @if (skill.category === category) {
+                    <div class="skill-tag-admin" [style.--tech-color]="getTechColor(skill.name)">
+                      <span>{{ skill.name }}</span>
+                      <button (click)="deleteSkill(skill.name)" class="skill-tag-admin__delete" title="Delete">
+                        <span class="material-symbols-rounded">close</span>
+                      </button>
+                    </div>
+                  }
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Contact Tab -->
+    @if (activeTab() === 'contact') {
+      <form [formGroup]="contactForm" (ngSubmit)="saveContact()" class="settings-form">
+        <div class="section-divider">Contact Channels</div>
+        <div class="form-group">
+          <label class="form-label">Main Business Email</label>
+          <input type="email" formControlName="email" class="form-input" placeholder="email@example.com">
+        </div>
+
+        <div class="section-divider">Call to Action (CTA)</div>
+
+        <div class="form-group">
+          <label class="form-label">CTA Title</label>
+          <input type="text" formControlName="ctaTitle" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">CTA Description</label>
+          <textarea formControlName="ctaDescription" class="form-input" rows="2"></textarea>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Primary Button Text</label>
+            <input type="text" formControlName="primaryButton" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Secondary Button Text</label>
+            <input type="text" formControlName="secondaryButton" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <app-button type="submit" variant="primary" [disabled]="contactForm.invalid || isLoading()">
+            {{ isLoading() ? 'Saving...' : 'Save Contact Changes' }}
+          </app-button>
+        </div>
+      </form>
+    }
+  </div>
+</div>

@@ -6,25 +6,17 @@ import {
   withInMemoryScrolling
 } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+// SE ELIMINÓ: provideAnimations
+import { IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideFirestore, getFirestore, initializeFirestore, persistentLocalCache } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 
 import { routes } from './app.routes';
 import { GlobalErrorHandler } from './core/handlers/global-error.handler';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
 
-/**
- * Application configuration
- *
- * - PreloadAllModules: preloads lazy feature chunks after initial load
- * - scrollPositionRestoration: restores scroll position on navigation
- * - GlobalErrorHandler: catches all uncaught errors (Requirements: 16.1)
- * - errorInterceptor: retries + transforms HTTP errors (Requirements: 16.1)
- *
- * Requirements: 8.5, 16.1
- */
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -35,8 +27,14 @@ export const appConfig: ApplicationConfig = {
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
     ),
     provideHttpClient(withInterceptors([errorInterceptor])),
+    { provide: IMAGE_LOADER, useValue: (config: ImageLoaderConfig) => config.src },
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => {
+      const app = initializeApp(environment.firebase);
+      return initializeFirestore(app, {
+        localCache: persistentLocalCache({})
+      });
+    })
   ]
 };
