@@ -11,7 +11,7 @@
     "watch": "npm run config && ng build --watch --configuration development",
     "test": "ng test",
     "docker:build": "docker build -t portfolio-angular:latest .",
-    "docker:run": "docker run -p 8080:8080 portfolio-angular:latest",
+    "docker:run": "docker run --name portfolio-angular -p 8080:8080 --env-file .env portfolio-angular:latest",
     "docker:compose": "docker-compose up --build"
   },
   "prettier": {

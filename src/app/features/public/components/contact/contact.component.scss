@@ -300,9 +300,13 @@
       cursor: not-allowed;
     }
 
+
     @include tablet {
       align-self: flex-end;
     }
+  }
+  :host-context([data-theme="light"]) &__submit {
+    color: var(--color-surface);
   }
 }
 

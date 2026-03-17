@@ -213,4 +213,9 @@
   .skill-card:hover .skill-icon::after {
     opacity: 0 !important;
   }
+  
+  & {
+    padding-top: var(--space-3xl);
+    background: linear-gradient(to bottom, #f0f9ff, var(--color-background));
+  }
 }
