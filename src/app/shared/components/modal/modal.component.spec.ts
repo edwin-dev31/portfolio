@@ -215,7 +215,7 @@ describe('ModalComponent', () => {
       fixture.componentRef.setInput('isOpen', true);
       fixture.detectChanges();
 
-      // Wait for focus trap to execute
+      
       await new Promise(resolve => setTimeout(resolve, 10));
 
       const dialog = fixture.debugElement.query(By.css('.modal-dialog'));
@@ -224,7 +224,7 @@ describe('ModalComponent', () => {
       );
 
       if (focusableElements.length > 0) {
-        // First focusable element should be the close button
+        
         expect(document.activeElement).toBe(focusableElements[0]);
       }
     });

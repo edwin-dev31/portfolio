@@ -1,17 +1,6 @@
 import { Component, ChangeDetectionStrategy, model, signal, ElementRef, viewChild, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-/**
- * RichTextEditorComponent
- * 
- * A simple rich text editor for project descriptions.
- * Supports basic formatting: bold, italic, lists, and links.
- * Uses contenteditable for editing with toolbar controls.
- * 
- * @example
- * <app-rich-text-editor [(content)]="projectDescription">
- * </app-rich-text-editor>
- */
 @Component({
   selector: 'app-rich-text-editor',
   standalone: true,
@@ -21,29 +10,21 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RichTextEditorComponent {
-  /**
-   * HTML content (two-way binding)
-   */
+  
   content = model<string>('');
 
-  /**
-   * Reference to the contenteditable div
-   */
+  
   private editorElement = viewChild<ElementRef<HTMLDivElement>>('editor');
 
-  /**
-   * Active formatting states
-   */
+  
   isBold = signal<boolean>(false);
   isItalic = signal<boolean>(false);
 
-  /**
-   * Flag to prevent circular updates
-   */
+  
   private isUpdatingFromUser = false;
 
   constructor() {
-    // Update editor content when content model changes externally
+    
     effect(() => {
       const newContent = this.content();
       const editor = this.editorElement();
@@ -57,46 +38,34 @@ export class RichTextEditorComponent {
     });
   }
 
-  /**
-   * Execute formatting command
-   */
+  
   execCommand(command: string, value?: string): void {
     document.execCommand(command, false, value);
     this.updateContent();
     this.updateToolbarState();
   }
 
-  /**
-   * Toggle bold formatting
-   */
+  
   toggleBold(): void {
     this.execCommand('bold');
   }
 
-  /**
-   * Toggle italic formatting
-   */
+  
   toggleItalic(): void {
     this.execCommand('italic');
   }
 
-  /**
-   * Insert unordered list
-   */
+  
   insertUnorderedList(): void {
     this.execCommand('insertUnorderedList');
   }
 
-  /**
-   * Insert ordered list
-   */
+  
   insertOrderedList(): void {
     this.execCommand('insertOrderedList');
   }
 
-  /**
-   * Insert link
-   */
+  
   insertLink(): void {
     const url = prompt('Enter URL:');
     if (url) {
@@ -104,9 +73,7 @@ export class RichTextEditorComponent {
     }
   }
 
-  /**
-   * Handle content changes
-   */
+  
   onContentChange(event: Event): void {
     this.isUpdatingFromUser = true;
     this.updateContent();
@@ -114,9 +81,7 @@ export class RichTextEditorComponent {
     this.isUpdatingFromUser = false;
   }
 
-  /**
-   * Update content model from editor
-   */
+  
   private updateContent(): void {
     const editor = this.editorElement();
     if (editor) {
@@ -124,17 +89,13 @@ export class RichTextEditorComponent {
     }
   }
 
-  /**
-   * Update toolbar button states based on current selection
-   */
+  
   private updateToolbarState(): void {
     this.isBold.set(document.queryCommandState('bold'));
     this.isItalic.set(document.queryCommandState('italic'));
   }
 
-  /**
-   * Handle paste event to clean up formatting
-   */
+  
   onPaste(event: ClipboardEvent): void {
     event.preventDefault();
     

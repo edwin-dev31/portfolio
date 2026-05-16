@@ -12,7 +12,7 @@ describe('LoginComponent', () => {
   let mockRouter: Partial<Router>;
 
   beforeEach(async () => {
-    // Create mock AuthService
+    
     mockAuthService = {
       currentUser: signal(null),
       isAuthenticated: signal(false),
@@ -20,7 +20,7 @@ describe('LoginComponent', () => {
       logout: vi.fn()
     };
 
-    // Create mock Router
+    
     mockRouter = {
       navigate: vi.fn()
     };

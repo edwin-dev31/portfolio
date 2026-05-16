@@ -5,13 +5,13 @@
   position: relative;
   border-radius: var(--radius-md);
   
-  // Glassmorphism effect
+  
   @include glass;
   
-  // Smooth transitions for hover effects
+  
   @include transition(transform, box-shadow);
   
-  // Elevation variants (shadow depth)
+  
   &--elevation-none {
     box-shadow: none;
   }
@@ -32,7 +32,7 @@
     box-shadow: var(--shadow-xl);
   }
   
-  // Padding variants
+  
   &--padding-none {
     padding: 0;
   }
@@ -53,7 +53,7 @@
     padding: var(--space-xl);
   }
   
-  // Hover micro-interactions with custom easing
+  
   &--hoverable {
     cursor: pointer;
     
@@ -61,7 +61,7 @@
       transform: translateY(-4px);
       box-shadow: var(--shadow-xl);
       
-      // Enhanced glassmorphism on hover
+      
       background: var(--glass-background-hover, var(--glass-background));
     }
     

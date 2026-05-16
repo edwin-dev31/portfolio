@@ -7,21 +7,6 @@ import { Contact } from '../../../../models/contact.model';
 import { ContactMessage } from '../../../../models/contact-message.model';
 import { Profile } from '../../../../models/profile.model';
 
-/**
- * ContactComponent
- * 
- * Displays contact information and a contact form with validation.
- * 
- * Features:
- * - Shows email and social links from profile
- * - Contact form with validation
- * - ARIA labels for accessibility
- * - Availability status indicator
- * - Responsive design
- * 
- * @example
- * <app-contact />
- */
 @Component({
   selector: 'app-contact',
   standalone: true,
@@ -73,17 +58,13 @@ export class ContactComponent implements OnInit {
     }
   }
 
-  /**
-   * Check if a form field has an error and has been touched
-   */
+  
   hasError(fieldName: string): boolean {
     const field = this.contactForm.get(fieldName);
     return !!(field && field.invalid && (field.dirty || field.touched));
   }
 
-  /**
-   * Get error message for a form field
-   */
+  
   getErrorMessage(fieldName: string): string {
     const field = this.contactForm.get(fieldName);
     if (!field || !field.errors) return '';
@@ -102,9 +83,7 @@ export class ContactComponent implements OnInit {
     return 'Invalid value';
   }
 
-  /**
-   * Handle form submission
-   */
+  
   async onSubmit(): Promise<void> {
     if (this.contactForm.invalid) {
       this.contactForm.markAllAsTouched();
@@ -139,35 +118,27 @@ export class ContactComponent implements OnInit {
     }
   }
 
-  /**
-   * Get current year for availability
-   */
+  
   get currentYear(): number {
     return new Date().getFullYear();
   }
 
-  /**
-   * Check if available for work
-   */
+  
   get isAvailable(): boolean {
     const profile = this.profile();
     return profile ? profile.yearAvailable >= this.currentYear : false;
   }
 
-  /**
-   * Ensure URL has proper protocol
-   * @param url - URL to normalize
-   * @returns URL with https:// protocol
-   */
+  
   normalizeUrl(url: string): string {
     if (!url) return '';
     
-    // If URL already has protocol, return as is
+    
     if (url.startsWith('http://') || url.startsWith('https://')) {
       return url;
     }
     
-    // Add https:// protocol
+    
     return `https://${url}`;
   }
 }

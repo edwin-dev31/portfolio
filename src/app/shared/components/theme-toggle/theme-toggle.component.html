@@ -5,7 +5,7 @@
   [attr.aria-label]="currentTheme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
   [attr.aria-pressed]="currentTheme() === 'dark'">
   
-  <!-- Sun Icon (Light Mode) -->
+  
   @if (currentTheme() === 'dark') {
     <svg 
       class="theme-toggle__icon"
@@ -31,7 +31,7 @@
     </svg>
   }
   
-  <!-- Moon Icon (Dark Mode) -->
+  
   @else {
     <svg 
       class="theme-toggle__icon"

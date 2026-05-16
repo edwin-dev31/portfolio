@@ -13,7 +13,7 @@
               box-shadow var(--transition-base) var(--ease-custom);
   height: 100%;
 
-  // Hover micro-interactions
+  
   &:hover {
     transform: translateY(-0.5rem) scale(1.02);
     box-shadow: var(--shadow-xl), var(--shadow-glow);
@@ -27,13 +27,13 @@
     }
   }
 
-  // Focus state for accessibility
+  
   &:focus-visible {
     @include focus-ring;
     outline-offset: 0.25rem;
   }
 
-  // Active state
+  
   &:active {
     transform: translateY(-0.25rem) scale(1.01);
   }
@@ -41,7 +41,7 @@
   &__image-container {
     position: relative;
     width: 100%;
-    padding-top: 66.67%; // 3:2 aspect ratio
+    padding-top: 66.67%; 
     overflow: hidden;
     background: var(--color-surface-container);
   }
@@ -74,7 +74,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
-    min-height: 11.25rem; // Ensure consistent content height
+    min-height: 11.25rem; 
   }
 
   &__title {
@@ -109,7 +109,7 @@
     line-height: var(--leading-relaxed);
     flex: 1;
     
-    // Limit to 3 lines with ellipsis
+    
     display: -webkit-box;
     -webkit-line-clamp: 3;
     line-clamp: 3;
@@ -144,17 +144,15 @@
   }
 }
 
-// Responsive adjustments
 @include mobile {
   .project-card {
     &:hover {
-      // Reduce hover effect on mobile
+      
       transform: translateY(-0.25rem) scale(1.01);
     }
   }
 }
 
-// Skeleton shimmer
 .skeleton {
   background: linear-gradient(
     90deg,
@@ -206,7 +204,6 @@
   }
 }
 
-// Entry animation for real cards when data arrives
 article.project-card {
   animation: cardFadeInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }

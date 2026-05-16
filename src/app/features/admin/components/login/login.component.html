@@ -1,13 +1,13 @@
 <div class="login">
   <div class="login__container">
     <div class="login__card">
-      <!-- Header -->
+      
       <div class="login__header">
         <h1 class="login__title">Login</h1>
         <p class="login__subtitle">Access the administration panel</p>
       </div>
 
-      <!-- Error Message -->
+      
       @if (errorMessage()) {
         <div class="login__error" role="alert" aria-live="assertive">
           <svg class="login__error-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,9 +17,9 @@
         </div>
       }
 
-      <!-- Login Form -->
+      
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login__form">
-        <!-- Email Field -->
+        
         <div class="form-group">
           <label for="email" class="form-label">
             Email Address
@@ -43,7 +43,7 @@
           }
         </div>
 
-        <!-- Password Field -->
+        
         <div class="form-group">
           <label for="password" class="form-label">
             Password
@@ -67,8 +67,7 @@
           }
         </div>
 
-
-        <!-- Submit Button -->
+        
         <div class="login__actions">
           <app-button
             type="submit"
@@ -91,7 +90,7 @@
         </div>
       </form>
 
-      <!-- Portfolio Link -->
+      
       <div class="login__footer">
         <a routerLink="/" class="login__portfolio-link">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

@@ -2,12 +2,6 @@ import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { ErrorService, Toast } from '../../../core/services/error.service';
 
-/**
- * ToastComponent renders the active toast notifications from ErrorService.
- * Placed in the root AppComponent template so it's always visible.
- *
- * Requirements: 16.1
- */
 @Component({
   selector: 'app-toast',
   standalone: true,

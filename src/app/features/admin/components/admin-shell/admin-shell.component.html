@@ -1,10 +1,10 @@
 <div class="admin-shell">
-  <!-- Sidebar -->
+  
   <aside 
     class="admin-shell__sidebar"
     [class.admin-shell__sidebar--open]="isMobileMenuOpen()">
     
-    <!-- Logo/Brand -->
+    
     <div class="sidebar__header">
       <h2 class="sidebar__logo">Portfolio Admin</h2>
       <button 
@@ -15,7 +15,7 @@
       </button>
     </div>
 
-    <!-- Navigation -->
+    
     <nav class="sidebar__nav">
       <a 
         routerLink="/admin/dashboard"
@@ -36,7 +36,7 @@
       </a>
     </nav>
 
-    <!-- User Info -->
+    
     <div class="sidebar__user">
       <div class="user-info">
         <div class="user-info__avatar">
@@ -57,16 +57,16 @@
     </div>
   </aside>
 
-  <!-- Mobile Menu Overlay -->
+  
   <div 
     class="admin-shell__overlay"
     [class.admin-shell__overlay--visible]="isMobileMenuOpen()"
     (click)="closeMobileMenu()">
   </div>
 
-  <!-- Main Content -->
+  
   <div class="admin-shell__main">
-    <!-- Header -->
+    
     <header class="admin-shell__header">
       <button 
         class="header__menu-toggle"
@@ -77,7 +77,7 @@
 
     </header>
 
-    <!-- Content -->
+    
     <main class="admin-shell__content">
       <router-outlet />
     </main>

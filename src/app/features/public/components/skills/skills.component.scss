@@ -46,7 +46,7 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding: 0.875rem 0; /* absorbs the translateY(-0.3125rem) + scale(1.08) expansion */
+  padding: 0.875rem 0; 
 
   &::before,
   &::after {
@@ -74,8 +74,6 @@
   }
 }
 
-// --set-width is set by JS to the pixel width of the original card set.
-// Animating by exactly that amount means the loop resets invisibly.
 .carousel-track {
   display: flex;
   gap: var(--space-xl);
@@ -123,7 +121,7 @@
   transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
   z-index: 0;
 
-  // Glow layer — only visible in dark mode
+  
   &::after {
     content: '';
     position: absolute;
@@ -208,7 +206,6 @@
   .carousel-track { animation: none !important; }
 }
 
-// In light mode, suppress the center glow — keep only the border highlight
 :host-context([data-theme="light"]) {
   .skill-card:hover .skill-icon::after {
     opacity: 0 !important;

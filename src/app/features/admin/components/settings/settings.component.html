@@ -4,7 +4,7 @@
     <p class="settings__subtitle">Manage your portfolio content and global configurations</p>
   </div>
 
-  <!-- Tabs Navigation -->
+  
   <div class="settings__tabs">
     <button 
       class="tab-btn" 
@@ -37,7 +37,7 @@
   </div>
 
   <div class="settings__content">
-    <!-- Feedback Messages -->
+    
     @if (successMessage()) {
       <div class="message message--success">
         <span class="material-symbols-rounded">check_circle</span>
@@ -51,7 +51,7 @@
       </div>
     }
 
-    <!-- Profile Tab -->
+    
     @if (activeTab() === 'profile') {
       <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="settings-form">
         <div class="section-divider">Profile Photo</div>
@@ -136,7 +136,7 @@
       </form>
     }
 
-    <!-- About Tab -->
+    
     @if (activeTab() === 'about') {
       <form [formGroup]="aboutForm" (ngSubmit)="saveAbout()" class="settings-form">
         <div class="section-divider">Professional Journey</div>
@@ -158,7 +158,7 @@
       </form>
     }
 
-    <!-- Skills Tab -->
+    
     @if (activeTab() === 'skills') {
       <div class="skills-management">
         <div class="section-divider">Add New Skill</div>
@@ -228,7 +228,7 @@
       </div>
     }
 
-    <!-- Contact Tab -->
+    
     @if (activeTab() === 'contact') {
       <form [formGroup]="contactForm" (ngSubmit)="saveContact()" class="settings-form">
         <div class="section-divider">Contact Channels</div>

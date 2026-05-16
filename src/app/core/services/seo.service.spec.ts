@@ -18,7 +18,7 @@ describe('SeoService', () => {
   });
 
   afterEach(() => {
-    // Clean up canonical link and structured data script
+    
     const canonical = document.querySelector('link[rel="canonical"]');
     canonical?.remove();
     const script = document.getElementById('structured-data-json-ld');

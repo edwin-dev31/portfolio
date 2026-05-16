@@ -12,7 +12,7 @@ describe('HomeComponent', () => {
   let mockStateService: any;
   let mockRouter: any;
 
-  // Mock IntersectionObserver
+  
   beforeAll(() => {
     (globalThis as any).IntersectionObserver = class IntersectionObserver {
       constructor() {}
@@ -93,7 +93,7 @@ describe('HomeComponent', () => {
   });
 
   it('should show loading state while projects are loading', async () => {
-    // Create new component with loading state
+    
     const publishedProjectsSignal = signal<Project[]>([]);
     const isLoadingSignal = signal<boolean>(true);
 
@@ -129,7 +129,7 @@ describe('HomeComponent', () => {
   });
 
   it('should handle empty projects array', async () => {
-    // Create new component with empty projects
+    
     const emptyProjectsSignal = signal<Project[]>([]);
     const isLoadingSignal = signal<boolean>(false);
 

@@ -40,7 +40,6 @@
   }
 }
 
-// Form Groups
 .form-group {
   margin-bottom: var(--space-lg);
 }
@@ -95,7 +94,6 @@
   color: var(--color-error);
 }
 
-// Tools Management
 .tools-input {
   margin-bottom: var(--space-sm);
 }
@@ -144,7 +142,6 @@
   }
 }
 
-// Form Actions
 .form-actions {
   display: flex;
   gap: var(--space-md);
@@ -154,7 +151,6 @@
   border-top: 0.0625rem solid var(--color-border);
 }
 
-// Unsaved Changes Indicator
 .unsaved-indicator {
   position: fixed;
   bottom: var(--space-lg);
@@ -184,7 +180,6 @@
   }
 }
 
-// Animations
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -216,7 +211,6 @@
   }
 }
 
-// Responsive Design
 @media (max-width: 48rem) {
   .project-editor {
     padding: var(--space-md);

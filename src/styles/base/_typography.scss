@@ -1,21 +1,9 @@
-// Typography Styles
-// Font imports and typographic scale
-
-// Import variables for breakpoints
 @use '../abstracts/variables' as *;
 
-// ============================================
-// Font Imports
-// ============================================
-// Manrope for headlines
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
 
-// Inter for body text
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-// ============================================
-// Base Typography
-// ============================================
 body {
   font-family: var(--font-body);
   font-size: var(--text-base);
@@ -27,9 +15,6 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-// ============================================
-// Headings
-// ============================================
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-headline);
   font-weight: var(--font-bold);
@@ -110,9 +95,6 @@ h6 {
   }
 }
 
-// ============================================
-// Paragraphs
-// ============================================
 p {
   margin: 0 0 var(--space-md) 0;
   line-height: var(--leading-relaxed);
@@ -123,9 +105,6 @@ p {
   }
 }
 
-// ============================================
-// Links
-// ============================================
 a {
   color: var(--color-primary);
   text-decoration: none;
@@ -142,9 +121,6 @@ a {
   }
 }
 
-// ============================================
-// Lists
-// ============================================
 ul, ol {
   margin: 0 0 var(--space-md) 0;
   padding-left: var(--space-lg);
@@ -164,9 +140,6 @@ li {
   }
 }
 
-// ============================================
-// Text Utilities
-// ============================================
 .text-primary {
   color: var(--color-text-primary);
 }
@@ -183,7 +156,6 @@ li {
   color: var(--color-primary);
 }
 
-// Font Sizes
 .text-xs { font-size: var(--text-xs); }
 .text-sm { font-size: var(--text-sm); }
 .text-base { font-size: var(--text-base); }
@@ -195,7 +167,6 @@ li {
 .text-5xl { font-size: var(--text-5xl); }
 .text-6xl { font-size: var(--text-6xl); }
 
-// Font Weights
 .font-light { font-weight: var(--font-light); }
 .font-normal { font-weight: var(--font-normal); }
 .font-medium { font-weight: var(--font-medium); }
@@ -203,26 +174,20 @@ li {
 .font-bold { font-weight: var(--font-bold); }
 .font-extrabold { font-weight: var(--font-extrabold); }
 
-// Text Alignment
 .text-left { text-align: left; }
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 
-// Text Transform
 .uppercase { text-transform: uppercase; }
 .lowercase { text-transform: lowercase; }
 .capitalize { text-transform: capitalize; }
 
-// Line Height
 .leading-tight { line-height: var(--leading-tight); }
 .leading-snug { line-height: var(--leading-snug); }
 .leading-normal { line-height: var(--leading-normal); }
 .leading-relaxed { line-height: var(--leading-relaxed); }
 .leading-loose { line-height: var(--leading-loose); }
 
-// ============================================
-// Code & Preformatted Text
-// ============================================
 code, pre {
   font-family: 'Fira Code', 'Courier New', monospace;
   font-size: 0.9em;
@@ -248,9 +213,6 @@ pre {
   }
 }
 
-// ============================================
-// Blockquotes
-// ============================================
 blockquote {
   margin: 0 0 var(--space-md) 0;
   padding-left: var(--space-lg);
@@ -259,9 +221,6 @@ blockquote {
   color: var(--color-text-secondary);
 }
 
-// ============================================
-// Selection
-// ============================================
 ::selection {
   background-color: var(--color-primary);
   color: var(--color-background);

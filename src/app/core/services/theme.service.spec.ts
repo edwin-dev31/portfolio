@@ -7,7 +7,7 @@ describe('ThemeService', () => {
   let localStorageMock: { [key: string]: string };
 
   beforeEach(() => {
-    // Mock localStorage
+    
     localStorageMock = {};
     
     globalThis.localStorage = {
@@ -25,14 +25,14 @@ describe('ThemeService', () => {
       key: vi.fn()
     } as Storage;
 
-    // Mock document.documentElement.setAttribute
+    
     globalThis.document = {
       documentElement: {
         setAttribute: vi.fn()
       }
     } as any;
 
-    // Mock window.matchMedia
+    
     globalThis.window = {
       matchMedia: vi.fn(() => ({
         matches: false,
@@ -51,53 +51,40 @@ describe('ThemeService', () => {
     vi.clearAllMocks();
   });
 
-  /**
-   * **Validates: Requirements 2.2**
-   * 
-   * Property 2: Theme Persistence Round Trip
-   * 
-   * This property test verifies that any theme value ('light' or 'dark')
-   * can be set, persisted to localStorage, and restored correctly.
-   * 
-   * The test ensures:
-   * 1. Any valid theme value can be set
-   * 2. The theme is correctly persisted to localStorage
-   * 3. The theme can be restored from localStorage
-   * 4. The round-trip property holds for all valid theme values
-   */
+  
   it('Property 2: Theme Persistence Round Trip - any theme value persists and restores correctly', () => {
     fc.assert(
       fc.property(
         fc.constantFrom('light' as const, 'dark' as const),
         (theme) => {
-          // Clear localStorage before each test
+          
           localStorageMock = {};
           
-          // Create a new service instance (simulating app initialization)
+          
           service = new ThemeService();
           
-          // Set the theme
+          
           service.setTheme(theme);
           
-          // Verify theme is persisted to localStorage
+          
           expect(localStorage.setItem).toHaveBeenCalledWith('theme', theme);
           expect(localStorageMock['theme']).toBe(theme);
           
-          // Verify theme signal is updated
+          
           expect(service.currentTheme()).toBe(theme);
           
-          // Verify DOM attribute is set
+          
           expect(document.documentElement.setAttribute).toHaveBeenCalledWith('data-theme', theme);
           
-          // Simulate app restart by creating a new service instance
-          // This should restore the theme from localStorage
+          
+          
           const newService = new ThemeService();
           
-          // Verify the theme was restored correctly
+          
           expect(localStorage.getItem).toHaveBeenCalledWith('theme');
           expect(newService.currentTheme()).toBe(theme);
           
-          // Round-trip property: the restored theme should match the original
+          
           return newService.currentTheme() === theme;
         }
       ),

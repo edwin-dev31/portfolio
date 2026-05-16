@@ -4,7 +4,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { LazyLoadImageDirective } from './lazy-load-image.directive';
 
-// Mock IntersectionObserver globally before any tests run
 beforeAll(() => {
   (globalThis as any).IntersectionObserver = class IntersectionObserver {
     constructor(public callback: IntersectionObserverCallback, public options?: IntersectionObserverInit) {}

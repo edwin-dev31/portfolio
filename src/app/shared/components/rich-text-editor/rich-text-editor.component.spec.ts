@@ -8,7 +8,7 @@ describe('RichTextEditorComponent', () => {
   let fixture: ComponentFixture<RichTextEditorComponent>;
 
   beforeEach(async () => {
-    // Mock document.execCommand
+    
     document.execCommand = vi.fn().mockReturnValue(true);
     document.queryCommandState = vi.fn().mockReturnValue(false);
 

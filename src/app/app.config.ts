@@ -6,7 +6,7 @@ import {
   withInMemoryScrolling
 } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-// SE ELIMINÓ: provideAnimations
+
 import { IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';

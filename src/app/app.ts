@@ -15,7 +15,7 @@ export class App {
   private themeService = inject(ThemeService);
   
   constructor() {
-    // Initialize theme on app startup
+    
     this.themeService.initializeTheme();
   }
 }

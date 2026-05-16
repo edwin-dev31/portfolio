@@ -85,7 +85,7 @@ describe('AdminShellComponent', () => {
   });
 
   it('should get user display name from email when displayName is not available', async () => {
-    // Create new mock with different user
+    
     const mockAuthServiceNoName = {
       logout: vi.fn(),
       currentUser: signal({
@@ -111,7 +111,7 @@ describe('AdminShellComponent', () => {
   });
 
   it('should return default display name when user is null', async () => {
-    // Create new mock with null user
+    
     const mockAuthServiceNullUser = {
       logout: vi.fn(),
       currentUser: signal(null)
@@ -139,7 +139,7 @@ describe('AdminShellComponent', () => {
   });
 
   it('should get user initials from email when displayName is not available', async () => {
-    // Create new mock with different user
+    
     const mockAuthServiceNoName = {
       logout: vi.fn(),
       currentUser: signal({
@@ -165,7 +165,7 @@ describe('AdminShellComponent', () => {
   });
 
   it('should return default initials when user is null', async () => {
-    // Create new mock with null user
+    
     const mockAuthServiceNullUser = {
       logout: vi.fn(),
       currentUser: signal(null)

@@ -25,17 +25,17 @@
     display: grid;
     gap: var(--space-lg);
     
-    // Mobile: 1 column
+    
     grid-template-columns: 1fr;
 
     @include tablet {
-      // Tablet: 2 columns
+      
       grid-template-columns: repeat(2, 1fr);
       gap: var(--space-xl);
     }
 
     @include desktop {
-      // Desktop: 3 columns - uniform layout
+      
       grid-template-columns: repeat(3, 1fr);
       gap: var(--space-2xl);
     }
@@ -93,7 +93,6 @@
   }
 }
 
-// Animation for grid items
 .project-grid__item {
   animation: gridItemReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 

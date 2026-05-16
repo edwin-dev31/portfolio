@@ -46,10 +46,10 @@ export class SettingsComponent implements OnInit {
   
   availableTechs = Object.keys(TECH_COLORS).sort();
   
-  // For About Rich Text
+  
   aboutDescriptionContent = '';
   
-  // For Profile Image
+  
   profilePreview = signal<string | null>(null);
   selectedFile = signal<File | null>(null);
 
@@ -93,7 +93,7 @@ export class SettingsComponent implements OnInit {
   private loadData() {
     this.isLoading.set(true);
     
-    // Load Profile
+    
     this.dataService.getProfile().subscribe({
       next: (profile) => {
         this.profileForm.patchValue({
@@ -113,7 +113,7 @@ export class SettingsComponent implements OnInit {
       error: (err) => this.errorMessage.set(err.message)
     });
 
-    // Load About
+    
     this.dataService.getAbout().subscribe({
       next: (about) => {
         this.aboutForm.patchValue({
@@ -124,13 +124,13 @@ export class SettingsComponent implements OnInit {
       error: (err) => this.errorMessage.set(err.message)
     });
 
-    // Load Skills
+    
     this.dataService.getSkills().subscribe({
       next: (skills) => this.skills.set(skills),
       error: (err) => this.errorMessage.set(err.message)
     });
 
-    // Load Contact
+    
     this.dataService.getContact().pipe(
       finalize(() => this.isLoading.set(false))
     ).subscribe({
@@ -160,7 +160,7 @@ export class SettingsComponent implements OnInit {
     try {
       let imageUrl = this.profilePreview();
 
-      // Upload image if a new file was selected
+      
       if (this.selectedFile()) {
         imageUrl = await this.cloudinaryService.uploadImage(this.selectedFile()!, 'portfolio/profile');
       }
@@ -324,7 +324,7 @@ export class SettingsComponent implements OnInit {
       const file = input.files[0];
       this.selectedFile.set(file);
       
-      // Create local preview
+      
       const reader = new FileReader();
       reader.onload = (e) => this.profilePreview.set(e.target?.result as string);
       reader.readAsDataURL(file);

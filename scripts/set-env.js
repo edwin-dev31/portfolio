@@ -14,11 +14,9 @@ const targetProdPath = path.join(__dirname, '../src/environments/environment.pro
 const templatePath = path.join(__dirname, '../src/environments/environment.template.ts');
 const templateProdPath = path.join(__dirname, '../src/environments/environment.prod.template.ts');
 
-// Read template files
 const envTemplate = fs.readFileSync(templatePath, 'utf8');
 const envProdTemplate = fs.readFileSync(templateProdPath, 'utf8');
 
-// For dev: replace ${PLACEHOLDER} with actual values from .env
 const envContent = envTemplate
   .replace('${FIREBASE_API_KEY}', process.env.FIREBASE_API_KEY || '')
   .replace('${FIREBASE_AUTH_DOMAIN}', process.env.FIREBASE_AUTH_DOMAIN || '')
@@ -30,11 +28,9 @@ const envContent = envTemplate
   .replace('${CLOUDINARY_API_SECRET}', process.env.CLOUDINARY_API_SECRET || '')
   .replace('${CLOUDINARY_CLOUD_NAME}', process.env.CLOUDINARY_CLOUD_NAME || '')
   .replace('${CONTACT_WEBHOOK_URL}', process.env.CONTACT_WEBHOOK_URL || '');
-// For prod (Docker): keep __PLACEHOLDER__ as-is so the entrypoint replaces them at runtime
-// The prod template already uses __PLACEHOLDER__ syntax, just copy it directly
+
 const envProdContent = envProdTemplate;
 
-// Write environment files
 fs.writeFileSync(targetPath, envContent, 'utf8');
 fs.writeFileSync(targetProdPath, envProdContent, 'utf8');
 

@@ -3,15 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 
-/**
- * AdminShellComponent
- * 
- * Layout wrapper for admin area with navigation sidebar,
- * user info, logout button, and theme toggle.
- * Responsive with mobile menu support.
- * 
- * Requirements: 6.6
- */
 @Component({
   selector: 'app-admin-shell',
   standalone: true,
@@ -29,27 +20,21 @@ export class AdminShellComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  // State
+  
   currentUser = this.authService.currentUser;
   isMobileMenuOpen = signal(false);
 
-  /**
-   * Toggle mobile menu
-   */
+  
   toggleMobileMenu(): void {
     this.isMobileMenuOpen.update(isOpen => !isOpen);
   }
 
-  /**
-   * Close mobile menu
-   */
+  
   closeMobileMenu(): void {
     this.isMobileMenuOpen.set(false);
   }
 
-  /**
-   * Logout user and redirect to login
-   */
+  
   async logout(): Promise<void> {
     try {
       await this.authService.logout();
@@ -60,18 +45,14 @@ export class AdminShellComponent {
     }
   }
 
-  /**
-   * Get user display name or email
-   */
+  
   getUserDisplayName(): string {
     const user = this.currentUser();
     if (!user) return 'Usuario';
     return user.displayName || user.email || 'Usuario';
   }
 
-  /**
-   * Get user initials for avatar
-   */
+  
   getUserInitials(): string {
     const user = this.currentUser();
     if (!user) return 'U';

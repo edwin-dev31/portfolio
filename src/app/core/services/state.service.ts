@@ -3,17 +3,13 @@ import { DataService } from './data.service';
 import { Profile, About, Service, Skill, Project, Contact } from '../../models';
 import { firstValueFrom } from 'rxjs';
 
-/**
- * StateService manages application state using Angular signals
- * Provides reactive state management for all data entities
- */
 @Injectable({
   providedIn: 'root'
 })
 export class StateService {
   private dataService = inject(DataService);
 
-  // ==================== Writable Signals ====================
+  
 
   private profileSignal = signal<Profile | null>(null);
   private aboutSignal = signal<About | null>(null);
@@ -31,7 +27,7 @@ export class StateService {
 
   private selectedProjectSignal = signal<Project | null>(null);
 
-  // ==================== Readonly Signals ====================
+  
 
   profile = this.profileSignal.asReadonly();
   about = this.aboutSignal.asReadonly();
@@ -49,46 +45,30 @@ export class StateService {
 
   selectedProject = this.selectedProjectSignal.asReadonly();
 
-  // ==================== Computed Signals ====================
+  
 
-  /**
-   * Computed signal for published projects
-   * Note: Current Project model doesn't have status field
-   * This is a placeholder for future implementation
-   */
+  
   publishedProjects = computed(() => {
-    // For now, return all projects since there's no status field
+    
     return this.projects();
   });
 
-  /**
-   * Computed signal for draft projects
-   * Note: Current Project model doesn't have status field
-   * This is a placeholder for future implementation
-   */
+  
   draftProjects = computed(() => {
-    // For now, return empty array since there's no status field
+    
     return [];
   });
 
-  /**
-   * Computed signal for total project count
-   */
+  
   projectCount = computed(() => this.projects().length);
 
-  /**
-   * Computed signal for services count
-   */
+  
   serviceCount = computed(() => this.services().length);
 
-  /**
-   * Computed signal for skills count
-   */
+  
   skillCount = computed(() => this.skills().length);
 
-  /**
-   * Computed signal for skills grouped by category
-   */
+  
   skillsByCategory = computed(() => {
     const skills = this.skills();
     const grouped: Record<string, Skill[]> = {};
@@ -103,11 +83,9 @@ export class StateService {
     return grouped;
   });
 
-  // ==================== Profile Methods ====================
+  
 
-  /**
-   * Load profile data from DataService
-   */
+  
   async loadProfile(): Promise<void> {
     this.isLoadingProfileSignal.set(true);
     try {
@@ -121,10 +99,7 @@ export class StateService {
     }
   }
 
-  /**
-   * Update profile data
-   * @param updates - Partial profile data to update
-   */
+  
   async updateProfile(updates: Partial<Profile>): Promise<void> {
     try {
       await this.dataService.updateProfile(updates);
@@ -138,11 +113,9 @@ export class StateService {
     }
   }
 
-  // ==================== About Methods ====================
+  
 
-  /**
-   * Load about data from DataService
-   */
+  
   async loadAbout(): Promise<void> {
     this.isLoadingAboutSignal.set(true);
     try {
@@ -156,10 +129,7 @@ export class StateService {
     }
   }
 
-  /**
-   * Update about data
-   * @param updates - Partial about data to update
-   */
+  
   async updateAbout(updates: Partial<About>): Promise<void> {
     try {
       await this.dataService.updateAbout(updates);
@@ -173,11 +143,9 @@ export class StateService {
     }
   }
 
-  // ==================== Services Methods ====================
+  
 
-  /**
-   * Load services data from DataService
-   */
+  
   async loadServices(): Promise<void> {
     this.isLoadingServicesSignal.set(true);
     try {
@@ -191,10 +159,7 @@ export class StateService {
     }
   }
 
-  /**
-   * Add a new service
-   * @param service - Partial service data
-   */
+  
   async addService(service: Partial<Service>): Promise<void> {
     try {
       const newService = await this.dataService.createService(service);
@@ -205,11 +170,7 @@ export class StateService {
     }
   }
 
-  /**
-   * Update an existing service
-   * @param id - Service ID
-   * @param updates - Partial service data to update
-   */
+  
   async updateService(id: string, updates: Partial<Service>): Promise<void> {
     try {
       await this.dataService.updateService(id, updates);
@@ -222,10 +183,7 @@ export class StateService {
     }
   }
 
-  /**
-   * Delete a service
-   * @param id - Service ID
-   */
+  
   async deleteService(id: string): Promise<void> {
     try {
       await this.dataService.deleteService(id);
@@ -236,11 +194,9 @@ export class StateService {
     }
   }
 
-  // ==================== Skills Methods ====================
+  
 
-  /**
-   * Load skills data from DataService
-   */
+  
   async loadSkills(): Promise<void> {
     this.isLoadingSkillsSignal.set(true);
     try {
@@ -254,10 +210,7 @@ export class StateService {
     }
   }
 
-  /**
-   * Add a new skill
-   * @param skill - Partial skill data
-   */
+  
   async addSkill(skill: Partial<Skill>): Promise<void> {
     try {
       const newSkill = await this.dataService.createSkill(skill);
@@ -268,11 +221,7 @@ export class StateService {
     }
   }
 
-  /**
-   * Update an existing skill
-   * @param name - Skill name (used as ID)
-   * @param updates - Partial skill data to update
-   */
+  
   async updateSkill(name: string, updates: Partial<Skill>): Promise<void> {
     try {
       await this.dataService.updateSkill(name, updates);
@@ -285,10 +234,7 @@ export class StateService {
     }
   }
 
-  /**
-   * Delete a skill
-   * @param name - Skill name (used as ID)
-   */
+  
   async deleteSkill(name: string): Promise<void> {
     try {
       await this.dataService.deleteSkill(name);
@@ -299,11 +245,9 @@ export class StateService {
     }
   }
 
-  // ==================== Projects Methods ====================
+  
 
-  /**
-   * Load projects data from DataService
-   */
+  
   async loadProjects(): Promise<void> {
     this.isLoadingProjectsSignal.set(true);
     try {
@@ -317,26 +261,18 @@ export class StateService {
     }
   }
 
-  /**
-   * Select a project by ID
-   * @param id - Project ID
-   */
+  
   selectProject(id: string): void {
     const project = this.projects().find(p => p.id === id);
     this.selectedProjectSignal.set(project || null);
   }
 
-  /**
-   * Clear selected project
-   */
+  
   clearSelectedProject(): void {
     this.selectedProjectSignal.set(null);
   }
 
-  /**
-   * Add a new project
-   * @param project - Partial project data
-   */
+  
   async addProject(project: Partial<Project>): Promise<void> {
     try {
       const newProject = await this.dataService.createProject(project);
@@ -347,11 +283,7 @@ export class StateService {
     }
   }
 
-  /**
-   * Update an existing project
-   * @param id - Project ID
-   * @param updates - Partial project data to update
-   */
+  
   async updateProject(id: string, updates: Partial<Project>): Promise<void> {
     try {
       await this.dataService.updateProject(id, updates);
@@ -359,7 +291,7 @@ export class StateService {
         projects.map(p => p.id === id ? { ...p, ...updates } : p)
       );
       
-      // Update selected project if it's the one being updated
+      
       const selectedProject = this.selectedProjectSignal();
       if (selectedProject && selectedProject.id === id) {
         this.selectedProjectSignal.set({ ...selectedProject, ...updates });
@@ -370,16 +302,13 @@ export class StateService {
     }
   }
 
-  /**
-   * Delete a project
-   * @param id - Project ID
-   */
+  
   async deleteProject(id: string): Promise<void> {
     try {
       await this.dataService.deleteProject(id);
       this.projectsSignal.update(projects => projects.filter(p => p.id !== id));
       
-      // Clear selected project if it's the one being deleted
+      
       const selectedProject = this.selectedProjectSignal();
       if (selectedProject && selectedProject.id === id) {
         this.selectedProjectSignal.set(null);
@@ -390,11 +319,9 @@ export class StateService {
     }
   }
 
-  // ==================== Contact Methods ====================
+  
 
-  /**
-   * Load contact data from DataService
-   */
+  
   async loadContact(): Promise<void> {
     this.isLoadingContactSignal.set(true);
     try {
@@ -408,10 +335,7 @@ export class StateService {
     }
   }
 
-  /**
-   * Update contact data
-   * @param updates - Partial contact data to update
-   */
+  
   async updateContact(updates: Partial<Contact>): Promise<void> {
     try {
       await this.dataService.updateContact(updates);
@@ -425,12 +349,9 @@ export class StateService {
     }
   }
 
-  // ==================== Utility Methods ====================
+  
 
-  /**
-   * Load all data
-   * Convenience method to load all entities at once
-   */
+  
   async loadAll(): Promise<void> {
     await Promise.all([
       this.loadProfile(),
@@ -442,10 +363,7 @@ export class StateService {
     ]);
   }
 
-  /**
-   * Clear all state
-   * Resets all signals to their initial values
-   */
+  
   clearAll(): void {
     this.profileSignal.set(null);
     this.aboutSignal.set(null);

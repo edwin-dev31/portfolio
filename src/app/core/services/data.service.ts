@@ -4,10 +4,6 @@ import { Observable, from, of, throwError } from 'rxjs';
 import { map, catchError, shareReplay } from 'rxjs/operators';
 import { Profile, About, Service, Skill, Project, Contact } from '../../models';
 
-/**
- * DataService provides a unified interface for data operations
- * with direct Firestore integration, caching, and error handling.
- */
 @Injectable({
   providedIn: 'root'
 })
@@ -15,12 +11,9 @@ export class DataService {
   private firestore = inject(Firestore);
   private cache = new Map<string, Observable<Profile | About | Service[] | Skill[] | Project[] | Contact>>();
 
-  // ==================== Profile ====================
+  
 
-  /**
-   * Get profile data from Firestore
-   * @returns Observable of Profile data
-   */
+  
   getProfile(): Observable<Profile> {
     if (!this.cache.has('profile')) {
       const profileRef = doc(this.firestore, 'portfolio', 'profile');
@@ -31,7 +24,7 @@ export class DataService {
               throw new Error('Profile document not found');
             }
             const data = docSnap.data();
-            // Firestore structure matches Profile model: stats.social
+            
             return {
               name: data['name'],
               title: data['title'],
@@ -54,14 +47,11 @@ export class DataService {
     return this.cache.get('profile')! as Observable<Profile>;
   }
 
-  /**
-   * Update profile data in Firestore
-   * @param profile - Partial profile data to update
-   */
+  
   async updateProfile(profile: Partial<Profile>): Promise<void> {
     try {
       const profileRef = doc(this.firestore, 'portfolio', 'profile');
-      // Firestore structure matches Profile model: stats.social
+      
       const firestoreData: Record<string, unknown> = {};
       
       if (profile.name !== undefined) firestoreData['name'] = profile.name;
@@ -80,18 +70,15 @@ export class DataService {
       }
       
       await updateDoc(profileRef, firestoreData);
-      this.cache.delete('profile'); // Invalidate cache
+      this.cache.delete('profile'); 
     } catch (error) {
       throw this.transformError(error);
     }
   }
 
-  // ==================== About ====================
+  
 
-  /**
-   * Get about data from Firestore
-   * @returns Observable of About data
-   */
+  
   getAbout(): Observable<About> {
     if (!this.cache.has('about')) {
       const aboutRef = doc(this.firestore, 'portfolio', 'about');
@@ -111,26 +98,20 @@ export class DataService {
     return this.cache.get('about')! as Observable<About>;
   }
 
-  /**
-   * Update about data in Firestore
-   * @param about - Partial about data to update
-   */
+  
   async updateAbout(about: Partial<About>): Promise<void> {
     try {
       const aboutRef = doc(this.firestore, 'portfolio', 'about');
       await updateDoc(aboutRef, about as any);
-      this.cache.delete('about'); // Invalidate cache
+      this.cache.delete('about'); 
     } catch (error) {
       throw this.transformError(error);
     }
   }
 
-  // ==================== Services ====================
+  
 
-  /**
-   * Get all services from Firestore
-   * @returns Observable of Service array
-   */
+  
   getServices(): Observable<Service[]> {
     if (!this.cache.has('services')) {
       const infoRef = doc(this.firestore, 'portfolio', 'info');
@@ -142,7 +123,7 @@ export class DataService {
             }
             const data = docSnap.data();
             const services = data['services'] || [];
-            // Sort by order
+            
             return services.sort((a: Service, b: Service) => a.order - b.order);
           }),
           catchError(this.handleError),
@@ -153,11 +134,7 @@ export class DataService {
     return this.cache.get('services')! as Observable<Service[]>;
   }
 
-  /**
-   * Get a single service by ID
-   * @param id - Service ID
-   * @returns Observable of Service
-   */
+  
   getServiceById(id: string): Observable<Service> {
     return this.getServices().pipe(
       map(services => {
@@ -170,11 +147,7 @@ export class DataService {
     );
   }
 
-  /**
-   * Create a new service
-   * @param service - Partial service data
-   * @returns Promise of created Service
-   */
+  
   async createService(service: Partial<Service>): Promise<Service> {
     try {
       const infoRef = doc(this.firestore, 'portfolio', 'info');
@@ -197,18 +170,14 @@ export class DataService {
       services.push(newService);
       await updateDoc(infoRef, { services });
       
-      this.cache.delete('services'); // Invalidate cache
+      this.cache.delete('services'); 
       return newService;
     } catch (error) {
       throw this.transformError(error);
     }
   }
 
-  /**
-   * Update an existing service
-   * @param id - Service ID
-   * @param updates - Partial service data to update
-   */
+  
   async updateService(id: string, updates: Partial<Service>): Promise<void> {
     try {
       const infoRef = doc(this.firestore, 'portfolio', 'info');
@@ -229,16 +198,13 @@ export class DataService {
       services[index] = { ...services[index], ...updates };
       await updateDoc(infoRef, { services });
       
-      this.cache.delete('services'); // Invalidate cache
+      this.cache.delete('services'); 
     } catch (error) {
       throw this.transformError(error);
     }
   }
 
-  /**
-   * Delete a service
-   * @param id - Service ID
-   */
+  
   async deleteService(id: string): Promise<void> {
     try {
       const infoRef = doc(this.firestore, 'portfolio', 'info');
@@ -254,18 +220,15 @@ export class DataService {
       const filteredServices = services.filter((s: Service) => s.id !== id);
       await updateDoc(infoRef, { services: filteredServices });
       
-      this.cache.delete('services'); // Invalidate cache
+      this.cache.delete('services'); 
     } catch (error) {
       throw this.transformError(error);
     }
   }
 
-  // ==================== Skills ====================
+  
 
-  /**
-   * Get all skills from Firestore
-   * @returns Observable of Skill array
-   */
+  
   getSkills(): Observable<Skill[]> {
     if (!this.cache.has('skills')) {
       const infoRef = doc(this.firestore, 'portfolio', 'info');
@@ -277,7 +240,7 @@ export class DataService {
             }
             const data = docSnap.data();
             const skills = data['skills'] || [];
-            // Sort by order
+            
             return skills.sort((a: Skill, b: Skill) => a.order - b.order);
           }),
           catchError(this.handleError),
@@ -288,11 +251,7 @@ export class DataService {
     return this.cache.get('skills')! as Observable<Skill[]>;
   }
 
-  /**
-   * Create a new skill
-   * @param skill - Partial skill data
-   * @returns Promise of created Skill
-   */
+  
   async createSkill(skill: Partial<Skill>): Promise<Skill> {
     try {
       const infoRef = doc(this.firestore, 'portfolio', 'info');
@@ -314,18 +273,14 @@ export class DataService {
       skills.push(newSkill);
       await updateDoc(infoRef, { skills });
       
-      this.cache.delete('skills'); // Invalidate cache
+      this.cache.delete('skills'); 
       return newSkill;
     } catch (error) {
       throw this.transformError(error);
     }
   }
 
-  /**
-   * Update an existing skill
-   * @param name - Skill name (used as ID)
-   * @param updates - Partial skill data to update
-   */
+  
   async updateSkill(name: string, updates: Partial<Skill>): Promise<void> {
     try {
       const infoRef = doc(this.firestore, 'portfolio', 'info');
@@ -346,16 +301,13 @@ export class DataService {
       skills[index] = { ...skills[index], ...updates };
       await updateDoc(infoRef, { skills });
       
-      this.cache.delete('skills'); // Invalidate cache
+      this.cache.delete('skills'); 
     } catch (error) {
       throw this.transformError(error);
     }
   }
 
-  /**
-   * Delete a skill
-   * @param name - Skill name (used as ID)
-   */
+  
   async deleteSkill(name: string): Promise<void> {
     try {
       const infoRef = doc(this.firestore, 'portfolio', 'info');
@@ -371,18 +323,15 @@ export class DataService {
       const filteredSkills = skills.filter((s: Skill) => s.name !== name);
       await updateDoc(infoRef, { skills: filteredSkills });
       
-      this.cache.delete('skills'); // Invalidate cache
+      this.cache.delete('skills'); 
     } catch (error) {
       throw this.transformError(error);
     }
   }
 
-  // ==================== Projects ====================
+  
 
-  /**
-   * Get all projects from Firestore
-   * @returns Observable of Project array
-   */
+  
   getProjects(): Observable<Project[]> {
     if (!this.cache.has('projects')) {
       const infoRef = doc(this.firestore, 'portfolio', 'info');
@@ -403,11 +352,7 @@ export class DataService {
     return this.cache.get('projects')! as Observable<Project[]>;
   }
 
-  /**
-   * Get a single project by ID
-   * @param id - Project ID
-   * @returns Observable of Project
-   */
+  
   getProjectById(id: string): Observable<Project> {
     return this.getProjects().pipe(
       map(projects => {
@@ -420,11 +365,7 @@ export class DataService {
     );
   }
 
-  /**
-   * Create a new project
-   * @param project - Partial project data
-   * @returns Promise of created Project
-   */
+  
   async createProject(project: Partial<Project>): Promise<Project> {
     try {
       const infoRef = doc(this.firestore, 'portfolio', 'info');
@@ -450,18 +391,14 @@ export class DataService {
       projects.push(newProject);
       await updateDoc(infoRef, { projects });
       
-      this.cache.delete('projects'); // Invalidate cache
+      this.cache.delete('projects'); 
       return newProject;
     } catch (error) {
       throw this.transformError(error);
     }
   }
 
-  /**
-   * Update an existing project
-   * @param id - Project ID
-   * @param updates - Partial project data to update
-   */
+  
   async updateProject(id: string, updates: Partial<Project>): Promise<void> {
     try {
       const infoRef = doc(this.firestore, 'portfolio', 'info');
@@ -482,16 +419,13 @@ export class DataService {
       projects[index] = { ...projects[index], ...updates };
       await updateDoc(infoRef, { projects });
       
-      this.cache.delete('projects'); // Invalidate cache
+      this.cache.delete('projects'); 
     } catch (error) {
       throw this.transformError(error);
     }
   }
 
-  /**
-   * Delete a project
-   * @param id - Project ID
-   */
+  
   async deleteProject(id: string): Promise<void> {
     try {
       const infoRef = doc(this.firestore, 'portfolio', 'info');
@@ -507,22 +441,17 @@ export class DataService {
       const filteredProjects = projects.filter((p: Project) => p.id !== id);
       await updateDoc(infoRef, { projects: filteredProjects });
       
-      this.cache.delete('projects'); // Invalidate cache
+      this.cache.delete('projects'); 
     } catch (error) {
       throw this.transformError(error);
     }
   }
 
-  // ==================== Contact ====================
+  
 
-  /**
-   * Get contact data from Firestore
-   * Note: Contact is not in the current Firestore structure
-   * This is a placeholder for future implementation
-   * @returns Observable of Contact data
-   */
+  
   getContact(): Observable<Contact> {
-    // Placeholder - contact data not in current Firestore structure
+    
     return of({
       email: 'edwin_dev@hotmail.com',
       callToAction: {
@@ -534,37 +463,21 @@ export class DataService {
     });
   }
 
-  /**
-   * Update contact data in Firestore
-   * Note: Contact is not in the current Firestore structure
-   * This is a placeholder for future implementation
-   * @param contact - Partial contact data to update
-   */
+  
   async updateContact(contact: Partial<Contact>): Promise<void> {
-    // Placeholder - contact data not in current Firestore structure
+    
     console.warn('Contact update not implemented - no contact document in Firestore');
   }
 
-  // ==================== Error Handling ====================
+  
 
-  /**
-   * Handle Firestore errors and transform to user-friendly messages.
-   * Bound as an arrow function so `this` is preserved when used in catchError.
-   * @param error - The error to handle
-   * @returns Observable that throws a user-friendly error
-   */
+  
   private handleError = (error: unknown): Observable<never> => {
     console.error('Firestore error:', error);
     return throwError(() => this.transformError(error));
   };
 
-  /**
-   * Transform Firestore / Firebase errors to user-friendly messages.
-   * Handles specific error codes: permission-denied, unavailable, not-found,
-   * unauthenticated, resource-exhausted, deadline-exceeded, cancelled.
-   * @param error - The error to transform
-   * @returns Error with user-friendly message
-   */
+  
   private transformError(error: unknown): Error {
     if (typeof error === 'object' && error !== null && 'code' in error) {
       const errorCode = (error as { code: string }).code;
@@ -593,7 +506,7 @@ export class DataService {
       }
     }
 
-    // Re-use already-transformed errors (e.g. from nested calls)
+    
     if (error instanceof Error) {
       return error;
     }

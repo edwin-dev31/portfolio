@@ -2,14 +2,6 @@ import { ErrorHandler, Injectable, inject, NgZone } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
-/**
- * GlobalErrorHandler catches all uncaught errors in the application.
- * - Logs to console in development
- * - Sends to monitoring service in production
- * - Distinguishes client-side vs server-side errors
- *
- * Requirements: 16.1
- */
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
   private ngZone = inject(NgZone);
@@ -79,23 +71,17 @@ export class GlobalErrorHandler implements ErrorHandler {
     return 'Error al procesar la solicitud. Por favor intenta de nuevo.';
   }
 
-  /**
-   * Send error to external monitoring service (e.g. Sentry) in production.
-   * Replace this stub with the actual monitoring SDK call.
-   */
+  
   private sendToMonitoring(type: 'client' | 'server', message: string, error: unknown): void {
-    // TODO: integrate with Sentry or similar
-    // Example: Sentry.captureException(error);
+    
+    
     console.error(`[Monitoring] ${type} error: ${message}`, error);
   }
 
-  /**
-   * Display a user-friendly error message.
-   * Delegates to ErrorService when available; falls back to console.warn.
-   */
+  
   private displayUserMessage(message: string): void {
-    // ErrorService is injected lazily to avoid circular dependency.
-    // Components that need toast feedback should inject ErrorService directly.
+    
+    
     console.warn('[GlobalErrorHandler] User message:', message);
   }
 }

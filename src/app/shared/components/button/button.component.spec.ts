@@ -91,7 +91,7 @@ describe('ButtonComponent', () => {
 
       buttonElement.nativeElement.click();
 
-      // Disabled buttons don't fire click events
+      
       expect(clicked).toBe(false);
     });
   });
@@ -132,8 +132,8 @@ describe('ButtonComponent', () => {
       const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
       buttonElement.nativeElement.dispatchEvent(enterEvent);
 
-      // Note: Native button elements handle Enter key automatically
-      // This test verifies the button is keyboard accessible
+      
+      
       expect(document.activeElement).toBe(buttonElement.nativeElement);
     });
 
@@ -147,8 +147,8 @@ describe('ButtonComponent', () => {
       const spaceEvent = new KeyboardEvent('keydown', { key: ' ' });
       buttonElement.nativeElement.dispatchEvent(spaceEvent);
 
-      // Note: Native button elements handle Space key automatically
-      // This test verifies the button is keyboard accessible
+      
+      
       expect(document.activeElement).toBe(buttonElement.nativeElement);
     });
 
@@ -158,7 +158,7 @@ describe('ButtonComponent', () => {
 
       buttonElement.nativeElement.focus();
       
-      // Disabled buttons cannot receive focus
+      
       expect(document.activeElement).not.toBe(buttonElement.nativeElement);
     });
   });
@@ -169,7 +169,7 @@ describe('ButtonComponent', () => {
       const testFixture = TestBed.createComponent(ButtonComponent);
       testFixture.componentRef.setInput('variant', 'primary');
       
-      // Set the button content
+      
       const buttonEl = testFixture.debugElement.query(By.css('button'));
       buttonEl.nativeElement.textContent = testContent;
       testFixture.detectChanges();

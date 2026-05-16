@@ -1,6 +1,3 @@
-# ============================================================
-# Stage 1: Builder
-# ============================================================
 FROM node:22-alpine AS builder
 
 WORKDIR /app
@@ -10,13 +7,8 @@ RUN npm ci --legacy-peer-deps --ignore-scripts
 
 COPY . .
 
-# set-env.js copies environment.prod.template.ts (with __PLACEHOLDER__) as-is
-# No .env needed, no secrets in the image
 RUN npm run build:prod
 
-# ============================================================
-# Stage 2: Runtime (nginx)
-# ============================================================
 FROM nginx:alpine AS runtime
 
 RUN apk add --no-cache curl
