@@ -3,10 +3,6 @@ import { Auth, signInWithEmailAndPassword, signOut, onAuthStateChanged, UserCred
 import { Observable, from } from 'rxjs';
 import { User } from '../../models';
 
-/**
- * AuthService manages authentication with Firebase Authentication
- * using signal-based state management.
- */
 @Injectable({
   providedIn: 'root'
 })
@@ -16,25 +12,18 @@ export class AuthService {
   private currentUserSignal = signal<User | null>(null);
   private isAuthenticatedSignal = signal<boolean>(false);
 
-  /**
-   * Readonly signal exposing the current user
-   */
+  
   currentUser = this.currentUserSignal.asReadonly();
 
-  /**
-   * Readonly signal exposing authentication status
-   */
+  
   isAuthenticated = this.isAuthenticatedSignal.asReadonly();
 
   constructor() {
-    // Initialize auth state listener
+    
     this.initAuthStateListener();
   }
 
-  /**
-   * Initialize Firebase auth state listener
-   * Updates signals when auth state changes
-   */
+  
   private initAuthStateListener(): void {
     onAuthStateChanged(this.auth, (firebaseUser) => {
       if (firebaseUser) {
@@ -48,29 +37,20 @@ export class AuthService {
     });
   }
 
-  /**
-   * Map Firebase User to application User model
-   * @param firebaseUser - Firebase user object
-   * @returns User model
-   */
+  
   private mapFirebaseUserToUser(firebaseUser: FirebaseUser): User {
     return {
       uid: firebaseUser.uid,
       email: firebaseUser.email || '',
       displayName: firebaseUser.displayName || undefined,
       photoURL: firebaseUser.photoURL || undefined,
-      role: 'admin', // Default role - could be fetched from Firestore custom claims
+      role: 'admin', 
       createdAt: new Date(firebaseUser.metadata.creationTime || Date.now()),
       lastLogin: new Date(firebaseUser.metadata.lastSignInTime || Date.now())
     };
   }
 
-  /**
-   * Sign in with email and password
-   * @param email - User email
-   * @param password - User password
-   * @returns Promise of UserCredential
-   */
+  
   async login(email: string, password: string): Promise<UserCredential> {
     try {
       const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
@@ -80,10 +60,7 @@ export class AuthService {
     }
   }
 
-  /**
-   * Sign out the current user
-   * @returns Promise that resolves when sign out is complete
-   */
+  
   async logout(): Promise<void> {
     try {
       await signOut(this.auth);
@@ -94,12 +71,7 @@ export class AuthService {
     }
   }
 
-  /**
-   * Refresh the current user's token
-   * Firebase handles token refresh automatically, but this method
-   * can be used to force a token refresh if needed
-   * @returns Promise that resolves when token is refreshed
-   */
+  
   async refreshToken(): Promise<void> {
     try {
       const currentUser = this.auth.currentUser;
@@ -111,11 +83,7 @@ export class AuthService {
     }
   }
 
-  /**
-   * Wait for the initial authentication state to be resolved.
-   * Useful for router guards during page reload.
-   * @returns Promise that resolves with User or null
-   */
+  
   async waitForAuth(): Promise<User | null> {
     return new Promise((resolve) => {
       const unsubscribe = onAuthStateChanged(this.auth, (firebaseUser) => {
@@ -129,10 +97,7 @@ export class AuthService {
     });
   }
 
-  /**
-   * Get an observable of auth state changes
-   * @returns Observable of User or null
-   */
+  
   checkAuthState(): Observable<User | null> {
     return new Observable(observer => {
       const unsubscribe = onAuthStateChanged(this.auth, (firebaseUser) => {
@@ -145,16 +110,12 @@ export class AuthService {
         observer.error(this.transformAuthError(error));
       });
 
-      // Cleanup function
+      
       return () => unsubscribe();
     });
   }
 
-  /**
-   * Transform Firebase auth errors to user-friendly messages
-   * @param error - Firebase auth error
-   * @returns Error with user-friendly message
-   */
+  
   private transformAuthError(error: any): Error {
     console.error('Firebase Auth error:', error);
 

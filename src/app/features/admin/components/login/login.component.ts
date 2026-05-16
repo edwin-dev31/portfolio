@@ -5,18 +5,6 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 
-/**
- * LoginComponent
- * 
- * Provides authentication interface for admin users.
- * Features:
- * - Email and password form fields with validation
- * - Error message display for failed authentication
- * - Redirect to dashboard on successful login
- * - Optional "Remember me" checkbox
- * 
- * Requirements: 4.1, 4.6
- */
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -30,41 +18,29 @@ export class LoginComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  /**
-   * Signal for loading state during login
-   */
+  
   isLoading = signal<boolean>(false);
 
-  /**
-   * Signal for error message display
-   */
+  
   errorMessage = signal<string>('');
 
-  /**
-   * Reactive form for login
-   */
+  
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
 
-  /**
-   * Get email form control for template access
-   */
+  
   get emailControl() {
     return this.loginForm.get('email');
   }
 
-  /**
-   * Get password form control for template access
-   */
+  
   get passwordControl() {
     return this.loginForm.get('password');
   }
 
-  /**
-   * Get email validation error message
-   */
+  
   getEmailError(): string {
     const control = this.emailControl;
     if (control?.hasError('required')) {
@@ -76,9 +52,7 @@ export class LoginComponent {
     return '';
   }
 
-  /**
-   * Get password validation error message
-   */
+  
   getPasswordError(): string {
     const control = this.passwordControl;
     if (control?.hasError('required')) {
@@ -90,15 +64,12 @@ export class LoginComponent {
     return '';
   }
 
-  /**
-   * Handle form submission
-   * Validates form, calls AuthService.login(), and redirects on success
-   */
+  
   async onSubmit(): Promise<void> {
-    // Clear previous error
+    
     this.errorMessage.set('');
 
-    // Validate form
+    
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
@@ -113,13 +84,13 @@ export class LoginComponent {
     this.isLoading.set(true);
 
     try {
-      // Attempt login
+      
       await this.authService.login(email, password);
 
-      // Redirect to dashboard on success
+      
       await this.router.navigate(['/admin/dashboard']);
     } catch (error: any) {
-      // Display error message
+      
       this.errorMessage.set(error.message || 'Login failed. Please try again.');
     } finally {
       this.isLoading.set(false);

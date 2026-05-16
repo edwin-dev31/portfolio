@@ -2,7 +2,7 @@
   <div class="project-editor__header">
     <h1 class="project-editor__title">{{ pageTitle() }}</h1>
     
-    <!-- Success/Error Messages -->
+    
     @if (successMessage()) {
       <div class="project-editor__message project-editor__message--success">
         {{ successMessage() }}
@@ -18,7 +18,7 @@
 
   <form [formGroup]="projectForm" (ngSubmit)="saveProject()" class="project-editor__form">
     
-    <!-- Title Field -->
+    
     <div class="form-group">
       <label for="title" class="form-label">
         Project Title <span class="required">*</span>
@@ -36,7 +36,7 @@
       }
     </div>
 
-    <!-- Category Field -->
+    
     <div class="form-group">
       <label for="category" class="form-label">
         Category <span class="required">*</span>
@@ -54,7 +54,7 @@
       }
     </div>
 
-    <!-- Description Field with Rich Text Editor -->
+    
     <div class="form-group">
       <label class="form-label">
         Description <span class="required">*</span>
@@ -67,7 +67,7 @@
       }
     </div>
 
-    <!-- Image Upload -->
+    
     <div class="form-group">
       <label class="form-label">
         Project Image <span class="required">*</span>
@@ -82,7 +82,7 @@
       }
     </div>
 
-    <!-- Tools/Technologies -->
+    
     <div class="form-group">
       <label class="form-label">Tools & Technologies</label>
       
@@ -115,7 +115,7 @@
       }
     </div>
 
-    <!-- Repository Link -->
+    
     <div class="form-group">
       <label for="repository" class="form-label">Repository URL</label>
       <input
@@ -127,7 +127,7 @@
       />
     </div>
 
-    <!-- Live Demo Link -->
+    
     <div class="form-group">
       <label for="liveDemo" class="form-label">Live Demo URL</label>
       <input
@@ -139,7 +139,7 @@
       />
     </div>
 
-    <!-- Form Actions -->
+    
     <div class="form-actions">
       <app-button
         type="button"
@@ -158,7 +158,7 @@
       </app-button>
     </div>
 
-    <!-- Unsaved Changes Indicator -->
+    
     @if (hasUnsavedChanges()) {
       <div class="unsaved-indicator">
         <span class="material-symbols-rounded mr-1" style="font-size: 1rem;">error</span>

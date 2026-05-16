@@ -1,12 +1,9 @@
-// Dark Theme Styles
-// Additional dark theme specific styles beyond tokens
-
 [data-theme="dark"] {
-  // ============================================
-  // Component Overrides
-  // ============================================
   
-  // Cards in dark theme
+  
+  
+  
+  
   .card {
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -16,7 +13,7 @@
     }
   }
 
-  // Inputs in dark theme
+  
   input,
   textarea,
   select {
@@ -39,7 +36,7 @@
     }
   }
 
-  // Buttons in dark theme
+  
   .btn-primary {
     background-color: var(--color-primary);
     color: var(--color-background);
@@ -69,9 +66,9 @@
     }
   }
 
-  // ============================================
-  // Glassmorphism in Dark Theme
-  // ============================================
+  
+  
+  
   .glass {
     background: var(--glass-background);
     backdrop-filter: var(--glass-blur);
@@ -79,9 +76,9 @@
     border: 1px solid var(--glass-border);
   }
 
-  // ============================================
-  // Code Blocks in Dark Theme
-  // ============================================
+  
+  
+  
   code {
     background-color: var(--color-surface-elevated);
     color: var(--color-primary);
@@ -92,9 +89,9 @@
     border: 1px solid var(--color-border);
   }
 
-  // ============================================
-  // Links in Dark Theme
-  // ============================================
+  
+  
+  
   a {
     color: var(--color-primary);
     
@@ -103,16 +100,16 @@
     }
   }
 
-  // ============================================
-  // Borders in Dark Theme
-  // ============================================
+  
+  
+  
   hr {
     border-color: var(--color-border);
   }
 
-  // ============================================
-  // Tables in Dark Theme
-  // ============================================
+  
+  
+  
   table {
     border-color: var(--color-border);
   }
@@ -132,9 +129,9 @@
     background-color: var(--color-surface-hover);
   }
 
-  // ============================================
-  // Modals in Dark Theme
-  // ============================================
+  
+  
+  
   .modal-backdrop {
     background-color: rgba(11, 19, 38, 0.8);
   }
@@ -144,18 +141,18 @@
     border: 1px solid var(--color-border);
   }
 
-  // ============================================
-  // Tooltips in Dark Theme
-  // ============================================
+  
+  
+  
   .tooltip {
     background-color: var(--color-surface-elevated);
     color: var(--color-text-primary);
     border: 1px solid var(--color-border);
   }
 
-  // ============================================
-  // Badges in Dark Theme
-  // ============================================
+  
+  
+  
   .badge {
     background-color: var(--color-surface-elevated);
     color: var(--color-text-primary);
@@ -186,9 +183,9 @@
     border-color: var(--color-warning);
   }
 
-  // ============================================
-  // Navigation in Dark Theme
-  // ============================================
+  
+  
+  
   nav {
     background-color: var(--color-surface);
     border-bottom: 1px solid var(--color-border);
@@ -208,9 +205,9 @@
     }
   }
 
-  // ============================================
-  // Dropdown in Dark Theme
-  // ============================================
+  
+  
+  
   .dropdown-menu {
     background-color: var(--color-surface-elevated);
     border: 1px solid var(--color-border);
@@ -225,9 +222,9 @@
     }
   }
 
-  // ============================================
-  // Alert in Dark Theme
-  // ============================================
+  
+  
+  
   .alert {
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);

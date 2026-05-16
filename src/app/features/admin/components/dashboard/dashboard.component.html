@@ -10,7 +10,7 @@
     </app-button>
   </div>
 
-  <!-- Statistics Cards -->
+  
   <div class="dashboard__stats">
     <div class="stat-card">
       <div class="stat-card__icon">
@@ -43,17 +43,17 @@
     </div>
   </div>
 
-  <!-- Projects List -->
+  
   <div class="dashboard__projects">
     <h2 class="dashboard__section-title">All Projects</h2>
 
-    <!-- Loading State -->
+    
     <div *ngIf="isLoading()" class="dashboard__loading">
       <div class="spinner"></div>
       <p>Loading projects...</p>
     </div>
 
-    <!-- Empty State -->
+    
     <div *ngIf="!isLoading() && projects().length === 0" class="dashboard__empty">
       <div class="empty-state">
         <div class="empty-state__icon">
@@ -72,7 +72,7 @@
       </div>
     </div>
 
-    <!-- Projects Table -->
+    
     <div *ngIf="!isLoading() && projects().length > 0" class="projects-table">
       <div class="projects-table__header">
         <div class="projects-table__col projects-table__col--image">Image</div>
@@ -87,7 +87,7 @@
           *ngFor="let project of projects()" 
           class="project-row">
           
-          <!-- Image -->
+          
           <div class="project-row__image">
             <img 
               [src]="project.image" 
@@ -95,18 +95,18 @@
               class="project-thumbnail">
           </div>
 
-          <!-- Title -->
+          
           <div class="project-row__title">
             <h3>{{ project.title }}</h3>
             <p class="project-row__description">{{ project.description | slice:0:80 }}...</p>
           </div>
 
-          <!-- Category -->
+          
           <div class="project-row__category">
             <span class="category-badge">{{ project.category }}</span>
           </div>
 
-          <!-- Status -->
+          
           <div class="project-row__status">
             <span 
               class="status-badge"
@@ -115,7 +115,7 @@
             </span>
           </div>
 
-          <!-- Actions -->
+          
           <div class="project-row__actions">
             <button 
               class="action-btn action-btn--edit"
@@ -144,7 +144,6 @@
   </div>
 </div>
 
-<!-- Delete Confirmation Modal -->
 <app-modal 
   [isOpen]="showDeleteModal()"
   [title]="'Confirm Deletion'"

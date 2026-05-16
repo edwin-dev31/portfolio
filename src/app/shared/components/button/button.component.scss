@@ -16,7 +16,7 @@
   white-space: nowrap;
   user-select: none;
 
-  // Focus ring for accessibility
+  
   &:focus-visible {
     @include focus-ring;
   }
@@ -26,7 +26,7 @@
     opacity: 0.5;
   }
 
-  // Variants
+  
   &--primary {
     background: var(--color-primary);
     color: var(--color-background);
@@ -72,7 +72,7 @@
     }
   }
 
-  // Sizes
+  
   &--sm {
     padding: var(--space-xs) var(--space-sm);
     font-size: var(--text-sm);

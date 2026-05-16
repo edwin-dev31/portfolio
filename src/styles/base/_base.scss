@@ -1,9 +1,3 @@
-// Base Styles
-// Global element styles and utilities
-
-// ============================================
-// HTML & Body
-// ============================================
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -18,26 +12,17 @@ body {
               color var(--transition-base) var(--ease-smooth);
 }
 
-// ============================================
-// Main Content
-// ============================================
 main {
   display: block;
   min-height: 100vh;
 }
 
-// ============================================
-// Images
-// ============================================
 img {
   max-width: 100%;
   height: auto;
   display: block;
 }
 
-// ============================================
-// Buttons
-// ============================================
 button {
   cursor: pointer;
   font-family: inherit;
@@ -48,9 +33,6 @@ button {
   }
 }
 
-// ============================================
-// Form Elements
-// ============================================
 input,
 textarea,
 select {
@@ -86,17 +68,11 @@ textarea {
   min-height: 100px;
 }
 
-// ============================================
-// Focus Styles
-// ============================================
 :focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
-// ============================================
-// Scrollbar Styles
-// ============================================
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
@@ -116,17 +92,11 @@ textarea {
   }
 }
 
-// Firefox scrollbar
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--color-border) var(--color-surface);
 }
 
-// ============================================
-// Utility Classes
-// ============================================
-
-// Display
 .block { display: block; }
 .inline-block { display: inline-block; }
 .inline { display: inline; }
@@ -135,34 +105,28 @@ textarea {
 .grid { display: grid; }
 .hidden { display: none; }
 
-// Visibility
 .visible { visibility: visible; }
 .invisible { visibility: hidden; }
 
-// Position
 .relative { position: relative; }
 .absolute { position: absolute; }
 .fixed { position: fixed; }
 .sticky { position: sticky; }
 
-// Overflow
 .overflow-auto { overflow: auto; }
 .overflow-hidden { overflow: hidden; }
 .overflow-visible { overflow: visible; }
 .overflow-scroll { overflow: scroll; }
 .no-scroll { overflow: hidden !important; }
 
-// Width & Height
 .w-full { width: 100%; }
 .h-full { height: 100%; }
 .w-screen { width: 100vw; }
 .h-screen { height: 100vh; }
 
-// Spacing Utilities
 .m-0 { margin: 0; }
 .p-0 { padding: 0; }
 
-// Margin
 .m-xs { margin: var(--space-xs); }
 .m-sm { margin: var(--space-sm); }
 .m-md { margin: var(--space-md); }
@@ -193,7 +157,6 @@ textarea {
 .mr-lg { margin-right: var(--space-lg); }
 .mr-xl { margin-right: var(--space-xl); }
 
-// Padding
 .p-xs { padding: var(--space-xs); }
 .p-sm { padding: var(--space-sm); }
 .p-md { padding: var(--space-md); }
@@ -224,14 +187,12 @@ textarea {
 .pr-lg { padding-right: var(--space-lg); }
 .pr-xl { padding-right: var(--space-xl); }
 
-// Border Radius
 .rounded-sm { border-radius: var(--radius-sm); }
 .rounded-md { border-radius: var(--radius-md); }
 .rounded-lg { border-radius: var(--radius-lg); }
 .rounded-xl { border-radius: var(--radius-xl); }
 .rounded-full { border-radius: var(--radius-full); }
 
-// Shadows
 .shadow-sm { box-shadow: var(--shadow-sm); }
 .shadow { box-shadow: var(--shadow-base); }
 .shadow-md { box-shadow: var(--shadow-md); }
@@ -240,7 +201,6 @@ textarea {
 .shadow-2xl { box-shadow: var(--shadow-2xl); }
 .shadow-none { box-shadow: none; }
 
-// Transitions
 .transition {
   transition-property: all;
   transition-duration: var(--transition-base);
@@ -255,11 +215,9 @@ textarea {
   transition-duration: var(--transition-slow);
 }
 
-// Pointer Events
 .pointer-events-none { pointer-events: none; }
 .pointer-events-auto { pointer-events: auto; }
 
-// Cursor
 .cursor-pointer { cursor: pointer; }
 .cursor-not-allowed { cursor: not-allowed; }
 .cursor-default { cursor: default; }

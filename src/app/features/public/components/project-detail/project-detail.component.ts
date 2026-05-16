@@ -4,25 +4,6 @@ import { StateService } from '../../../../core/services/state.service';
 import { SeoService } from '../../../../core/services/seo.service';
 import { Project } from '../../../../models/project.model';
 
-/**
- * ProjectDetailComponent
- * 
- * Displays detailed information about a single project including images,
- * description, tools, and links.
- * 
- * Features:
- * - Loads project by ID from route params
- * - Loads project by ID from route params
- * - Displays full project information
- * - Back navigation to home
- * - Handles project not found with error message
- * - Implements OnPush change detection strategy
- * 
- * Requirements: 8.6
- * 
- * @example
- * <app-project-detail />
- */
 @Component({
   selector: 'app-project-detail',
   standalone: true,
@@ -35,29 +16,19 @@ export class ProjectDetailComponent implements OnInit, OnChanges {
   private stateService = inject(StateService);
   private seoService = inject(SeoService);
 
-  /**
-   * Project ID input
-   */
+  
   projectId = input.required<string>();
 
-  /**
-   * Close modal output
-   */
+  
   close = output<void>();
 
-  /**
-   * Current project being displayed
-   */
+  
   project = signal<Project | null>(null);
 
-  /**
-   * Loading state
-   */
+  
   isLoading = signal(true);
 
-  /**
-   * Error state for project not found
-   */
+  
   notFound = signal(false);
 
   ngOnInit(): void {
@@ -70,9 +41,7 @@ export class ProjectDetailComponent implements OnInit, OnChanges {
     }
   }
 
-  /**
-   * Load project from route params
-   */
+  
   private async loadProject(): Promise<void> {
     const projectId = this.projectId();
     
@@ -83,12 +52,12 @@ export class ProjectDetailComponent implements OnInit, OnChanges {
     }
 
     try {
-      // Load projects if not already loaded
+      
       if (this.stateService.projects().length === 0) {
         await this.stateService.loadProjects();
       }
 
-      // Find project by ID
+      
       const foundProject = this.stateService.projects().find(p => p.id === projectId);
       
       if (foundProject) {
@@ -121,27 +90,19 @@ export class ProjectDetailComponent implements OnInit, OnChanges {
     }
   }
 
-  /**
-   * Handle escape key to close modal
-   * @param event - Keyboard event
-   */
+  
   onEscapeKey(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
       this.goBack();
     }
   }
 
-  /**
-   * Close the modal
-   */
+  
   goBack(): void {
     this.close.emit();
   }
 
-  /**
-   * Open external link
-   * @param url - URL to open
-   */
+  
   openLink(url: string): void {
     if (url) {
       window.open(url, '_blank', 'noopener,noreferrer');

@@ -6,11 +6,9 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Load service account key
 const serviceAccountPath = join(__dirname, '../portfolio-31e-firebase-adminsdk-fbsvc-7a3ffa82f9.json');
 const serviceAccount = JSON.parse(readFileSync(serviceAccountPath, 'utf8'));
 
-// Initialize Firebase Admin with service account
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
@@ -23,7 +21,7 @@ async function verifyFirestoreStructure() {
   console.log('=' .repeat(70));
 
   try {
-    // List all root collections
+    
     const collections = await db.listCollections();
     
     if (collections.length === 0) {
@@ -36,7 +34,7 @@ async function verifyFirestoreStructure() {
         console.log(`📁 COLLECTION: ${collection.id}`);
         console.log('='.repeat(70));
         
-        // Get all documents in the collection
+        
         const snapshot = await collection.get();
         
         if (snapshot.empty) {
@@ -54,7 +52,7 @@ async function verifyFirestoreStructure() {
             
             console.log('\n   📋 Main fields:', Object.keys(data).join(', '));
             
-            // Check for subcollections
+            
             const subcollections = await doc.ref.listCollections();
             if (subcollections.length > 0) {
               console.log('   📂 Subcollections:', subcollections.map(sc => sc.id).join(', '));

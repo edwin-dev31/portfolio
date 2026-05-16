@@ -9,24 +9,6 @@ import { ProjectDetailComponent } from '../project-detail/project-detail.compone
 import { signal } from '@angular/core';
 import { SkillsComponent } from '../skills/skills.component';
 
-/**
- * HomeComponent
- * 
- * Main public page that composes the hero section, project grid, and contact section.
- * 
- * Features:
- * - Composes HeroComponent, ProjectGridComponent, and ContactComponent
- * - Loads projects on initialization
- * - Uses publishedProjects computed signal for display
- * - Shows loading state while projects load
- * - Implements OnPush change detection strategy
- * - Handles project navigation
- * 
- * Requirements: 1.1, 1.4, 10.5
- * 
- * @example
- * <app-home />
- */
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -46,25 +28,16 @@ export class HomeComponent implements OnInit {
   private stateService = inject(StateService);
   private seoService = inject(SeoService);
 
-  /**
-   * Published projects from state service
-   * Uses computed signal for reactive updates
-   */
+  
   projects = this.stateService.publishedProjects;
 
-  /**
-   * Loading state for projects
-   */
+  
   isLoading = this.stateService.isLoadingProjects;
 
-  /**
-   * Selected project for modal
-   */
+  
   selectedProjectId = signal<string | null>(null);
 
-  /**
-   * Modal open state
-   */
+  
   isModalOpen = signal(false);
 
   ngOnInit(): void {
@@ -77,9 +50,7 @@ export class HomeComponent implements OnInit {
     this.loadProjects();
   }
 
-  /**
-   * Load projects from state service
-   */
+  
   private async loadProjects(): Promise<void> {
     try {
       await this.stateService.loadProjects();
@@ -88,19 +59,14 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  /**
-   * Handle project click conceptually opens the modal
-   * @param projectId - ID of the clicked project
-   */
+  
   onProjectClick(projectId: string): void {
     this.selectedProjectId.set(projectId);
     this.isModalOpen.set(true);
     document.body.classList.add('no-scroll');
   }
 
-  /**
-   * Close the project modal
-   */
+  
   closeModal(): void {
     this.isModalOpen.set(false);
     this.selectedProjectId.set(null);

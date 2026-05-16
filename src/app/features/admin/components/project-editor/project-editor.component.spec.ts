@@ -167,7 +167,7 @@ describe('ProjectEditorComponent', () => {
     });
 
     it('should load and populate form with existing project data', () => {
-      // The form should be populated with mockProject data
+      
       expect(component.projectForm.get('title')?.value).toBe(mockProject.title);
       expect(component.projectForm.get('category')?.value).toBe(mockProject.category);
     });

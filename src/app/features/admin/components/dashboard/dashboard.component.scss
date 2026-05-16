@@ -71,7 +71,6 @@
   }
 }
 
-// Stat Card
 .stat-card {
   @include glass;
   padding: var(--space-lg);
@@ -120,7 +119,6 @@
   }
 }
 
-// Empty State
 .empty-state {
   text-align: center;
   max-width: 25rem;
@@ -146,7 +144,6 @@
   }
 }
 
-// Projects Table
 .projects-table {
   @include glass;
   border-radius: var(--radius-md);
@@ -176,7 +173,6 @@
   }
 }
 
-// Project Row
 .project-row {
   display: grid;
   grid-template-columns: 5rem 2fr 1fr 7.5rem 9.375rem;
@@ -253,14 +249,12 @@
   }
 }
 
-// Project Thumbnail
 .project-thumbnail {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-// Category Badge
 .category-badge {
   display: inline-block;
   padding: var(--space-xs) var(--space-sm);
@@ -272,7 +266,6 @@
   text-transform: capitalize;
 }
 
-// Status Badge
 .status-badge {
   display: inline-block;
   padding: var(--space-xs) var(--space-sm);
@@ -292,7 +285,6 @@
   }
 }
 
-// Action Buttons
 .action-btn {
   width: 2.25rem;
   height: 2.25rem;
@@ -344,7 +336,6 @@
   }
 }
 
-// Spinner
 .spinner {
   width: 2.5rem;
   height: 2.5rem;
@@ -360,7 +351,6 @@
   }
 }
 
-// Delete Modal
 .delete-modal {
   padding: var(--space-md);
 

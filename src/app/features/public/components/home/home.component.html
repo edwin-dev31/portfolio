@@ -1,10 +1,7 @@
-<!-- Hero Section -->
 <app-hero />
 
-<!-- Skills Section -->
 <app-skills />
 
-<!-- Projects Grid Section -->
 <div class="container section-padding">
   <div class="section-header">
     <h2 class="section-title">Featured Projects</h2>
@@ -23,10 +20,8 @@
   }
 </div>
 
-<!-- Contact Section -->
 <app-contact />
 
-<!-- Project Detail Modal -->
 @if (isModalOpen() && selectedProjectId()) {
   <app-project-detail 
     [projectId]="selectedProjectId()!" 

@@ -1,12 +1,9 @@
-// Light Theme Styles
-// Additional light theme specific styles beyond tokens
-
 [data-theme="light"] {
-  // ============================================
-  // Component Overrides
-  // ============================================
   
-  // Cards in light theme
+  
+  
+  
+  
   .card {
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -17,7 +14,7 @@
     }
   }
 
-  // Inputs in light theme
+  
   input,
   textarea,
   select {
@@ -40,7 +37,7 @@
     }
   }
 
-  // Buttons in light theme
+  
   .btn-primary {
     background-color: var(--color-primary);
     color: var(--color-background);
@@ -71,9 +68,9 @@
     }
   }
 
-  // ============================================
-  // Glassmorphism in Light Theme
-  // ============================================
+  
+  
+  
   .glass {
     background: var(--glass-background);
     backdrop-filter: var(--glass-blur);
@@ -81,9 +78,9 @@
     border: 1px solid var(--glass-border);
   }
 
-  // ============================================
-  // Code Blocks in Light Theme
-  // ============================================
+  
+  
+  
   code {
     background-color: var(--color-surface-elevated);
     color: var(--color-primary);
@@ -94,9 +91,9 @@
     border: 1px solid var(--color-border);
   }
 
-  // ============================================
-  // Links in Light Theme
-  // ============================================
+  
+  
+  
   a {
     color: var(--color-primary);
     
@@ -105,16 +102,16 @@
     }
   }
 
-  // ============================================
-  // Borders in Light Theme
-  // ============================================
+  
+  
+  
   hr {
     border-color: var(--color-border);
   }
 
-  // ============================================
-  // Tables in Light Theme
-  // ============================================
+  
+  
+  
   table {
     border-color: var(--color-border);
   }
@@ -134,9 +131,9 @@
     background-color: var(--color-surface-hover);
   }
 
-  // ============================================
-  // Modals in Light Theme
-  // ============================================
+  
+  
+  
   .modal-backdrop {
     background-color: rgba(0, 0, 0, 0.5);
   }
@@ -147,9 +144,9 @@
     box-shadow: var(--shadow-2xl);
   }
 
-  // ============================================
-  // Tooltips in Light Theme
-  // ============================================
+  
+  
+  
   .tooltip {
     background-color: var(--color-surface-elevated);
     color: var(--color-text-primary);
@@ -157,9 +154,9 @@
     box-shadow: var(--shadow-md);
   }
 
-  // ============================================
-  // Badges in Light Theme
-  // ============================================
+  
+  
+  
   .badge {
     background-color: var(--color-surface-elevated);
     color: var(--color-text-primary);
@@ -190,9 +187,9 @@
     border-color: var(--color-warning);
   }
 
-  // ============================================
-  // Navigation in Light Theme
-  // ============================================
+  
+  
+  
   nav {
     background-color: var(--color-background);
     border-bottom: 1px solid var(--color-border);
@@ -213,9 +210,9 @@
     }
   }
 
-  // ============================================
-  // Dropdown in Light Theme
-  // ============================================
+  
+  
+  
   .dropdown-menu {
     background-color: var(--color-background);
     border: 1px solid var(--color-border);
@@ -230,9 +227,9 @@
     }
   }
 
-  // ============================================
-  // Alert in Light Theme
-  // ============================================
+  
+  
+  
   .alert {
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -263,9 +260,9 @@
     color: var(--color-info);
   }
 
-  // ============================================
-  // Shadows Enhancement
-  // ============================================
+  
+  
+  
   .shadow-enhanced {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   }

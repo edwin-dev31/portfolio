@@ -1,10 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard, canDeactivateGuard } from '../../core/guards';
 
-/**
- * Admin feature routes
- * Protected by authGuard except for login route
- */
 export const adminRoutes: Routes = [
   {
     path: 'login',

@@ -176,7 +176,7 @@ describe('CardComponent', () => {
     it('should have glassmorphism styles applied', () => {
       const styles = window.getComputedStyle(cardElement.nativeElement);
       
-      // Card should have border-radius
+      
       expect(styles.borderRadius).toBeTruthy();
     });
   });

@@ -1,5 +1,5 @@
 <div class="image-upload">
-  <!-- Upload Area -->
+  
   <div 
     class="image-upload__dropzone"
     [class.image-upload__dropzone--drag-over]="isDragOver()"
@@ -51,7 +51,7 @@
     </div>
   </div>
 
-  <!-- Image Previews -->
+  
   @if (previews().length > 0) {
     <div class="image-upload__previews">
       @for (preview of previews(); track preview; let i = $index) {

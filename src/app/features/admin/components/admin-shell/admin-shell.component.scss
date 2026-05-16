@@ -82,7 +82,6 @@
   }
 }
 
-// Sidebar
 .sidebar {
   &__header {
     padding: var(--space-lg);
@@ -213,7 +212,6 @@
   }
 }
 
-// User Info
 .user-info {
   flex: 1;
   display: flex;
@@ -260,7 +258,6 @@
   }
 }
 
-// Header
 .header {
   &__menu-toggle {
     display: none;

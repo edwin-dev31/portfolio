@@ -1,4 +1,3 @@
-<!-- Loading State -->
 @if (isLoading()) {
   <div class="modal-overlay" role="dialog" aria-modal="true">
     <div class="modal-container">
@@ -10,7 +9,6 @@
   </div>
 }
 
-<!-- Not Found State -->
 @else if (notFound()) {
   <div class="modal-overlay" role="dialog" aria-modal="true">
     <div class="modal-container error-content">
@@ -23,7 +21,6 @@
   </div>
 }
 
-<!-- Project Detail Modal -->
 @else if (project()) {
   <div class="modal-overlay" role="dialog" aria-modal="true" (keydown)="onEscapeKey($event)">
     <article class="modal-container project-detail-modal">
@@ -32,13 +29,13 @@
       </button>
 
       <div class="project-modal-body">
-        <!-- Project Header -->
+        
         <header class="project-header">
           <h2 class="project-title">{{ project()!.title }}</h2>
           <p class="project-category">{{ project()!.category }}</p>
         </header>
 
-        <!-- Project Image -->
+        
         <div class="project-image-section">
           <div 
             class="image-wrapper"
@@ -60,18 +57,18 @@
           </div>
         </div>
 
-        <!-- Project Content -->
+        
         <div class="project-content">
           <div class="content-grid">
-            <!-- Description -->
+            
             <div class="description-section">
               <h3 class="section-title">About This Project</h3>
               <p class="project-description">{{ project()!.description }}</p>
             </div>
 
-            <!-- Metadata Sidebar -->
+            
             <aside class="metadata-section">
-              <!-- Tools -->
+              
               <div class="metadata-card">
                 <h4 class="metadata-title">Technologies</h4>
                 <ul class="tools-list" role="list">
@@ -81,7 +78,7 @@
                 </ul>
               </div>
 
-              <!-- Links -->
+              
               <div class="metadata-card">
                 <h4 class="metadata-title">Links</h4>
                 <div class="links-list">

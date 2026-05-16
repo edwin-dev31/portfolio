@@ -2,22 +2,6 @@ import { Component, ChangeDetectionStrategy, input, computed, forwardRef } from 
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 
-/**
- * FormFieldComponent
- * 
- * A reusable form field component with consistent styling and validation.
- * Supports text, email, and textarea input types.
- * Implements ControlValueAccessor for reactive forms integration.
- * 
- * @example
- * <app-form-field
- *   [label]="'Email'"
- *   [type]="'email'"
- *   [error]="'Please enter a valid email'"
- *   [required]="true"
- *   [(ngModel)]="email">
- * </app-form-field>
- */
 @Component({
   selector: 'app-form-field',
   standalone: true,
@@ -34,50 +18,34 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@a
   ]
 })
 export class FormFieldComponent implements ControlValueAccessor {
-  /**
-   * Field label
-   */
+  
   label = input<string>('');
 
-  /**
-   * Input type (text, email, textarea)
-   */
+  
   type = input<'text' | 'email' | 'textarea'>('text');
 
-  /**
-   * Placeholder text
-   */
+  
   placeholder = input<string>('');
 
-  /**
-   * Error message to display
-   */
+  
   error = input<string>('');
 
-  /**
-   * Required field indicator
-   */
+  
   required = input<boolean>(false);
 
-  /**
-   * Disabled state
-   */
+  
   disabled = input<boolean>(false);
 
-  /**
-   * Unique ID for the input field
-   */
+  
   fieldId = computed(() => {
     const label = this.label().toLowerCase().replace(/\s+/g, '-');
     return `field-${label}-${Math.random().toString(36).substr(2, 9)}`;
   });
 
-  /**
-   * Error ID for aria-describedby
-   */
+  
   errorId = computed(() => `${this.fieldId()}-error`);
 
-  // ControlValueAccessor implementation
+  
   value: string = '';
   onChange: (value: string) => void = () => {};
   onTouched: () => void = () => {};

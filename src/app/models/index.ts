@@ -1,8 +1,3 @@
-/**
- * Models Index
- * Central export point for all data models
- */
-
 export * from './profile.model';
 export * from './about.model';
 export * from './service.model';

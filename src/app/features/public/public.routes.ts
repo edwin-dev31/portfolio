@@ -1,12 +1,5 @@
 import { Routes } from '@angular/router';
 
-/**
- * Public feature routes
- * Accessible without authentication
- * Implements lazy loading for optimal performance
- * 
- * Requirements: 8.1, 8.2, 8.6
- */
 export const publicRoutes: Routes = [
   {
     path: '',

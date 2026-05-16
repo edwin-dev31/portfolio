@@ -1,18 +1,9 @@
-// CSS Reset
-// Modern CSS reset based on modern-normalize and custom additions
-
-// ============================================
-// Box Sizing
-// ============================================
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-// ============================================
-// Root & Body
-// ============================================
 html {
   -webkit-text-size-adjust: 100%;
   -moz-tab-size: 4;
@@ -25,18 +16,12 @@ body {
   padding: 0;
 }
 
-// ============================================
-// Sections
-// ============================================
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   font-size: inherit;
   font-weight: inherit;
 }
 
-// ============================================
-// Grouping Content
-// ============================================
 hr {
   height: 0;
   color: inherit;
@@ -48,9 +33,6 @@ pre {
   font-size: 1em;
 }
 
-// ============================================
-// Text-level Semantics
-// ============================================
 abbr[title] {
   text-decoration: underline dotted;
 }
@@ -87,18 +69,12 @@ sup {
   top: -0.5em;
 }
 
-// ============================================
-// Tabular Data
-// ============================================
 table {
   text-indent: 0;
   border-color: inherit;
   border-collapse: collapse;
 }
 
-// ============================================
-// Forms
-// ============================================
 button,
 input,
 optgroup,
@@ -164,16 +140,10 @@ progress {
   font: inherit;
 }
 
-// ============================================
-// Interactive
-// ============================================
 summary {
   display: list-item;
 }
 
-// ============================================
-// Additional Resets
-// ============================================
 a {
   background-color: transparent;
   text-decoration: none;
@@ -214,10 +184,6 @@ p {
   margin: 0;
 }
 
-// ============================================
-// Accessibility
-// ============================================
-// Remove all animations and transitions for people who prefer not to see them
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -229,7 +195,6 @@ p {
   }
 }
 
-// Screen reader only content
 .sr-only {
   position: absolute;
   width: 1px;
@@ -242,7 +207,6 @@ p {
   border-width: 0;
 }
 
-// Focus visible for keyboard navigation
 .focus-visible:focus {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;

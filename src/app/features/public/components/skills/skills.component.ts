@@ -95,7 +95,7 @@ export class SkillsComponent implements OnInit, AfterViewInit {
     return `devicon-${normalized}-plain colored`;
   }
 
-  /** Returns the brand color for a skill, falls back to primary */
+  
   getBrandColor(name: string): string {
     return TECH_COLORS[name.toLowerCase()] ?? 'var(--color-primary)';
   }
