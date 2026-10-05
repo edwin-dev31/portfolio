@@ -1,46 +1,43 @@
-<section class="skills-section" id="skills" aria-label="Technologies I master">
+<section class="skills-section" id="skills" aria-labelledby="skills-title">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">
-        Technologies <span class="highlight">I master</span>
-      </h2>
-      <p class="section-subtitle">Modern tools for robust, scalable solutions</p>
+      <p class="section-eyebrow">01 / My toolkit</p>
+      <h2 class="section-title" id="skills-title">Technologies <span>I master</span></h2>
+      <p class="section-subtitle">Modern tools for clean, scalable, and thoughtful digital experiences.</p>
+    </div>
+    @if (isLoading()) {
+      <div class="loading-state" role="status" aria-label="Loading technologies"><div class="spinner"></div></div>
+    } @else if (skills().length) {
+      <div class="carousels" [class.carousels--paused]="isPaused()" aria-hidden="true">
+        @for (row of rows(); track $index) {
+          <div class="carousel-wrapper">
+            <div #track class="carousel-track" [class.track-left]="row.direction === 'left'" [class.track-right]="row.direction === 'right'">
+              @for (skill of row.items; track skill.name) {
+                <div class="skill-card" [style.--brand]="getBrandColor(skill.name)">
+                  <div class="skill-icon"><i [class]="getDeviconClass(skill.name)"></i></div>
+                  <div class="skill-info"><span class="skill-name">{{ displayName(skill.name) }}</span><span class="skill-category">{{ skill.category }}</span></div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+      <ul class="sr-only" aria-label="Technologies I master">
+        @for (skill of skills(); track skill.name) { <li>{{ displayName(skill.name) }} — {{ skill.category }}</li> }
+      </ul>
+    } @else {
+      <p class="skills-empty">Technologies will be available soon.</p>
+    }
+    <div class="skills-footer">
+      <p class="skills-note"><span aria-hidden="true">&lt;/&gt;</span> The right tools. A thoughtful approach. Always learning.</p>
+      @if (skills().length) {
+        <button class="motion-toggle" type="button" (click)="toggleMotion()" [attr.aria-pressed]="isPaused()" [attr.aria-label]="isPaused() ? 'Resume skills animation' : 'Pause skills animation'">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            @if (isPaused()) { <path d="m5 3 8 5-8 5V3Z"/> } @else { <path d="M4 3h3v10H4V3Zm5 0h3v10H9V3Z"/> }
+          </svg>
+          {{ isPaused() ? 'Resume' : 'Pause' }}
+        </button>
+      }
     </div>
   </div>
-
-  @if (isLoading()) {
-    <div class="loading-state" role="status" aria-live="polite">
-      <div class="spinner"></div>
-    </div>
-  } @else {
-    <div class="carousels">
-      @for (row of rows(); track $index) {
-        <div class="carousel-wrapper">
-          
-          <div
-            #track
-            class="carousel-track"
-            [class.track-left]="row.direction === 'left'"
-            [class.track-right]="row.direction === 'right'">
-
-            @for (skill of row.items; track skill.name) {
-              <div class="skill-card" [style.--brand]="getBrandColor(skill.name)">
-                <div class="skill-icon">
-                  <i [class]="getDeviconClass(skill.name)" aria-hidden="true"></i>
-                </div>
-                <span class="skill-name">{{ skill.name }}</span>
-              </div>
-            }
-
-          </div>
-        </div>
-      }
-    </div>
-
-    <ul class="sr-only" aria-label="Technologies I master">
-      @for (skill of skills(); track skill.name) {
-        <li>{{ skill.name }}</li>
-      }
-    </ul>
-  }
 </section>

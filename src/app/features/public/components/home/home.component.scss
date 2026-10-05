@@ -1,97 +1,12 @@
-@use '../../../../../styles/abstracts/mixins' as *;
-@use '../../../../../styles/abstracts/tokens' as *;
-
-.projects-section {
-  padding: var(--space-2xl) 0;
-  background: var(--color-background);
-  min-height: 50vh;
-
-  @include mobile {
-    padding: var(--space-xl) 0;
-  }
-}
-
-.container {
-  max-width: 90rem;
-  margin: 0 auto;
-  padding: 0 var(--space-lg);
-
-  @include mobile {
-    padding: 0 var(--space-md);
-  }
-}
-
-.section-header {
-  text-align: center;
-  margin-bottom: var(--space-2xl);
-
-  @include mobile {
-    margin-bottom: var(--space-xl);
-  }
-}
-
-.section-title {
-  font-family: var(--font-headline);
-  font-size: var(--text-4xl);
-  font-weight: 700;
-  color: var(--color-text-primary);
-  margin: 0 0 var(--space-sm) 0;
-
-  @include mobile {
-    font-size: var(--text-3xl);
-  }
-}
-
-.section-subtitle {
-  font-family: var(--font-body);
-  font-size: var(--text-lg);
-  color: var(--color-text-secondary);
-  margin: 0;
-
-  @include mobile {
-    font-size: var(--text-base);
-  }
-}
-
-.loading-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-2xl);
-  gap: var(--space-md);
-
-  p {
-    font-family: var(--font-body);
-    font-size: var(--text-base);
-    color: var(--color-text-secondary);
-    margin: 0;
-  }
-}
-
-.spinner {
-  width: 3rem;
-  height: 3rem;
-  border: 0.25rem solid var(--color-surface-elevated);
-  border-top-color: var(--color-primary);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.empty-state {
-  text-align: center;
-  padding: var(--space-2xl);
-  color: var(--color-text-secondary);
-
-  p {
-    font-family: var(--font-body);
-    font-size: var(--text-lg);
-    margin: 0;
-  }
-}
+@use '../../../../../styles/abstracts/portfolio' as p;
+:host { display: block; background: var(--portfolio-bg); }
+.projects-section { @include p.section; }
+.container { @include p.container; }
+.section-header { text-align: center; margin-bottom: 44px; }
+.section-eyebrow { @include p.eyebrow; }
+.section-title { @include p.title; }
+.section-subtitle { @include p.subtitle; }
+.loading-state { display: grid; justify-items: center; gap: 20px; padding: 64px; color: var(--portfolio-muted); }
+.spinner { width: 40px; height: 40px; border: 2px solid var(--portfolio-border); border-top-color: var(--portfolio-accent); border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation: none; } }

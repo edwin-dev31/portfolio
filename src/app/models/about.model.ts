@@ -4,6 +4,7 @@ export interface About {
 }
 
 export interface Journey {
+  cvlink?: string;
   
   title: string;
   

@@ -1,9 +1,9 @@
 <header class="header" [class.header--scrolled]="isScrolled()" [class.header--mobile-open]="isMobileMenuOpen()">
   <div class="header__progress" [style.width.%]="scrollProgress()" aria-hidden="true"></div>
 
-  <nav class="header__nav container" role="navigation" aria-label="Main navigation">
+  <nav class="header__nav" aria-label="Main navigation">
     <a class="header__logo" href="#hero" (click)="scrollTo('hero'); $event.preventDefault()" aria-label="Go to home">
-      <svg class="header__logo-svg" viewBox="0 0 640 320" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg class="header__logo-svg" viewBox="75 60 490 214" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
           <linearGradient id="eaGradient" x1="110" y1="70" x2="535" y2="250" gradientUnits="userSpaceOnUse">
             <stop offset="0" stop-color="#12E7E7"/>
@@ -20,12 +20,12 @@
       </svg>
     </a>
 
-    <div class="header__desktop-nav" [class.header__desktop-nav--visible]="!isMobileMenuOpen()">
-      <ul class="header__nav-list" role="menubar">
+    <div class="header__desktop-nav">
+      <ul class="header__nav-list">
         @for (item of navItems; track item.fragment) {
-          <li role="none">
+          <li>
             <button
-              role="menuitem"
+              type="button"
               class="header__nav-link"
               [class.header__nav-link--active]="activeSection() === item.fragment"
               (click)="scrollTo(item.fragment)"
@@ -59,18 +59,18 @@
     </div>
   </nav>
 
-  <div class="header__divider" aria-hidden="true"></div>
-
   <div
     id="mobile-menu"
     class="header__mobile-panel"
     [class.header__mobile-panel--open]="isMobileMenuOpen()"
+    [attr.inert]="isMobileMenuOpen() ? null : ''"
     role="navigation"
     aria-label="Mobile navigation">
     <ul class="header__mobile-nav-list">
       @for (item of navItems; track item.fragment) {
         <li>
           <button
+            type="button"
             class="header__mobile-nav-link"
             [class.header__mobile-nav-link--active]="activeSection() === item.fragment"
             (click)="scrollTo(item.fragment)"

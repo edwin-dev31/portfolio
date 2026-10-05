@@ -23,8 +23,7 @@ export class ThemeService {
     }
     
     
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    this.setTheme(prefersDark ? 'dark' : 'light');
+    this.setTheme('dark');
   }
 
   

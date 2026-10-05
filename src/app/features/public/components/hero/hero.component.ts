@@ -1,51 +1,34 @@
-import { Component, ChangeDetectionStrategy, inject, OnInit, signal, effect, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, ChangeDetectionStrategy, computed, inject, OnInit, signal } from '@angular/core';
 import { StateService } from '../../../../core/services/state.service';
 import { Profile } from '../../../../models/profile.model';
-
-interface HeroAnimState {
-  greeting: boolean;
-  name: boolean;
-  title: boolean;
-  description: boolean;
-  cta: boolean;
-  social: boolean;
-  photo: boolean;
-}
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroComponent implements OnInit {
-  private stateService = inject(StateService);
-  private platformId = inject(PLATFORM_ID);
-
-  profile = signal<Profile | null>(null);
-  isLoading = signal(true);
-  animState = signal<HeroAnimState>({
-    greeting: false,
-    name: false,
-    title: false,
-    description: false,
-    cta: false,
-    social: false,
-    photo: false,
-  });
-  scrollY = signal(0);
+  private readonly stateService = inject(StateService);
+  readonly profile = signal<Profile | null>(null);
+  readonly isLoading = signal(true);
+  readonly imageFailed = signal(false);
+  readonly resumeUrl = signal('');
+  readonly projectCount = this.stateService.projectCount;
+  readonly skillCount = this.stateService.skillCount;
+  readonly firstName = computed(() => this.profile()?.name.trim().split(/\s+/)[0] ?? '');
+  readonly lastName = computed(() => this.profile()?.name.trim().split(/\s+/).slice(1).join(' ') ?? '');
+  readonly isAvailable = computed(() => (this.profile()?.yearAvailable ?? 0) >= new Date().getFullYear());
 
   ngOnInit(): void {
-    this.loadProfile();
-    if (isPlatformBrowser(this.platformId)) {
-      this.setupParallax();
-    }
+    void this.loadProfile();
+    void this.loadResume();
   }
 
-  private async loadProfile(): Promise<void> {
+  async loadProfile(): Promise<void> {
+    this.isLoading.set(true);
+    this.imageFailed.set(false);
     try {
       await this.stateService.loadProfile();
       this.profile.set(this.stateService.profile());
@@ -53,47 +36,30 @@ export class HeroComponent implements OnInit {
       console.error('Failed to load profile:', error);
     } finally {
       this.isLoading.set(false);
-      this.triggerEntranceAnimation();
     }
   }
 
-  private triggerEntranceAnimation(): void {
-    const delays = [0, 100, 200, 300, 400, 500, 600];
-    const keys: (keyof HeroAnimState)[] = ['greeting', 'name', 'title', 'description', 'cta', 'social', 'photo'];
+  private async loadResume(): Promise<void> {
+    try {
+      await this.stateService.loadAbout();
+      const cvlink = this.stateService.about()?.journey.cvlink?.trim();
+      if (cvlink) this.resumeUrl.set(this.normalizeUrl(cvlink));
+    } catch (error) {
+      console.error('Failed to load resume link:', error);
+    }
+  }
 
-    keys.forEach((key, index) => {
-      setTimeout(() => {
-        this.animState.update(state => ({ ...state, [key]: true }));
-      }, delays[index]);
+  normalizeUrl(url: string): string {
+    return /^https?:\/\//i.test(url) ? url : `https://${url}`;
+  }
+
+  scrollTo(section: string, event: Event): void {
+    const target = document.getElementById(section);
+    if (!target) return;
+    event.preventDefault();
+    target.scrollIntoView({
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+      block: 'start'
     });
-  }
-
-  private setupParallax(): void {
-    let ticking = false;
-    const handleScroll = () => {
-      this.scrollY.set(window.scrollY);
-      ticking = false;
-    };
-
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(handleScroll);
-        ticking = true;
-      }
-    }, { passive: true });
-  }
-
-  scrollToProjects(): void {
-    const projectsSection = document.getElementById('projects');
-    if (projectsSection) {
-      projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
-  scrollToContact(): void {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
   }
 }

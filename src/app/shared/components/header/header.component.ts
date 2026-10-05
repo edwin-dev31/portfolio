@@ -1,4 +1,4 @@
-import { Component, HostListener, signal, computed, effect, inject } from '@angular/core';
+import { Component, HostListener, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
@@ -45,6 +45,14 @@ export class HeaderComponent {
     }
   }
 
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.isMobileMenuOpen()) {
+      this.closeMobileMenu();
+      document.querySelector<HTMLButtonElement>('.header__mobile-toggle')?.focus();
+    }
+  }
+
   private updateActiveSection(): void {
     const sections = ['hero', 'skills', 'projects', 'contact'];
     const scrollY = window.scrollY + 100;
@@ -52,7 +60,8 @@ export class HeaderComponent {
     for (const section of sections) {
       const element = document.getElementById(section);
       if (element) {
-        const { offsetTop, offsetHeight } = element;
+        const offsetTop = element.getBoundingClientRect().top + window.scrollY;
+        const offsetHeight = element.offsetHeight;
         if (scrollY >= offsetTop && scrollY < offsetTop + offsetHeight) {
           this.activeSection.set(section);
           break;
@@ -64,7 +73,10 @@ export class HeaderComponent {
   scrollTo(fragment: string): void {
     const element = document.getElementById(fragment);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      element.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+        block: 'start'
+      });
       this.isMobileMenuOpen.set(false);
       this.activeSection.set(fragment);
     }

@@ -95,6 +95,13 @@
 }
 
 [data-theme="dark"] {
+  --portfolio-bg: #020910;
+  --portfolio-text: #f5f7fc;
+  --portfolio-muted: #a6b9cb;
+  --portfolio-accent: #00cdef;
+  --portfolio-border: rgba(0, 174, 227, 0.2);
+  --portfolio-panel: linear-gradient(135deg, #081827, #07111e);
+  --portfolio-input: #040e19;
   
   --color-primary: #4cd7f6;
   --color-primary-container: #06b6d4;
@@ -114,7 +121,7 @@
   --color-tertiary-container: #99a8bd;
 
   
-  --color-background: #050a14;
+  --color-background: #020910;
   --color-surface: #0a0f1a;
   --color-surface-container-lowest: #030712;
   --color-surface-container-low: #0d1220;
@@ -176,6 +183,13 @@
 }
 
 [data-theme="light"] {
+  --portfolio-bg: #f4f9fd;
+  --portfolio-text: #132c40;
+  --portfolio-muted: #486176;
+  --portfolio-accent: #007f9e;
+  --portfolio-border: rgba(0, 124, 164, 0.2);
+  --portfolio-panel: linear-gradient(135deg, #ffffff, #eaf4fb);
+  --portfolio-input: #f9fcff;
   
   --color-primary: #0891b2;
   --color-primary-hover: #0e7490;
