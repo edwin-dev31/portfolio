@@ -1,9 +1,15 @@
-<section class="hero" role="banner">
-  <div class="hero__background"></div>
+<section class="hero" id="hero" role="banner" [style.--scroll-y]="scrollY() + 'px'">
+  <div class="hero__background" aria-hidden="true"></div>
+
+  <div class="hero__particles" aria-hidden="true">
+    @for (i of [].constructor(12); track $index) {
+      <span class="hero__particle" [style.--i]="$index" [style.--delay]="$index * 150 + 'ms'"></span>
+    }
+  </div>
 
   <div class="hero__anim-host">
     @if (isLoading()) {
-      <div class="hero__content hero__content--skeleton">
+      <div class="hero__content hero__content--skeleton" aria-busy="true" aria-label="Loading profile">
         <div class="hero__text">
           <div class="skeleton skeleton--greeting"></div>
           <div class="skeleton skeleton--name"></div>
@@ -23,16 +29,36 @@
     } @else if (profile()) {
       <div class="hero__content hero__content--visible">
         <div class="hero__text">
-          <p class="hero__greeting">Hello, I'm</p>
-          <h1 class="hero__name">{{ profile()!.name }}</h1>
-          <p class="hero__title">{{ profile()!.title }}</p>
-          <p class="hero__description">{{ profile()!.description }}</p>
+          <p class="hero__greeting" [class.hero__greeting--visible]="animState().greeting">
+            Hello, I'm
+          </p>
+          <h1 class="hero__name" [class.hero__name--visible]="animState().name">
+            {{ profile()!.name }}
+          </h1>
+          <p class="hero__title" [class.hero__title--visible]="animState().title">
+            {{ profile()!.title }}
+          </p>
+          <p class="hero__description" [class.hero__description--visible]="animState().description">
+            {{ profile()!.description }}
+          </p>
 
-          <a class="hero__cta" [href]="'mailto:' + profile()!.stats.social.email" role="button">
-            Let's Talk
-          </a>
+          <div class="hero__cta-group" [class.hero__cta-group--visible]="animState().cta">
+            <a class="hero__cta hero__cta--primary" href="#projects" (click)="scrollToProjects(); $event.preventDefault()" role="button">
+              <span>View Projects</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a class="hero__cta hero__cta--secondary" [href]="'mailto:' + profile()!.stats.social.email" (click)="scrollToContact()" role="button">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Get in Touch</span>
+            </a>
+          </div>
 
-          <div class="hero__social">
+          <div class="hero__social" [class.hero__social--visible]="animState().social">
             <span class="hero__social-label">Check Out My</span>
             <div class="hero__social-links">
               @if (profile()!.stats.social.github) {
@@ -60,7 +86,7 @@
           </div>
         </div>
 
-        <div class="hero__photo-wrap" aria-hidden="true">
+        <div class="hero__photo-wrap" aria-hidden="true" [class.hero__photo-wrap--visible]="animState().photo">
           <div class="hero__hex-glow"></div>
           <div class="hero__hex">
             @if (profile()!.image) {

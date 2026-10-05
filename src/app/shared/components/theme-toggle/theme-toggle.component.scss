@@ -3,23 +3,22 @@
 .theme-toggle {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-sm) var(--space-md);
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
   background: var(--color-surface-elevated);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  color: var(--color-text-primary);
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: var(--font-medium);
+  border-radius: var(--radius-full);
+  color: var(--color-text-secondary);
   cursor: pointer;
   @include transition(all);
 
   &:hover {
     background: var(--color-surface-hover);
     border-color: var(--color-primary);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    color: var(--color-primary);
+    transform: none;
+    box-shadow: none;
   }
 
   &:focus-visible {
@@ -28,22 +27,29 @@
   }
 
   &:active {
-    transform: translateY(0);
+    transform: scale(0.95);
   }
 
   &__icon {
-    flex-shrink: 0;
+    width: 1.125rem;
+    height: 1.125rem;
     color: var(--color-primary);
+    flex-shrink: 0;
     @include transition(transform);
 
     .theme-toggle:hover & {
-      transform: rotate(15deg) scale(1.1);
+      transform: rotate(15deg);
     }
   }
 
   &__label {
-    @include mobile {
-      display: none;
-    }
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle,
+  .theme-toggle__icon {
+    transition: none !important;
   }
 }

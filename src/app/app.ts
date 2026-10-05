@@ -3,10 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { ThemeService } from './core/services/theme.service';
 import { ThemeToggleComponent } from './shared/components/theme-toggle/theme-toggle.component';
 import { ToastComponent } from './shared/components/toast/toast.component';
+import { HeaderComponent } from './shared/components/header/header.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ThemeToggleComponent, ToastComponent],
+  imports: [RouterOutlet, HeaderComponent, ToastComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
