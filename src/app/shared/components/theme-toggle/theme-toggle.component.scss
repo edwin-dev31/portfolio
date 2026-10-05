@@ -1,49 +1,23 @@
-@use '../../../../styles/abstracts/mixins' as *;
-
 .theme-toggle {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-sm) var(--space-md);
-  background: var(--color-surface-elevated);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  color: var(--color-text-primary);
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: var(--font-medium);
-  cursor: pointer;
-  @include transition(all);
-
-  &:hover {
-    background: var(--color-surface-hover);
-    border-color: var(--color-primary);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-
-  &__icon {
-    flex-shrink: 0;
-    color: var(--color-primary);
-    @include transition(transform);
-
-    .theme-toggle:hover & {
-      transform: rotate(15deg) scale(1.1);
-    }
-  }
-
-  &__label {
-    @include mobile {
-      display: none;
-    }
-  }
+  justify-content: center;
+  gap: 10px;
+  min-width: 108px;
+  height: 44px;
+  padding: 10px 18px;
+  border: 1px solid rgb(105 142 201 / 23%);
+  border-radius: 11px;
+  background: linear-gradient(130deg, #0a1220, #101523);
+  color: #edf2fa;
+  font-size: 15px;
+  font-weight: 500;
+  transition: border-color 180ms ease, background 180ms ease;
+  &:hover { border-color: var(--color-primary); background: var(--color-surface-hover); }
+  &__icon { width: 20px; height: 20px; color: #00cdef; flex-shrink: 0; }
+  &__label { display: inline; }
 }
+:host-context([data-theme='light']) .theme-toggle { background: #eaf2f9; color: #16334c; }
+:host-context([data-theme='light']) .theme-toggle__icon { color: #007f9e; }
+@media (max-width: 480px) { .theme-toggle { min-width: 88px; height: 40px; padding-inline: 12px; gap: 8px; font-size: 13px; } }
+@media (prefers-reduced-motion: reduce) { .theme-toggle { transition: none; } }

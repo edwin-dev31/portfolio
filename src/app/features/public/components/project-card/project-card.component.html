@@ -14,7 +14,7 @@
   <article
     class="project-card"
     (click)="onCardClick()"
-    (keydown.enter)="onCardClick()"
+    (keydown)="onKeyDown($event)"
     tabindex="0"
     role="button"
     [attr.aria-label]="'View details for ' + project().title">
@@ -27,6 +27,7 @@
         class="project-card__image"
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+      <span class="project-card__open" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M6 6h12v12"/></svg></span>
     </div>
 
     
@@ -44,6 +45,7 @@
             <span class="tool-tag tool-tag--more">+{{ project().tools.length - 3 }}</span>
           }
         </div>
+        <span class="project-card__explore" aria-hidden="true">Explore project <span>↗</span></span>
       </div>
     </div>
   </article>

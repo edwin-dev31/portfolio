@@ -1,6 +1,7 @@
 <section class="contact" id="contact">
   <div class="contact__container">
     <div class="contact__header">
+      <p class="contact__eyebrow">03 / Let's connect</p>
       @if (contact()) {
         <h2 class="contact__title">{{ contact()!.callToAction.title }}</h2>
         <p class="contact__description">{{ contact()!.callToAction.description }}</p>
@@ -27,9 +28,14 @@
     <div class="contact__content">
       
       <div class="contact__info">
+        <div class="contact__intro">
+          <div class="contact__intro-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m28 4-8 24-6-10-10-6 24-8ZM14 18 28 4"/></svg></div>
+          <h3>Great ideas start with a conversation<span>.</span></h3>
+          <p>Have a project in mind or a challenge to solve? I'd love to hear about it.</p>
+        </div>
         @if (profile()) {
           <div class="contact__info-section">
-            <h3 class="contact__info-title">Contact Information</h3>
+            <h3 class="contact__info-title">Drop me a line</h3>
             
             <div class="contact__info-item">
               <svg class="contact__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -83,6 +89,7 @@
         [formGroup]="contactForm"
         (ngSubmit)="onSubmit()"
         novalidate>
+        <div class="contact__form-heading"><h3>Tell me about your project</h3><p>A few details are all it takes to get started.</p></div>
         
         <div class="contact__form-group">
           <label 
@@ -93,6 +100,7 @@
           <input 
             id="contact-name"
             type="text"
+            autocomplete="name"
             class="contact__input"
             formControlName="name"
             placeholder="Maria Ramirez"
@@ -119,6 +127,7 @@
           <input 
             id="contact-email"
             type="email"
+            autocomplete="email"
             class="contact__input"
             formControlName="email"
             placeholder="maria.ramirez@gmail.com"
@@ -217,8 +226,13 @@
           } @else {
             <span>{{ contact()?.callToAction?.primaryButton || 'Send Message' }}</span>
           }
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 3-6 18-4-8-8-4 18-6ZM11 13 21 3"/></svg>
         </button>
       </form>
     </div>
+    <footer class="contact__footer">
+      <span>{{ profile()?.name }} <span class="contact__footer-dot">/</span> {{ profile()?.title }}</span>
+      <span>Designed with purpose. Built with care.</span>
+    </footer>
   </div>
 </section>

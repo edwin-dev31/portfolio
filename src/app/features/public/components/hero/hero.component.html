@@ -1,87 +1,127 @@
-<section class="hero" role="banner">
-  <div class="hero__background"></div>
-
-  <div class="hero__anim-host">
+<section class="hero" id="hero" aria-label="Introduction">
+  <div class="hero__ambience" aria-hidden="true"></div>
+  <div class="hero__inner">
     @if (isLoading()) {
-      <div class="hero__content hero__content--skeleton">
+      <div class="hero__content hero__content--loading" role="status" aria-busy="true" aria-label="Loading profile">
         <div class="hero__text">
+          <div class="skeleton skeleton--badge"></div>
           <div class="skeleton skeleton--greeting"></div>
           <div class="skeleton skeleton--name"></div>
           <div class="skeleton skeleton--title"></div>
           <div class="skeleton skeleton--description"></div>
-          <div class="skeleton skeleton--cta"></div>
-          <div class="hero__social">
-            <div class="skeleton skeleton--social-btn"></div>
-            <div class="skeleton skeleton--social-btn"></div>
-            <div class="skeleton skeleton--social-btn"></div>
-          </div>
+          <div class="skeleton skeleton--button"></div>
         </div>
-        <div class="hero__photo-wrap">
-          <div class="hero__hex hero__hex--skeleton"></div>
-        </div>
+        <div class="hero__visual hero__visual--loading" aria-hidden="true"></div>
       </div>
-    } @else if (profile()) {
-      <div class="hero__content hero__content--visible">
+    } @else if (profile(); as person) {
+      <div class="hero__content">
         <div class="hero__text">
+          <div class="hero__availability" [class.hero__availability--unavailable]="!isAvailable()">
+            <span class="hero__status-dot" aria-hidden="true"></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5c3-3 7-3 7-3s0 4-3 7l-6 6-5-5 7-5Z"/><circle cx="16" cy="7" r="1.5"/><path d="m7 10-4 1-1 4 6-1m4 1-1 6 4-1 1-4M5 17l-2 4 4-2"/></svg>
+            <span>{{ isAvailable() ? 'Available for opportunities' : "Let’s build something great" }}</span>
+          </div>
           <p class="hero__greeting">Hello, I'm</p>
-          <h1 class="hero__name">{{ profile()!.name }}</h1>
-          <p class="hero__title">{{ profile()!.title }}</p>
-          <p class="hero__description">{{ profile()!.description }}</p>
-
-          <a class="hero__cta" [href]="'mailto:' + profile()!.stats.social.email" role="button">
-            Let's Talk
-          </a>
-
+          <h1 class="hero__name">{{ firstName() }} <span>{{ lastName() }}</span></h1>
+          <p class="hero__title">{{ person.title }}</p>
+          <p class="hero__description">{{ person.description }}</p>
+          <div class="hero__cta-group">
+            <a class="hero__cta hero__cta--primary" href="#contact" (click)="scrollTo('contact', $event)">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m21.5 2.5-6.1 19a.8.8 0 0 1-1.4.2l-4.4-6.1 7.8-8.7-10 6.5-5.8-2.1a.8.8 0 0 1 0-1.5l18.9-8.3a.8.8 0 0 1 1 .9Z"/></svg>
+              <span>Let's Talk</span>
+            </a>
+            @if (resumeUrl()) {
+              <a class="hero__cta hero__cta--secondary" [href]="resumeUrl()" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H5a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V8l-6-6Z"/><path d="M14 2v6h6M8 12h8M8 16h8M8 19h5"/></svg>
+                <span>View Resume</span>
+              </a>
+            } @else {
+              <a class="hero__cta hero__cta--secondary" href="#projects" (click)="scrollTo('projects', $event)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+                <span>View Projects</span>
+              </a>
+            }
+          </div>
           <div class="hero__social">
             <span class="hero__social-label">Check Out My</span>
             <div class="hero__social-links">
-              @if (profile()!.stats.social.github) {
-                <a class="hero__social-btn" [href]="profile()!.stats.social.github" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/>
-                  </svg>
+              @if (person.stats.social.github) {
+                <a class="hero__social-btn" [href]="normalizeUrl(person.stats.social.github)" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
                 </a>
               }
-              @if (profile()!.stats.social.linkedin) {
-                <a class="hero__social-btn" [href]="'https://' + profile()!.stats.social.linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45C23.21 24 24 23.23 24 22.27V1.73C24 .77 23.21 0 22.22 0z"/>
-                  </svg>
+              @if (person.stats.social.linkedin) {
+                <a class="hero__social-btn" [href]="normalizeUrl(person.stats.social.linkedin)" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.37 24H.39V7.98h4.98V24ZM2.88 5.8a2.89 2.89 0 1 1 .02-5.78 2.89 2.89 0 0 1-.02 5.78ZM24 24h-4.97v-7.8c0-1.86-.04-4.26-2.6-4.26-2.59 0-2.99 2.03-2.99 4.13V24H8.47V7.98h4.78v2.19h.07c.66-1.26 2.29-2.59 4.72-2.59 5.04 0 5.96 3.32 5.96 7.63V24Z"/></svg>
                 </a>
               }
-              @if (profile()!.stats.social.email) {
-                <a class="hero__social-btn" [href]="'mailto:' + profile()!.stats.social.email" aria-label="Send email">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
-                  </svg>
+              @if (person.stats.social.email) {
+                <a class="hero__social-btn" [href]="'mailto:' + person.stats.social.email" aria-label="Send email">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></svg>
                 </a>
               }
             </div>
           </div>
         </div>
-
-        <div class="hero__photo-wrap" aria-hidden="true">
-          <div class="hero__hex-glow"></div>
-          <div class="hero__hex">
-            @if (profile()!.image) {
-              <img class="hero__photo" [src]="profile()!.image" [alt]="profile()!.name" loading="eager" />
-            } @else {
-              <div class="hero__photo-placeholder">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-                </svg>
-              </div>
-            }
+        <div class="hero__visual">
+          <div class="hero__grid" aria-hidden="true"></div>
+          <div class="hero__stars" aria-hidden="true"></div>
+          <div class="hero__portrait">
+            <svg class="hero__portrait-frame" viewBox="0 0 500 560" role="img" [attr.aria-label]="'Portrait of ' + person.name">
+              <defs>
+                <linearGradient id="portrait-border" x1="0" y1="0.2" x2="1" y2="0.7">
+                  <stop offset="0" stop-color="#024b78"/><stop offset="0.45" stop-color="#00c8ef"/><stop offset="0.75" stop-color="#99e8ff"/><stop offset="1" stop-color="#00c9f4"/>
+                </linearGradient>
+                <clipPath id="portrait-clip"><path d="M229 10Q250-2 271 10L476 133Q493 143 493 168V392Q493 417 473 429L271 550Q250 562 229 550L27 429Q7 417 7 392V168Q7 143 27 131Z"/></clipPath>
+              </defs>
+              <g clip-path="url(#portrait-clip)">
+                <rect width="500" height="560" fill="#02090e"/>
+                @if (person.image && !imageFailed()) {
+                  <image class="hero__photo" [attr.href]="person.image" x="-100" y="-65" width="700" height="784" preserveAspectRatio="xMidYMid slice" (error)="imageFailed.set(true)"/>
+                } @else {
+                  <circle cx="250" cy="220" r="72" fill="#0a3348"/><path d="M95 540V430a155 155 0 0 1 310 0v110" fill="#0a3348"/>
+                }
+              </g>
+              <path d="M229 10Q250-2 271 10L476 133Q493 143 493 168V392Q493 417 473 429L271 550Q250 562 229 550L27 429Q7 417 7 392V168Q7 143 27 131Z" fill="none" stroke="url(#portrait-border)" stroke-width="5.5"/>
+            </svg>
+          </div>
+          <div class="hero__feature hero__feature--code">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 9-7 7 7 7m14-14 7 7-7 7M19 5l-6 22"/></svg>
+            <div><strong>Clean Code</strong><span>Scalable solutions</span></div>
+          </div>
+          <div class="hero__feature hero__feature--stack">
+            <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><ellipse cx="16" cy="6" rx="13" ry="5"/><path d="M3 10v6c0 2.8 5.8 5 13 5s13-2.2 13-5v-6c-2.8 2.4-7.6 3.5-13 3.5S5.8 12.4 3 10Zm0 10v6c0 2.8 5.8 5 13 5s13-2.2 13-5v-6c-2.8 2.4-7.6 3.5-13 3.5S5.8 22.4 3 20Z"/></svg>
+            <div><strong>Full Stack</strong><span>Frontend &amp; Backend</span></div>
+          </div>
+          <div class="hero__feature hero__feature--solve">
+            <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M19 1 5 18h10l-2 13L28 13H18l3-12Z"/></svg>
+            <div><strong>Problem Solving</strong><span>Practical approach</span></div>
+          </div>
+          <div class="hero__feature hero__feature--learn">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="m2 11 14-6 14 6-14 6-14-6Z" fill="currentColor" stroke="none"/><path d="M8 16v7c5 4 11 4 16 0v-7M3 12v12"/></svg>
+            <div><strong>Continuous<br>Learning</strong><span>Always improving</span></div>
           </div>
         </div>
       </div>
+      <div class="hero__credentials" aria-label="Experience and education">
+        <div class="hero__experience"><strong>3+</strong><span>Years of Experience</span></div>
+        <div class="hero__experience"><strong>{{ projectCount() || '—' }}</strong><span>Projects Built</span></div>
+        <div class="hero__experience"><strong>{{ skillCount() || '—' }}</strong><span>Technologies &amp; Tools</span></div>
+        <div class="hero__education">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 13 18-8 18 8-18 8-18-8Z" fill="currentColor" stroke="none"/><path d="M11 21v8c6 5 12 5 18 0v-8M5 16v14m-2 3 2-3 2 3"/><path d="m10 14 10-4" stroke="#02101b"/></svg>
+          <div><strong>Jala University</strong><span>Software Engineering</span></div>
+        </div>
+      </div>
+    } @else {
+      <div class="hero__error" role="status"><p>Unable to load the profile right now.</p><button class="hero__cta hero__cta--secondary" type="button" (click)="loadProfile()">Try again</button></div>
     }
+    <a class="hero__scroll" href="#skills" (click)="scrollTo('skills', $event)" aria-label="Scroll to explore skills">
+      <span class="hero__scroll-line" aria-hidden="true"></span>
+      <span class="hero__scroll-content">
+        <svg viewBox="0 0 20 30" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="2" width="14" height="24" rx="7"/><path class="hero__scroll-wheel" d="M10 7v5" stroke-linecap="round"/></svg>
+        <span>Scroll to explore</span>
+      </span>
+      <span class="hero__scroll-line" aria-hidden="true"></span>
+    </a>
   </div>
-
-  <button class="hero__scroll-indicator" (click)="scrollToProjects()" aria-label="Scroll to projects section" type="button">
-    <svg class="hero__scroll-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <polyline points="6 9 12 15 18 9"></polyline>
-    </svg>
-    <span class="sr-only">Scroll down</span>
-  </button>
 </section>

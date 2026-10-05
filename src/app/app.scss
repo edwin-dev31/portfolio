@@ -1,16 +1,11 @@
-.app-container {
+.main-content {
   position: relative;
   min-height: 100vh;
+  padding-top: 76px;
 }
 
-.theme-toggle-wrapper {
-  position: fixed;
-  top: var(--space-lg);
-  right: var(--space-lg);
-  z-index: var(--z-fixed);
-
-  @media (max-width: 768px) {
-    top: var(--space-md);
-    right: var(--space-md);
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 68px;
   }
 }

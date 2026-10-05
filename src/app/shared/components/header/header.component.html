@@ -1,0 +1,84 @@
+<header class="header" [class.header--scrolled]="isScrolled()" [class.header--mobile-open]="isMobileMenuOpen()">
+  <div class="header__progress" [style.width.%]="scrollProgress()" aria-hidden="true"></div>
+
+  <nav class="header__nav" aria-label="Main navigation">
+    <a class="header__logo" href="#hero" (click)="scrollTo('hero'); $event.preventDefault()" aria-label="Go to home">
+      <svg class="header__logo-svg" viewBox="75 60 490 214" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="eaGradient" x1="110" y1="70" x2="535" y2="250" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#12E7E7"/>
+            <stop offset="0.52" stop-color="#13B8F4"/>
+            <stop offset="1" stop-color="#4B50FF"/>
+          </linearGradient>
+        </defs>
+        <!-- E -->
+        <path d="M105 78H300L273 124H105C94 124 85 115 85 104V98C85 87 94 78 105 78Z" fill="url(#eaGradient)"/>
+        <path d="M105 143H255L229 187H135V218H260L233 264H111C97 264 85 252 85 238V169C85 155 96 143 105 143Z" fill="url(#eaGradient)"/>
+        <!-- A -->
+        <path d="M263 264L397 79C402 72 409 68 418 68H444C453 68 460 73 464 81L555 264H499L432 124L333 264H263Z" fill="url(#eaGradient)"/>
+        <path d="M369 210H463L485 254H337L369 210Z" fill="url(#eaGradient)"/>
+      </svg>
+    </a>
+
+    <div class="header__desktop-nav">
+      <ul class="header__nav-list">
+        @for (item of navItems; track item.fragment) {
+          <li>
+            <button
+              type="button"
+              class="header__nav-link"
+              [class.header__nav-link--active]="activeSection() === item.fragment"
+              (click)="scrollTo(item.fragment)"
+              [attr.aria-current]="activeSection() === item.fragment ? 'page' : null">
+              {{ item.label }}
+              @if (activeSection() === item.fragment) {
+                <span class="header__nav-indicator" aria-hidden="true"></span>
+              }
+            </button>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="header__actions">
+      <app-theme-toggle />
+
+      <button
+        class="header__mobile-toggle"
+        type="button"
+        (click)="toggleMobileMenu()"
+        [attr.aria-expanded]="isMobileMenuOpen()"
+        [attr.aria-controls]="isMobileMenuOpen() ? 'mobile-menu' : null"
+        aria-label="Toggle navigation menu">
+        <span class="header__hamburger" [class.header__hamburger--open]="isMobileMenuOpen()" aria-hidden="true">
+          <span class="header__hamburger-line"></span>
+          <span class="header__hamburger-line"></span>
+          <span class="header__hamburger-line"></span>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <div
+    id="mobile-menu"
+    class="header__mobile-panel"
+    [class.header__mobile-panel--open]="isMobileMenuOpen()"
+    [attr.inert]="isMobileMenuOpen() ? null : ''"
+    role="navigation"
+    aria-label="Mobile navigation">
+    <ul class="header__mobile-nav-list">
+      @for (item of navItems; track item.fragment) {
+        <li>
+          <button
+            type="button"
+            class="header__mobile-nav-link"
+            [class.header__mobile-nav-link--active]="activeSection() === item.fragment"
+            (click)="scrollTo(item.fragment)"
+            [attr.aria-current]="activeSection() === item.fragment ? 'page' : null">
+            {{ item.label }}
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+</header>
